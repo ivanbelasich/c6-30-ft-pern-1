@@ -7,7 +7,13 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login')
 
+
 var app = express();
+var sequelize = require('./sequelize')
+
+sequelize.authenticate()
+    .then(() => console.log('Sequelize connection has been established successfully.'))
+    .catch(err => console.error('Unable to connect to the database:', err))
 
 app.use(logger('dev'));
 app.use(express.json());
