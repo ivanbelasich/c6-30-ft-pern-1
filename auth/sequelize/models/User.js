@@ -11,7 +11,7 @@ const User = sequelize.define('User', {
         }
     },
     password: {
-        type: DataTypes.STRING(64),
+        type: DataTypes.STRING(128),
         validate: {
             is: /^[0-9a-f]{64}$/i,
             notEmpty: true,
