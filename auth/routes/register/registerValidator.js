@@ -1,7 +1,9 @@
-let User = require('../../sequelize/models/User')
-const DUMMY_SALT = "a 16 char string"
-
 async function registerValidator(user, password) {
+    let checkTypes = { user, password }
+    for (let field in checkTypes) {
+        if (typeof checkTypes[field] !== "string") return false
+        if (checkTypes[field].length < 1) return false
+    }
     return true
 }
 
