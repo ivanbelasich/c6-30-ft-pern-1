@@ -2,11 +2,18 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+require('dotenv').config({ path: path.join(__dirname, '.env') })
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var loginRouter = require('./routes/login')
+
 
 var app = express();
+var sequelize = require('./sequelize')
+
+sequelize.authenticate()
+    .then(() => console.log('Sequelize connection has been established successfully.'))
+    .catch(err => console.error('Unable to connect to the database:', err))
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -16,5 +23,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login', loginRouter);
 
 module.exports = app;
