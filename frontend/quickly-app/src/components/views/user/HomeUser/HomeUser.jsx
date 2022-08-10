@@ -1,11 +1,13 @@
 // Example user logins
 import { Text, View } from "react-native";
+import SearchUser from "../Search/SearchUser";
 import styles from "./styles";
 
 const HomeUser = () => {
   return (
     <View style={styles.color}>
-      <Text>HomeUser post login</Text>
+      <Text>Usuario logeado despues de pasar autenticacion</Text>
+      <SearchUser />
     </View>
   );
 };
