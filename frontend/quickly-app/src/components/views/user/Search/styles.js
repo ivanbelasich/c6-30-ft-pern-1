@@ -1,11 +1,13 @@
 import { StyleSheet } from "react-native";
 
-// Styles HomeUser
+// Styles SearchUser
 
 const styles = StyleSheet.create({
-  color: {
-    color: "red",
-    fontWeight: 700,
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });
 
