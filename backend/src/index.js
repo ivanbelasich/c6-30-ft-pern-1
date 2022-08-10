@@ -1,4 +1,9 @@
-import app from "./app"
-app.listen(3000,()=>{
-    console.log("listening")
-})
+// import app from "./app"
+const app = require('./app');
+const { conn } = require('./db')
+
+conn.sync({force:true}).then(() => {
+    app.listen(3000,()=>{
+        console.log("listening")
+    });
+});
