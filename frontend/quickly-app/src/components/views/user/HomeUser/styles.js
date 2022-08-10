@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+// Styles HomeUser
+
 const styles = StyleSheet.create({
   color: {
     color: "red",

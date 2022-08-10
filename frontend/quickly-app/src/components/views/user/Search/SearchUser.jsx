@@ -3,8 +3,11 @@ import styles from "./styles";
 
 const SearchUser = () => {
   return (
-    <View style={styles.input}>
-      <TextInput>Busqueda por parte del usuario</TextInput>
+    <View>
+      <TextInput
+        style={styles.input}
+        placeholder="Buscar proveedores"
+      ></TextInput>
     </View>
   );
 };
