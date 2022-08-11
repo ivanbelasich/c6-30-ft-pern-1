@@ -40,6 +40,7 @@ const FilterBar = () => {
 
   return (
     <View>
+      <Text>Selecciona una especialidad:</Text>
       <RNPickerSelect
         onValueChange={(value) => setCategories(value)}
         items={categories}
