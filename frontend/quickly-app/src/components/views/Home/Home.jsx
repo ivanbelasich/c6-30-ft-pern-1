@@ -5,7 +5,6 @@ import styles from "./style";
 
 const Home = () => {
   return (
-    <View>
     <View style={styles.container}>
       <Text style={styles.color}>Home general</Text>
        <FilterBar />
