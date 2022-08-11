@@ -12,6 +12,9 @@ const Home = () => {
       <Link to="/homesupplier">
         <Text>Proveedor</Text>
       </Link>
+      <Link to="/login">
+        <Text>Login</Text>
+      </Link>
     </View>
   );
 };
