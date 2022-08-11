@@ -8,7 +8,7 @@ function authenticate(validator, authenticator, tokenGenerator, authenticationEr
         const {result, message} = await authenticator(user, password)
         if (!result) return res.status(403).send(authenticationError(message))
 
-        else res.send(tokenGenerator())
+        else res.send(tokenGenerator(user))
     }
 }
 

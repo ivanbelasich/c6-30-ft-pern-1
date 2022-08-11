@@ -2,16 +2,31 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME } = process.env;
 
-// console.log(DB_USER, DB_PASSWORD, DB_HOST)
+const configDevelopment = {
+	logging: false, 
+	native: false,
+}
+
+const configProduction = {
+	dialectOptions: {
+		ssl: {
+			require: true,
+			rejectUnauthorized: false
+		}
+	},
+	logging: false, 
+	native: false,
+	
+}
+
+const config = process.env.NODE_ENV === "development" ? configDevelopment : configProduction;
+
 
 const sequelize = new Sequelize(
-	`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/turnero`,
-	{
-		logging: false, 
-		native: false, 
-	}
+	`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`, config
+	
 );
 const basename = path.basename(__filename);
 
@@ -50,13 +65,15 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 
 // Para relacionarlos hacemos un destructuring
-const { Orden, Servicio } = sequelize.models;
+const { Orden, Servicio, Fecha } = sequelize.models;
 
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Orden.belongsToMany(Servicio, { through: 'servi_orde' });
+Fecha.belongsToMany(Servicio, { through: 'fecha_servi' });
 Servicio.hasMany(Orden);
+Servicio.hasMany(Fecha);
 
 
 

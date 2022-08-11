@@ -21,18 +21,19 @@ module.exports = (sequelize) => {
 		// img: {
 		// 	type: DataTypes.TEXT,
 		// },
-		date: {
-			type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false,
-		},
-		time: {
-			type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false,
-		},
+		// date: {
+		// 	type: DataTypes.ARRAY(DataTypes.STRING),
+        //     allowNull: false,
+		// },
+		// time: {
+		// 	type: DataTypes.ARRAY(DataTypes.STRING),
+        //     allowNull: false,
+		// },
 		description: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		
 		
 	});
 };
