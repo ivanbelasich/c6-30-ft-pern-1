@@ -5,7 +5,8 @@ import globalStyles from "../../../../globalStyles/globalStyles";
 const Notifications = () => {
   return (
     <View style={globalStyles.container}>
-      <Text>Notifications</Text>
+      <Text>Notificaciones</Text>
+      <Text>No tienes ninguna notificacion</Text>
       <Link to="/homeuser">
         <Text>Volver al homeuser</Text>
       </Link>
