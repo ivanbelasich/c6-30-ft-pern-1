@@ -21,10 +21,6 @@ const HomeUser = () => {
       <Link to="/filterBar">
         <Text>Agendar Turnos</Text>
       </Link>
-      <Text></Text>
-      <Link to="/">
-        <Text>Volver al home</Text>
-      </Link>
     </View>
   );
 };
