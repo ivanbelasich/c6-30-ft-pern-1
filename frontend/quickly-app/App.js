@@ -6,6 +6,8 @@ import Navigation from "./src/components/Navigations/Navigation.jsx";
 import HomeUser from "./src/components/views/user/HomeUser/HomeUser.jsx";
 import HomeSupplier from "./src/components/views/supplier/HomeSupplier.jsx";
 import Login from "./src/components/views/auth/Login/Login.jsx";
+import Notifications from "./src/components/views/user/Notifications/Notifications.jsx";
+
 export default function App() {
   return (
     <NativeRouter>
@@ -15,6 +17,7 @@ export default function App() {
         <Route path="/homesupplier" element={<HomeSupplier />} />
         <Route path="/turns" element={<Turns />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/notifications" element={<Notifications />} />
       </Routes>
       {/* <Navigation /> */}
     </NativeRouter>

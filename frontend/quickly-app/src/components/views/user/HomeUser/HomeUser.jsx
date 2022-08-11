@@ -14,6 +14,9 @@ const HomeUser = () => {
       <Link to="/turns">
         <Text>Turnos disponibles</Text>
       </Link>
+      <Link to="/notifications">
+        <Text>Notificaciones</Text>
+      </Link>
       <Link to="/">
         <Text>Volver al home</Text>
       </Link>
