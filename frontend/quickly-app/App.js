@@ -7,7 +7,8 @@ import HomeSupplier from "./src/components/views/supplier/HomeSupplier.jsx";
 import Login from "./src/components/views/auth/Login/Login.jsx";
 import Register from "./src/components/views/auth/Register/Register.jsx";
 // Components
-import Navigation from "./src/components/Navigations/Navigation.jsx";
+import Notifications from "./src/components/views/user/Notifications/Notifications.jsx";
+import FilterBar from "./src/components/FilterBar/FilterBar.jsx";
 // Context
 import { AuthProvider } from "./src/context/AuthContext.js";
 // Hook
@@ -68,6 +69,22 @@ export default function App() {
             }
           />
           <Route
+            path="/notifications"
+            element={
+              <ProtectedRoute>
+                <Notifications />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/filterbar"
+            element={
+              <ProtectedRoute>
+                <FilterBar />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/login"
             element={
               <PublicRoute>
@@ -84,7 +101,6 @@ export default function App() {
             }
           />
         </Routes>
-        {/* <Navigation /> */}
       </NativeRouter>
     </AuthProvider>
   );

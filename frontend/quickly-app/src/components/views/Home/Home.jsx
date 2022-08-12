@@ -16,13 +16,10 @@ const Home = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View>
       <Text style={styles.color}>Home general</Text>
-      <Link to="/homeuser">
-        <Text>Usuario</Text>
-      </Link>
-      <Link to="/homesupplier">
-        <Text>Proveedor</Text>
+      <Link to="/filterbar">
+        <Text>Filter Bar</Text>
       </Link>
       <TouchableHighlight onPress={handleLogout}>
         <Text>Sign Out</Text>
