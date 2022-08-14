@@ -1,15 +1,16 @@
 import React from 'react'
-import { Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { Link } from 'react-router-native';
+import { HeaderBar } from '../../../HeaderBar/HeaderBar';
 
 const Register = () => {
   return (
-    <View>
-        <Text>Registro</Text>
-        <Link to="/login">
-          <Text>Ir a Login</Text>
-      </Link>
-    </View>
+    <ScrollView>
+      <HeaderBar title="Registro"/>
+      <View>
+          <Text>Registro</Text>
+      </View>
+    </ScrollView>
   )
 }
 

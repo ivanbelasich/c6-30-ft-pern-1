@@ -2,12 +2,12 @@ export const theme = {
   colors: {
     primary: "#DD4E24",
     secondary: "#479BB6",
-    black: "09060B",
+    black: "#09060B",
     background: "#FCFCFC",
     alert: "#E81002",
     accent: "#E8C952",
     success: "#0DA930",
-    disabled: "C7C3BC",
+    disabled: "#C7C3BC",
   },
   fontSize: {
     logo: 48,

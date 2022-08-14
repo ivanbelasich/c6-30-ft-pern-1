@@ -1,10 +1,21 @@
 import React from 'react'
-import { Text, View } from 'react-native';
+import { Image, StatusBar, Text, View } from 'react-native';
+import { Link } from "react-router-native";
 
-export const HeaderBar = () => {
+
+import { theme } from '../../globalStyles/theme';
+import { styles } from './styles';
+
+export const HeaderBar = ({title}) => {
   return (
     <View>
-        <Text>Implementar Stack.Navigator</Text>
+      <StatusBar barStyle={'light-content'} backgroundColor={theme.colors.secondary} />
+      <View style={styles.container}>
+        {
+          title !== "Home" && <Link to="/"><Image source={require('../../../assets/back-icon.png')}></Image></Link>
+        }
+        <Text style={styles.text}>{title}</Text>
+      </View>
     </View>
   )
 };

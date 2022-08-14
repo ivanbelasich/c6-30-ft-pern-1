@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { TouchableWithoutFeedback, ScrollView, Text, View } from "react-native";
-import { Link } from "react-router-native";
-import globalStyles from "../../../globalStyles/globalStyles";
+import { TouchableWithoutFeedback, ScrollView, Text, View, Image } from "react-native";
+
+// Components
 import { ServiceForm } from "../../Form/ServiceForm/ServiceForm";
+import { HeaderBar } from "../../HeaderBar/HeaderBar";
+
+// Styles
+import globalStyles from "../../../globalStyles/globalStyles";
 import { styles } from "./styles";
 
 export default function HomeSupplier() {
@@ -19,8 +23,11 @@ export default function HomeSupplier() {
 
   return (
     <ScrollView >
+      <HeaderBar title="Mi servicio"/>
       <View style={globalStyles.container}>
-        <Text style={styles.title}>Mi servicio</Text>
+        <View style={styles.imgContainer}>
+          <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
+        </View>
         {
           service ? (
             <View>
@@ -43,19 +50,19 @@ export default function HomeSupplier() {
             </View>
           ) : (
             <>
-              <Text>No tienes creado ningún servicio</Text>
+              <View>
+                <Text style={globalStyles.title}>Mi servicio</Text>
+                <Text>Aún no tienes creado ningún servicio</Text>
+              </View>
               <TouchableWithoutFeedback onPress={handleAddService}>
                 <View style={[globalStyles.button, globalStyles.normalButton]}>
-                  <Text style={globalStyles.textButton}>Crear servicio</Text>
+                  <Text style={globalStyles.textButton}>+ Crear servicio</Text>
                 </View>
               </TouchableWithoutFeedback>
             </>
           )
         }
       </View>
-      <Link to="/">
-        <Text>Volver al home</Text>
-      </Link>
     </ScrollView>
   );
 }
