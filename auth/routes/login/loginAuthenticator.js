@@ -1,4 +1,4 @@
-const User = require("../../sequelize/models/user")
+const User = require("../../sequelize/models/User")
 const dbError = require("../../utils/dbError")
 const dbSuccess = require("../../utils/dbSuccess")
 const recodePassword = require("../../utils/recodePassword")
