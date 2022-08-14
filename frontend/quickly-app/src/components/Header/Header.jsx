@@ -1,1 +1,0 @@
-// example Header component

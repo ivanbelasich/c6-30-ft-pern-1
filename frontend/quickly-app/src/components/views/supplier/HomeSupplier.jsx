@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button, ScrollView, Text, View } from "react-native";
+import { TouchableWithoutFeedback, ScrollView, Text, View } from "react-native";
 import { Link } from "react-router-native";
+import globalStyles from "../../../globalStyles/globalStyles";
 import { ServiceForm } from "../../Form/ServiceForm/ServiceForm";
 import { styles } from "./styles";
 
@@ -18,7 +19,7 @@ export default function HomeSupplier() {
 
   return (
     <ScrollView >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <Text style={styles.title}>Mi servicio</Text>
         {
           service ? (
@@ -34,12 +35,20 @@ export default function HomeSupplier() {
                 }
               </View> */}
               <ServiceForm />
-              <Button title="Cancelar" onPress={handleDeleteService} color="red"/>
+              <TouchableWithoutFeedback onPress={handleDeleteService}>
+                <View style={[globalStyles.button, globalStyles.cancelButton]}>
+                  <Text style={globalStyles.textButton}>Cancelar</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           ) : (
             <>
               <Text>No tienes creado ningún servicio</Text>
-              <Button title="Crear Servicio" onPress={handleAddService}/>
+              <TouchableWithoutFeedback onPress={handleAddService}>
+                <View style={[globalStyles.button, globalStyles.normalButton]}>
+                  <Text style={globalStyles.textButton}>Crear servicio</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </>
           )
         }

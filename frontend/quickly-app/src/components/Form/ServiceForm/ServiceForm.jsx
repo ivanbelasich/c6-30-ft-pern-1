@@ -1,15 +1,18 @@
 import React from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, TextInput, TouchableWithoutFeedback, Text } from 'react-native';
 
 import { Formik } from 'formik';
 import * as Yup from "yup";
 
 import { CheckBox } from '../../CheckBox/CheckBox';
 
+// Styles
+import globalStyles from '../../../globalStyles/globalStyles';
 import { styles } from './styles';
 
 // Utils
 import { arrayDate } from '../../../utils/arrayDate';
+
 
 export const ServiceForm = () => {
 
@@ -63,21 +66,28 @@ export const ServiceForm = () => {
         {
             ({ handleChange, handleBlur, handleSubmit, values, setFieldValue, errors }) => (
                 <View>
-                    <Text>Nombre:</Text>
-                    <TextInput onChangeText={handleChange('name')} onBlur={handleBlur('name')} value={values?.name}/>
-                    {
-                        errors.name && <Text>{errors.name}</Text>
-                    }
-                    <Text>Precio:</Text>
-                    <TextInput onChangeText={handleChange('value')} onBlur={handleBlur('value')} value={values?.value}/>
-                    {
-                        errors.value && <Text>{errors.value}</Text>
-                    }
-                    <Text>Descripción:</Text>
-                    <TextInput onChangeText={handleChange('description')} onBlur={handleBlur('description')} value={values?.description}/>
-                    {
-                        errors.description && <Text>{errors.description}</Text>
-                    }
+                    <View style={globalStyles.inputContainer}>
+                        <Text style={globalStyles.label}>Nombre</Text>
+                        <TextInput style={globalStyles.input} onChangeText={handleChange('name')} onBlur={handleBlur('name')} value={values?.name}/>
+                        {
+                            errors.name && <Text style={globalStyles.textError}>{errors.name}</Text>
+                        }
+                    </View>
+                    <View style={globalStyles.inputContainer}>
+                        <Text style={globalStyles.label}>Precio</Text>
+                        <TextInput style={globalStyles.input} onChangeText={handleChange('value')} onBlur={handleBlur('value')} value={values?.value}/>
+                        {
+                            errors.value && <Text style={globalStyles.textError}>{errors.value}</Text>
+                        }
+                    </View>
+                    <View style={globalStyles.inputContainer}>
+                        <Text style={globalStyles.label}>Descripción</Text>
+                        <TextInput style={globalStyles.input} onChangeText={handleChange('description')} onBlur={handleBlur('description')} value={values?.description}/>
+                        {
+                            errors.description && <Text style={globalStyles.textError}>{errors.description}</Text>
+                        }
+                    </View>
+                    <Text style={globalStyles.label}>Días</Text>
                     <View style={styles.days}>
                         <View style={styles.day}>
                             <CheckBox value={values?.monday} handleChange={nextValue => setFieldValue('monday', nextValue)}>Lunes</CheckBox>
@@ -102,18 +112,22 @@ export const ServiceForm = () => {
                         </View>
                     </View>
                     <View>
-                        <Text>Desde:</Text>
-                        <TextInput onChangeText={handleChange('from')} onBlur={handleBlur('from')} value={values?.from} keyboardType="numeric" maxLength={2}/>
+                        <Text style={globalStyles.label}>Desde</Text>
+                        <TextInput style={globalStyles.input} onChangeText={handleChange('from')} onBlur={handleBlur('from')} value={values?.from} keyboardType="numeric" maxLength={2}/>
                         {
-                            errors.from && <Text>{errors.from}</Text>
+                            errors.from && <Text style={globalStyles.textError}>{errors.from}</Text>
                         }
-                        <Text>Hasta:</Text>
-                        <TextInput onChangeText={handleChange('to')} onBlur={handleBlur('to')} value={values?.to} keyboardType="numeric" maxLength={2}/>
+                        <Text style={globalStyles.label}>Hasta</Text>
+                        <TextInput style={globalStyles.input} onChangeText={handleChange('to')} onBlur={handleBlur('to')} value={values?.to} keyboardType="numeric" maxLength={2}/>
                         {
-                            errors.to && <Text>{errors.to}</Text>
+                            errors.to && <Text style={globalStyles.textError}>{errors.to}</Text>
                         }
                     </View>
-                    <Button onPress={handleSubmit} title="Crear"/>
+                    <TouchableWithoutFeedback onPress={handleSubmit}>
+                        <View style={[globalStyles.button, globalStyles.normalButton]}>
+                            <Text style={globalStyles.textButton}>Crear</Text>
+                        </View>
+                    </TouchableWithoutFeedback>
                 </View>
             )
         }
