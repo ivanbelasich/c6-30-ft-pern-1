@@ -9,7 +9,7 @@ const Calendar = () => {
   const [text, setText] = useState("Empty");
 
   const onChange = (e, selectedDate) => {
-    const currentDate = selectedDate || date;
+    const currentDate = selectedDate || date; 
     setShow(Platform.OS === "ios");
     setDate(currentDate);
 

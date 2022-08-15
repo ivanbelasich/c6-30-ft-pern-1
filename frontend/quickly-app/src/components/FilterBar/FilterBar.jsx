@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, Button, FlatList } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import Calendar from "../Calendar/Calendar";
 
 const categories = [
   { key: 1, label: "Dermatología", value: "Dermatología" },
@@ -49,11 +50,12 @@ const FilterBar = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <Text>
-            {item.name} {item.category}
+          <Text style={{backgroundColor : "red", height: 35, textAlign: "center", marginBottom: 5, marginTop: 5, alignItems: "center" }}>
+            {item.name} {item.category} <Button title={"Appointment"}/>
           </Text>
         )}
       />
+      <Calendar />
     </View>
   );
 };
