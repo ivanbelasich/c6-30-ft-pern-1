@@ -12,9 +12,10 @@ export const styles = StyleSheet.create({
     textAlign: "center",
   },
   days: {
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignContent: "center",
+    height: 150,
     flexWrap: "wrap",
   },
   day: {

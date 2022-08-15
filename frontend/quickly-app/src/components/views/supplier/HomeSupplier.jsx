@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { Button, ScrollView, Text, View } from "react-native";
-import { Link } from "react-router-native";
+import { TouchableWithoutFeedback, ScrollView, Text, View, Image } from "react-native";
+
+// Components
 import { ServiceForm } from "../../Form/ServiceForm/ServiceForm";
+import { HeaderBar } from "../../HeaderBar/HeaderBar";
+
+// Styles
+import globalStyles from "../../../globalStyles/globalStyles";
 import { styles } from "./styles";
 
 export default function HomeSupplier() {
@@ -18,8 +23,11 @@ export default function HomeSupplier() {
 
   return (
     <ScrollView >
-      <View style={styles.container}>
-        <Text style={styles.title}>Mi servicio</Text>
+      <HeaderBar title="Mi servicio"/>
+      <View style={globalStyles.container}>
+        <View style={styles.imgContainer}>
+          <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
+        </View>
         {
           service ? (
             <View>
@@ -34,19 +42,27 @@ export default function HomeSupplier() {
                 }
               </View> */}
               <ServiceForm />
-              <Button title="Cancelar" onPress={handleDeleteService} color="red"/>
+              <TouchableWithoutFeedback onPress={handleDeleteService}>
+                <View style={[globalStyles.button, globalStyles.cancelButton]}>
+                  <Text style={globalStyles.textButton}>Cancelar</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </View>
           ) : (
             <>
-              <Text>No tienes creado ningún servicio</Text>
-              <Button title="Crear Servicio" onPress={handleAddService}/>
+              <View>
+                <Text style={globalStyles.title}>Mi servicio</Text>
+                <Text>Aún no tienes creado ningún servicio</Text>
+              </View>
+              <TouchableWithoutFeedback onPress={handleAddService}>
+                <View style={[globalStyles.button, globalStyles.normalButton]}>
+                  <Text style={globalStyles.textButton}>+ Crear servicio</Text>
+                </View>
+              </TouchableWithoutFeedback>
             </>
           )
         }
       </View>
-      <Link to="/">
-        <Text>Volver al home</Text>
-      </Link>
     </ScrollView>
   );
 }

@@ -1,27 +1,58 @@
 import { StyleSheet } from "react-native";
 import Constants from "expo-constants";
+import { theme } from "./theme";
 
 const globalStyles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingTop: Constants.statusBarHeight + 10,
+    paddingHorizontal: 10,
+    backgroundColor: theme.colors.background,
+    justifyContent: "center",
   },
-  colors: {
-    primary: "E8C952",
-    textPrimary: "#479BB6",
-    textSecondary: "DD4E24",
-    black: "09060B",
+  title: {
+    fontWeight: theme.fontWeights.regular,
+    fontSize: theme.fontSize.title,
   },
-  fontSizes: {
-    body: 14,
-    subheading: 16,
-    head: 20,
+  title2: {
+    fontWeight: theme.fontWeights.semibold,
+    fontSize: theme.fontSize.title,
   },
-  fonts: {
-    // main: "Agregar fuente"
+  button: {
+    alignItems: "center",
+    paddingVertical: 10,
+    borderRadius: 10,
   },
-  fontWeights: {
-    normal: "400",
-    bold: "700",
+  textButton: {
+    color: theme.colors.background,
+    fontSize: theme.fontSize.button,
+    fontWeight: theme.fontWeights.medium,
+  },
+  normalButton: {
+    backgroundColor: theme.colors.secondary,
+  },
+  disabledButton: {
+    backgroundColor: theme.colors.disabled,
+  },
+  cancelButton: {
+    backgroundColor: theme.colors.alert,
+  },
+  inputContainer: {
+    marginVertical: 10,
+  },
+  label: {
+    fontSize: theme.fontSize.subheading,
+    fontWeight: theme.fontWeights.medium,
+  },
+  input: {
+    borderStyle: "solid",
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 15,
+  },
+  textError: {
+    fontSize: theme.fontSize.caption,
+    color: theme.colors.alert,
   },
 });
 
