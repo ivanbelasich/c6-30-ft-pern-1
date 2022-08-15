@@ -8,7 +8,7 @@ let jwtMiddleware = (req, res, next) => {
     const token = authorization.split(' ')[1]
     try {
         const payload = jwt.verify(token, process.env.AUTH_TOKEN_SECRET)
-        req.authorization.payload = payload
+        req.headers.payload = payload
         return next()
     }
     catch (error) {
