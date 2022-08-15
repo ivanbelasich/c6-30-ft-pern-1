@@ -2,9 +2,13 @@
 import { Text, View, Button } from "react-native";
 import { Link } from "react-router-native";
 import globalStyles from "../../../../globalStyles/globalStyles";
+import { useNavigation } from "@react-navigation/native";
 import styles from "./styles";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const HomeUser = () => {
+  const navigation = useNavigation();
+
   return (
     <View style={globalStyles.container}>
       <Text>Foto de perfil</Text>
@@ -21,6 +25,9 @@ const HomeUser = () => {
       <Link to="/filterBar">
         <Text>Agendar Turnos</Text>
       </Link>
+      <TouchableOpacity onPress={() => navigation.navigate("Notificaciones")}>
+        <Text>Ir a notificationes</Text>
+      </TouchableOpacity>
     </View>
   );
 };

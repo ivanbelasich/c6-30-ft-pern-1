@@ -6,14 +6,13 @@ import styles from "./style";
 import { useAuth } from "../../../hooks/useAuth";
 
 const Home = () => {
-
   const auth = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     auth.signOut();
-    navigate("/login", {replace: true});
-  }
+    navigate("/login", { replace: true });
+  };
 
   return (
     <View>
