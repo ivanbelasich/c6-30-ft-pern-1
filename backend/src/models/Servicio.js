@@ -18,6 +18,8 @@ module.exports = (sequelize) => {
 			type: DataTypes.INTEGER,
             allowNull: false,
 		},
+
+		//AGREGAR CATEGORIAS
 		// img: {
 		// 	type: DataTypes.TEXT,
 		// },

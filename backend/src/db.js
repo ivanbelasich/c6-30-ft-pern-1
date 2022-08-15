@@ -65,7 +65,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 
 // Para relacionarlos hacemos un destructuring
-const { Orden, Servicio, Fecha } = sequelize.models;
+const { Orden, Servicio, Fecha, Provider } = sequelize.models;
 
 
 // Aca vendrian las relaciones
@@ -74,6 +74,7 @@ Orden.belongsToMany(Servicio, { through: 'servi_orde' });
 Fecha.belongsToMany(Servicio, { through: 'fecha_servi' });
 Servicio.hasMany(Orden);
 Servicio.hasMany(Fecha);
+Provider.hasMany(Servicio)
 
 
 
