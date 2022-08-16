@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, FlatList } from "react-native";
+import { View, Text, Button, FlatList, Alert } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 
 const categories = [
