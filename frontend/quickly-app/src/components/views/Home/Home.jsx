@@ -17,7 +17,7 @@ const Home = () => {
 
   return (
     <ScrollView>
-      <HeaderBar title="Home"/>
+      <HeaderBar title="Home" />
       <View style={styles.container}>
         <Text style={styles.color}>Home general</Text>
         <Link to="/filterbar">
