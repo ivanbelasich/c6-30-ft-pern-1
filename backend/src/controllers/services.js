@@ -1,8 +1,7 @@
-const { Servicio, Fecha } = require('../db');
-
+const { Service, Date } = require('../sequelize/models')
 export const getServices = async (req, res, next) =>{
-    const data = await Servicio.findAll({include: {
-        model: Fecha,
+    const data = await Service.findAll({include: {
+        model: Date,
     },});
     if (data) {
         try {
@@ -25,7 +24,7 @@ export const getService = async (req, res, next) =>{
 
     try {
 
-        const data = await Servicio.findAll({
+        const data = await Service.findAll({
             where: { id: id },
             attributes: ["id", "description"],
         });
@@ -46,12 +45,12 @@ export const createServices = async (req, res, next) =>{
     try {
         const { name, value, date, time, description } = req.body;
         
-        const myDate = await Fecha.create({
-            lunes: date.lunes, martes: date.martes, miercoles: date.miercoles, jueves: date.jueves, viernes:date.viernes, sabado:date.sabado, domingo: date.domingo,
+        const myDate = await Date.create({
+            monday: date.monday, tuesday: date.tuesday, wednesday: date.wednesday, thursday: date.thursday, friday:date.friday, saturday:date.saturday, sunday: date.sunday,
         })
         
         console.log(myDate)
-        const ServiceData = await Servicio.create({
+        const ServiceData = await Service.create({
             name,
             value,
             // date,
@@ -59,8 +58,8 @@ export const createServices = async (req, res, next) =>{
             description
 
         })
-        
-        await ServiceData.addFecha(myDate);
+        console.log('serviceData', ServiceData)
+        await ServiceData.addDate(myDate);
         return res.json(ServiceData);
 
     } catch (err) { 

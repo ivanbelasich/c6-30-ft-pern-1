@@ -1,7 +1,7 @@
-const { Orden, Servicio, Fecha } = require('../db');
+const { Order, Service, Date } = require('../sequelize/models')
 
 export const getOrders = async (req, res, next) =>{
-    const data = await Orden.findAll();
+    const data = await Order.findAll();
     if (data) {
         try {
             return res.json(data);
@@ -24,7 +24,7 @@ export const getOrder = async (req, res, next) =>{
 
     try {
 
-        const data = await Orden.findAll({
+        const data = await Order.findAll({
             where: { id: id },
             attributes: ["id", "description"],
         });
@@ -50,48 +50,48 @@ export const createOrders = async (req, res, next) =>{
     const id = req.params.id;
     const {date, time} = req.body;
     
-    let info = await Servicio.findOne({where:{id:id}, include: {
-        model: Fecha,
+    let info = await Service.findOne({where:{id:id}, include: {
+        model: Date,
     }});
     
-    const preCreate = info.fechas[0].id
-    const fechaCheck = await Fecha.findOne({where: { id: preCreate }})
-    console.log(fechaCheck[date]); 
-    console.log(fechaCheck[date].includes(time)); 
+    const preCreate = info.dates[0].id
+    const dateCheck = await Date.findOne({where: { id: preCreate }})
+    console.log(dateCheck[date]); 
+    console.log(dateCheck[date].includes(time)); 
     console.log(date)   
     console.log(time)  
-    if (fechaCheck[date].includes(time)) { 
+    if (dateCheck[date].includes(time)) { 
         
-        let timee = fechaCheck[date].filter((i)=> i !== time);
+        let timee = dateCheck[date].filter((i)=> i !== time);
          
         console.log(timee) 
-        fechaCheck[date] = timee;
-        console.log(fechaCheck.lunes); 
+        dateCheck[date] = timee;
+        console.log(dateCheck.monday); 
         
         if (info) {
-            fechaCheck.update(
+            dateCheck.update(
                { 
-                lunes:fechaCheck.lunes,
-                martes:fechaCheck.martes,
-                miercoles:fechaCheck.miercoles,
-                jueves:fechaCheck.jueves,
-                viernes:fechaCheck.viernes,
-                sabado:fechaCheck.sabado,
-                domingo:fechaCheck.domingo,
+                monday:dateCheck.monday,
+                tuesday:dateCheck.tuesday,
+                wednesday:dateCheck.wednesday,
+                thursday:dateCheck.thursday,
+                friday:dateCheck.friday,
+                saturday:dateCheck.saturday,
+                sunday:dateCheck.sunday,
                }
               
             );
         
         
-        const OrderData = await Orden.create({
+        const OrderData = await Order.create({
             name:info.name,
             value: info.value,
             date:date, 
             time:time,
             description: info.description,
-            servicioId: info.id
+            serviceId: info.id
         }) 
-        await OrderData.addServicios(info.id)
+        await OrderData.addServices(info.id)
         res.send(OrderData);
        } 
     }else{
