@@ -1,4 +1,3 @@
-// Context
 import { AuthProvider } from "./src/context/AuthContext.js";
 
 // Router
