@@ -1,7 +1,7 @@
-const { Orden, Servicio, Fecha } = require('../db');
+const { Order, Service, Date } = require('../sequelize/models')
 
 export const getDates = async (req, res, next) =>{
-    const data = await Fecha.findAll();
+    const data = await Date.findAll();
     if (data) {
         try {
             return res.json(data);
@@ -22,7 +22,7 @@ export const getDate = async (req, res, next) =>{
 
     try {
 
-        const data = await Fecha.findAll({
+        const data = await Date.findAll({
             where: { id: id },
             // attributes: ["id", "description"],
         });
@@ -42,7 +42,7 @@ export const getDatesCount = (req, res, next) =>{
 export const createDates = async (req, res, next) =>{
     const id = req.params.id;
     const data = req.body;
-    let info = await Servicio.findOne({where:{id:id}});
+    let info = await Service.findOne({where:{id:id}});
     let preCreate = info.time.includes(data.time);
     console.log(preCreate)
     if (preCreate) {
@@ -57,7 +57,7 @@ export const createDates = async (req, res, next) =>{
             });
         
         
-        const OrderData = await Orden.create({
+        const OrderData = await Order.create({
             name:info.name,
             value: info.value,
             date:data.date,
@@ -65,7 +65,7 @@ export const createDates = async (req, res, next) =>{
             description: info.description,
             servicioId: info.id
         }) 
-        await OrderData.addServicios(info.id)
+        await OrderData.addServices(info.id)
         res.send(OrderData);
        } 
     }else{
