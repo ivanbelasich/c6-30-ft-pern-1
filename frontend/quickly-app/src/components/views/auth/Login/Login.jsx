@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TextInput, TouchableHighlight, View, Text } from "react-native";
-import { useNavigate } from "react-router-native";
+import { Link, useNavigate } from "react-router-native";
 
 import style from "./style";
 
@@ -80,6 +80,12 @@ export default function Login() {
             </View>
             <View>
                 {response.map((k, index) => <Text key={`serverResponse${index}`}>{k}</Text>)}
+            </View>
+            <View>
+                <Text>¿Aún no tienes una cuenta?</Text>
+                <Link to="/register">
+                    <Text>¡Súmate!</Text>
+                </Link>
             </View>
         </View>
     );

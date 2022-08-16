@@ -103,7 +103,6 @@ export default function App() {
             }
           />
         </Routes>
-        <Navigation />
       </NativeRouter>
     </AuthProvider>
   );
