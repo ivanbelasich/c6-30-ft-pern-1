@@ -4,12 +4,17 @@ import Constants from "expo-constants";
 // Styles Login
 
 const styles = StyleSheet.create({
+  container: {
+    paddingTop: Constants.statusBarHeight + 10,
+    marginRight: 10,
+    marginLeft: 10,
+  },
   image: {
     flex: 1,
   },
   logo: {
     marginTop: 10,
-    marginLeft: 110,
+    marginLeft: 100,
     marginBottom: 45,
     height: 65,
     width: 200,
@@ -17,12 +22,17 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginRight: 10,
     marginLeft: 10,
+    marginTop: 5,
     padding: 5,
     marginBottom: 5,
     fontSize: 17,
   },
-  container: {
-    paddingTop: Constants.statusBarHeight + 10,
+  direction: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    marginRight: 15,
+    marginLeft: 15,
   },
   color: {
     color: "red",

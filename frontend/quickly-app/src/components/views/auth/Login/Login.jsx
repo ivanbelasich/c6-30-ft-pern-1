@@ -43,6 +43,18 @@ const Login = () => {
             style={style.input}
           />
         </View>
+        <View style={style.direction}>
+          <Text>Recordame</Text>
+          <Text>¿Olvidaste tu contraseña?</Text>
+        </View>
+        <TouchableHighlight style={style.button}>
+          <Text>Ingresar</Text>
+        </TouchableHighlight>
+        <Text>-----------------°-------------</Text>
+        <View style={style.direction}>
+          <Text>¿Aun no tienes cuenta?</Text>
+          <Text>¡Sumate!</Text>
+        </View>
       </View>
     </ImageBackground>
   );
