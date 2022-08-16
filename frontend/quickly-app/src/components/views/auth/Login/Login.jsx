@@ -1,71 +1,32 @@
 import { useState } from "react";
-<<<<<<< HEAD
-import { TextInput, TouchableHighlight, View, Text, StatusBar } from "react-native";
-=======
-import { Link, useNavigate } from "react-router-native";
+import { TextInput, TouchableHighlight, View, Text, StatusBar, ImageBackground, Image } from "react-native";
 import { useAuth } from "../../../../hooks/useAuth";
-import {
-  StyleSheet,
-  TextInput,
-  TouchableHighlight,
-  View,
-  Text,
-  ImageBackground,
-  Image,
-  Button,
-} from "react-native";
+
 import { CheckBox } from "../../../CheckBox/CheckBox";
->>>>>>> 35c6f1333dd3ad9692722a059a54d5a7f46cafa8
 
 import { theme } from "../../../../globalStyles/theme";
 import style from "./style";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
-const Login = () => {
+export const Login = ({ navigation }) => {
+
   let [user, setUser] = useState("Username");
   let [password, setPassword] = useState("Password");
 
-<<<<<<< HEAD
-export default function Login({ navigation }) {
-
-    let [user, setUser] = useState('Username')
-    let [password, setPassword] = useState('Password')
-
-    const auth = useAuth();
+  const auth = useAuth();
 
     console.log(auth);
 
-    function handlePressLogin() {
-        auth.signIn();
-    }
-    function handlePressRegister() {
-        navigation.navigate('Register');
-    }
+  function handleLogin() {
+    auth.signIn();
+  }
 
-    return (
-        <View style={style.container}>
-            <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
-            <Text style={style.title}>Login/Register view</Text>
-            <TextInput value={user} onChange={e => setUser(e.target.value)} style={style.input} />
-            <TextInput value={password} onChange={e => setPassword(e.target.value)} style={style.input} />
-            <View style={style.buttonContainer}>
-                <TouchableHighlight onPress={handlePressLogin} style={style.button}>
-                    <Text style={style.buttonText}>Login</Text>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={handlePressRegister} style={style.button}>
-                    <Text style={style.buttonText}>Register</Text>
-                </TouchableHighlight>
-            </View>
-            <View>
-                <Text>¿Aún no tienes una cuenta?</Text>
-            </View>
-=======
+  function handleRegister() {
+    navigation.navigate('Register');
+  }
+
   const Marked = () => {
     console.log("Esta marcado");
-  };
-
-  const handleSubmit = () => {
-    console.log("Ingresaste");
   };
 
   return (
@@ -74,6 +35,7 @@ export default function Login({ navigation }) {
       resizeMode="cover"
       style={style.image}
     >
+      <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
       <View style={style.container}>
         <Image
           source={require("../../../../../assets/logo-quickly.png")}
@@ -88,7 +50,6 @@ export default function Login({ navigation }) {
             placeholder="Ingresa tu usuario"
             autoFocus={false}
           />
->>>>>>> 35c6f1333dd3ad9692722a059a54d5a7f46cafa8
         </View>
         <View>
           <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
@@ -109,7 +70,7 @@ export default function Login({ navigation }) {
         <View style={style.marginX}>
           <View style={globalStyles.disabledButton}>
             <TouchableHighlight
-              onPress={handleSubmit}
+              onPress={handleLogin}
               style={globalStyles.button}
             >
               <Text style={globalStyles.textButton}>Ingresar</Text>
@@ -129,7 +90,7 @@ export default function Login({ navigation }) {
         </View>
         <View style={style.direction}>
           <Text>¿Aún no tienes cuenta?</Text>
-          <TouchableHighlight>
+          <TouchableHighlight onPress={handleRegister}>
             <Text style={style.textRegister}>Súmate!</Text>
           </TouchableHighlight>
         </View>
