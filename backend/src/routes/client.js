@@ -1,14 +1,17 @@
 const { Router } = require('express');
-const sanitizer = require('../middleware/sanitizer');
 const router = Router();
-const { Client } = require('../db.js')
-console.log(Client)
+const Client = require('../sequelize/models/Client')
+const sanitizer = require('../middleware/sanitizer');
+const clientCreator = require('../controllers/client/clientCreator')
+
+let {id, createdAt, updatedAt, ...modelProps} = Client.getAttributes()
+let modelKeys = Object.keys(modelProps)
+let sanitizePost = sanitizer([...modelKeys, 'password'])
+
+router.post('/', sanitizePost, clientCreator)
+
 
 //New Client
-router.post(sanitizer([
-    'user',
-    'password',
 
-]))
 
 module.exports = router;
