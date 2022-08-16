@@ -1,12 +1,19 @@
-// example Login viewconst HomeUser = () => {
-
 import { useState } from "react";
 import { TextInput, TouchableHighlight, View, Text } from "react-native";
+import { Link, useNavigate } from "react-router-native";
+
 import style from "./style";
+
+import { useAuth } from "../../../../hooks/useAuth";
+
 export default function Login() {
     let [user, setUser] = useState('Username')
     let [password, setPassword] = useState('Password')
     let [response, setResponse] = useState(["Server response."])
+
+    const navigate = useNavigate();
+
+    const auth = useAuth();
 
     async function login(user, password) {
         let headers = new Headers()
@@ -23,6 +30,8 @@ export default function Login() {
             let data = await response.json()
             let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
             setResponse(toText)
+            auth.signIn();
+            navigate("/", {replace: true});
         }
         catch (error) {
             console.log('error', error)
@@ -71,6 +80,12 @@ export default function Login() {
             </View>
             <View>
                 {response.map((k, index) => <Text key={`serverResponse${index}`}>{k}</Text>)}
+            </View>
+            <View>
+                <Text>¿Aún no tienes una cuenta?</Text>
+                <Link to="/register">
+                    <Text>¡Súmate!</Text>
+                </Link>
             </View>
         </View>
     );
