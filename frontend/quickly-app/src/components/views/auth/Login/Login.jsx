@@ -1,19 +1,33 @@
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-native";
+import { useAuth } from "../../../../hooks/useAuth";
 import {
+  StyleSheet,
   TextInput,
   TouchableHighlight,
   View,
   Text,
   ImageBackground,
   Image,
+  Button,
 } from "react-native";
-import { Link, useNavigate } from "react-router-native";
+import { CheckBox } from "../../../CheckBox/CheckBox";
 
 import style from "./style";
-
-import { useAuth } from "../../../../hooks/useAuth";
+import globalStyles from "../../../../globalStyles/globalStyles";
 
 const Login = () => {
+  let [user, setUser] = useState("Username");
+  let [password, setPassword] = useState("Password");
+
+  const Marked = () => {
+    console.log("Esta marcado");
+  };
+
+  const handleSubmit = () => {
+    console.log("Ingresaste");
+  };
+
   return (
     <ImageBackground
       source={require("../../../../../assets/templates/TemplateLogin.png")}
@@ -30,7 +44,7 @@ const Login = () => {
           <Text style={style.inputContainer}>Ingresa tu usuario</Text>
           <TextInput
             style={style.input}
-            value={"User"}
+            value={user}
             placeholder="Ingresa tu usuario"
             autoFocus={false}
           />
@@ -38,22 +52,45 @@ const Login = () => {
         <View>
           <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
           <TextInput
-            value={"User"}
+            value={password}
             placeholder="Ingresa tu contraseña"
             style={style.input}
           />
         </View>
-        <View style={style.direction}>
-          <Text>Recordame</Text>
-          <Text>¿Olvidaste tu contraseña?</Text>
+        <View style={style.marginY}>
+          <View style={style.direction}>
+            <CheckBox children={"Recordame"} handleChange={Marked} />
+            <Text style={style.textRecuperatePassword}>
+              ¿Olvidaste tu contraseña?
+            </Text>
+          </View>
         </View>
-        <TouchableHighlight style={style.button}>
-          <Text>Ingresar</Text>
-        </TouchableHighlight>
-        <Text>-----------------°-------------</Text>
+        <View style={style.marginX}>
+          <View style={globalStyles.disabledButton}>
+            <TouchableHighlight
+              onPress={handleSubmit}
+              style={globalStyles.button}
+            >
+              <Text style={globalStyles.textButton}>Ingresar</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
+        <View style={style.marginX}>
+          <View style={{}}>
+            <View style={style.line}>
+              <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
+              <View>
+                <Text style={{ width: 30, textAlign: "center" }}>O</Text>
+              </View>
+              <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
+            </View>
+          </View>
+        </View>
         <View style={style.direction}>
-          <Text>¿Aun no tienes cuenta?</Text>
-          <Text>¡Sumate!</Text>
+          <Text>¿Aún no tienes cuenta?</Text>
+          <TouchableHighlight>
+            <Text style={style.textRegister}>Súmate!</Text>
+          </TouchableHighlight>
         </View>
       </View>
     </ImageBackground>
@@ -63,8 +100,6 @@ const Login = () => {
 export default Login;
 
 // export default function Login() {
-//     let [user, setUser] = useState('Username')
-//     let [password, setPassword] = useState('Password')
 //     let [response, setResponse] = useState(["Server response."])
 
 //     const navigate = useNavigate();

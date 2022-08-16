@@ -30,12 +30,19 @@ const styles = StyleSheet.create({
   direction: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "baseline",
     marginTop: 10,
     marginRight: 15,
     marginLeft: 15,
   },
   color: {
     color: "red",
+  },
+  line: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 50,
+    marginBottom: 10,
   },
   input: {
     borderColor: "black",
@@ -45,6 +52,24 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     fontSize: 20,
     padding: 6,
+  },
+  marginY: {
+    marginTop: 15,
+    marginBottom: 30,
+  },
+  marginX: {
+    marginRight: 10,
+    marginLeft: 10,
+  },
+  textRegister: {
+    textDecorationLine: "underline",
+    fontWeight: "500",
+    fontSize: 17,
+  },
+  textRecuperatePassword: {
+    textDecorationLine: "underline",
+    fontWeight: "500",
+    fontSize: 15,
   },
   title: {},
   buttonContainer: {
