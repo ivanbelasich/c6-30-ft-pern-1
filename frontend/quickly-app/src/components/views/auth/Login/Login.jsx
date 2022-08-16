@@ -1,72 +1,30 @@
 import { useState } from "react";
-import { TextInput, TouchableHighlight, View, Text } from "react-native";
-import { Link, useNavigate } from "react-router-native";
+import { TextInput, TouchableHighlight, View, Text, StatusBar } from "react-native";
 
+import { theme } from "../../../../globalStyles/theme";
 import style from "./style";
 
 import { useAuth } from "../../../../hooks/useAuth";
 
-export default function Login() {
+export default function Login({ navigation }) {
+
     let [user, setUser] = useState('Username')
     let [password, setPassword] = useState('Password')
-    let [response, setResponse] = useState(["Server response."])
-
-    const navigate = useNavigate();
 
     const auth = useAuth();
 
-    async function login(user, password) {
-        let headers = new Headers()
-        headers.append("Content-Type", "application/json")
-        try {
-            let response = await fetch('https://quickly-b.herokuapp.com/login', {
-                headers,
-                method: "POST",
-                body: JSON.stringify({
-                    user,
-                    password
-                })
-            })
-            let data = await response.json()
-            let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
-            setResponse(toText)
-            auth.signIn();
-            navigate("/", {replace: true});
-        }
-        catch (error) {
-            console.log('error', error)
-        }
+    console.log(auth);
 
-    }
-    async function register(user, password) {
-        try {
-            let headers = new Headers()
-            headers.append("Content-Type", "application/json")
-            let response = await fetch('https://quickly-b.herokuapp.com/register', {
-                headers,
-                method: "POST",
-                body: JSON.stringify({
-                    user,
-                    password
-                })
-            })
-            let data = await response.json()
-            let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
-            setResponse(toText)
-        }
-        catch (error) {
-            console.log('error', error)
-        }
-    }
     function handlePressLogin() {
-        login(user, password)
+        auth.signIn();
     }
     function handlePressRegister() {
-        register(user, password)
+        navigation.navigate('Register');
     }
 
     return (
         <View style={style.container}>
+            <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
             <Text style={style.title}>Login/Register view</Text>
             <TextInput value={user} onChange={e => setUser(e.target.value)} style={style.input} />
             <TextInput value={password} onChange={e => setPassword(e.target.value)} style={style.input} />
@@ -79,13 +37,7 @@ export default function Login() {
                 </TouchableHighlight>
             </View>
             <View>
-                {response.map((k, index) => <Text key={`serverResponse${index}`}>{k}</Text>)}
-            </View>
-            <View>
                 <Text>¿Aún no tienes una cuenta?</Text>
-                <Link to="/register">
-                    <Text>¡Súmate!</Text>
-                </Link>
             </View>
         </View>
     );
