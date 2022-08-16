@@ -1,4 +1,5 @@
 import { NativeRouter, Navigate, Route, Routes } from "react-router-native";
+import "react-native-gesture-handler";
 // Views
 import Home from "./src/components/views/Home/Home.jsx";
 import Turns from "./src/components/views/user/Turns/Turns.jsx";
@@ -13,6 +14,7 @@ import FilterBar from "./src/components/FilterBar/FilterBar.jsx";
 import { AuthProvider } from "./src/context/AuthContext.js";
 // Hook
 import { useAuth } from "./src/hooks/useAuth.js";
+import Navigation from "./src/components/Navigations/Navigation.jsx";
 
 const ProtectedRoute = ({ children }) => {
   const { authData } = useAuth();

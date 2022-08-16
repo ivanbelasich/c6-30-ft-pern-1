@@ -7,18 +7,17 @@ import { useAuth } from "../../../hooks/useAuth";
 import { HeaderBar } from "../../HeaderBar/HeaderBar";
 
 const Home = () => {
-
   const auth = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     auth.signOut();
-    navigate("/login", {replace: true});
-  }
+    navigate("/login", { replace: true });
+  };
 
   return (
     <ScrollView>
-      <HeaderBar title="Home"/>
+      <HeaderBar title="Home" />
       <View style={styles.container}>
         <Text style={styles.color}>Home general</Text>
         <Link to="/filterbar">
