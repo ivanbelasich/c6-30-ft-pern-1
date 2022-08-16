@@ -8,10 +8,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
-    marginTop: 20,
-    marginLeft: 50,
-    height: 50,
-    width: "90%",
+    marginTop: 10,
+    marginLeft: 110,
+    marginBottom: 45,
+    height: 65,
+    width: 200,
+  },
+  inputContainer: {
+    marginRight: 10,
+    marginLeft: 10,
+    padding: 5,
+    marginBottom: 5,
+    fontSize: 17,
   },
   container: {
     paddingTop: Constants.statusBarHeight + 10,
@@ -21,12 +29,14 @@ const styles = StyleSheet.create({
   },
   input: {
     borderColor: "black",
+    borderRadius: 5,
     borderWidth: 1,
-  },
-  title: {
+    marginRight: 15,
+    marginLeft: 15,
     fontSize: 20,
-    marginBottom: 20,
+    padding: 6,
   },
+  title: {},
   buttonContainer: {
     marginVertical: 5,
     flexDirection: "row",

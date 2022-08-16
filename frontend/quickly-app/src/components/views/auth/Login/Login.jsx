@@ -20,11 +20,30 @@ const Login = () => {
       resizeMode="cover"
       style={style.image}
     >
-      <Image
-        source={require("../../../../../assets/logo-quickly.png")}
-        style={style.logo}
-      />
-      <Text>Login</Text>
+      <View style={style.container}>
+        <Image
+          source={require("../../../../../assets/logo-quickly.png")}
+          style={style.logo}
+          resizeMode="center"
+        />
+        <View>
+          <Text style={style.inputContainer}>Ingresa tu usuario</Text>
+          <TextInput
+            style={style.input}
+            value={"User"}
+            placeholder="Ingresa tu usuario"
+            autoFocus={false}
+          />
+        </View>
+        <View>
+          <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
+          <TextInput
+            value={"User"}
+            placeholder="Ingresa tu contraseña"
+            style={style.input}
+          />
+        </View>
+      </View>
     </ImageBackground>
   );
 };
