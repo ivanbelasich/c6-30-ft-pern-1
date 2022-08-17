@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../../../hooks/useAuth";
 import {
-  TextInput,
   TouchableHighlight,
   View,
   Text,
@@ -9,16 +8,19 @@ import {
   Image,
   StatusBar,
 } from "react-native";
+import { TextInput } from "react-native-paper";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { CheckBox } from "../../../CheckBox/CheckBox";
-
 import { theme } from "../../../../globalStyles/theme";
 import style from "./style";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
 export const Login = ({ navigation }) => {
-  let [user, setUser] = useState("Username");
-  let [password, setPassword] = useState("Password");
+  let [user, setUser] = useState("");
+  let [password, setPassword] = useState("Testing");
+
+  const [passwordVisible, setPasswordVisible] = useState(true);
 
   const auth = useAuth();
 
@@ -34,10 +36,6 @@ export const Login = ({ navigation }) => {
 
   const Marked = () => {
     console.log("Esta marcado");
-  };
-
-  const handleSubmit = () => {
-    console.log("Ingresaste");
   };
 
   return (
@@ -56,21 +54,30 @@ export const Login = ({ navigation }) => {
           style={style.logo}
           resizeMode="center"
         />
-        <View>
+        <View style={style.marginX}>
+          {/* <Text>
+            <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
+          </Text> */}
           <Text style={style.inputContainer}>Ingresa tu usuario</Text>
           <TextInput
-            style={style.input}
-            value={user}
+            mode="outlined"
             placeholder="Ingresa tu usuario"
-            autoFocus={false}
+            right={<TextInput.Affix text="/100" />}
           />
         </View>
-        <View>
+        <View style={style.marginX}>
           <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
           <TextInput
+            mode="outlined"
             value={password}
             placeholder="Ingresa tu contraseña"
-            style={style.input}
+            secureTextEntry={passwordVisible}
+            right={
+              <TextInput.Icon
+                onPress={() => setPasswordVisible(!passwordVisible)}
+                name={passwordVisible ? "eye" : "eye-off"}
+              />
+            }
           />
         </View>
         <View style={style.marginY}>
