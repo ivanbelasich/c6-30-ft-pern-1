@@ -8,6 +8,7 @@ const errorResponse = require('../helpers/errorResponse');
 const extractQuery = require('../helpers/extractQuery')
 const findOneUser = require("../helpers/findOneUser");
 const findModelEntry = require("../helpers/findModelEntry");
+const deleteModelEntry = require('../helpers/deleteModelEntry')
 const clientDeleteHandler = require("./clientDeleteHandler");
 const deleteWithData = require("../helpers/deleteWithData");
 
@@ -28,10 +29,14 @@ const clientFindUser =  findOneUser(
 
 const clientDeleteUser = clientDeleteHandler(
     findModelEntry(Client),
-    deleteWithData
+    deleteWithData(`${process.env.AUTH_DB_URL}/delete`),
+    deleteModelEntry(Client),
+    errorManager,
+    errorResponse
 )
 
 module.exports = {
     clientCreator,
-    clientFindUser
+    clientFindUser,
+    clientDeleteUser
 }

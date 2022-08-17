@@ -11,8 +11,8 @@ function clientCreateHandler(availabilityChecker, postAuth, postDB, errorManager
             let { data: tokens } = authResponse
             return res.send(tokens)
         } catch (error) {
-            let { status, json } = errorManager(error)
-            return res.status(status).send(json)
+            let { status, message } = errorManager(error)
+            return res.status(status).send(message)
         }
     }
 }
