@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-native";
 import { useAuth } from "../../../../hooks/useAuth";
 import {
   TextInput,
@@ -8,15 +7,30 @@ import {
   Text,
   ImageBackground,
   Image,
+  StatusBar,
 } from "react-native";
+
 import { CheckBox } from "../../../CheckBox/CheckBox";
 
+import { theme } from "../../../../globalStyles/theme";
 import style from "./style";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
-const Login = () => {
+export const Login = ({ navigation }) => {
   let [user, setUser] = useState("Username");
   let [password, setPassword] = useState("Password");
+
+  const auth = useAuth();
+
+  console.log(auth);
+
+  function handleLogin() {
+    auth.signIn();
+  }
+
+  function handleRegister() {
+    navigation.navigate("Register");
+  }
 
   const Marked = () => {
     console.log("Esta marcado");
@@ -26,16 +40,16 @@ const Login = () => {
     console.log("Ingresaste");
   };
 
-  const toRegister = () => {
-    console.log("to register");
-  };
-
   return (
     <ImageBackground
       source={require("../../../../../assets/templates/TemplateLogin.png")}
       resizeMode="cover"
       style={style.image}
     >
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.colors.secondary}
+      />
       <View style={style.container}>
         <Image
           source={require("../../../../../assets/logo-quickly.png")}
@@ -70,7 +84,7 @@ const Login = () => {
         <View style={style.marginX}>
           <View style={globalStyles.disabledButton}>
             <TouchableHighlight
-              onPress={handleSubmit}
+              onPress={handleLogin}
               style={globalStyles.button}
             >
               <Text style={globalStyles.textButton}>Ingresar</Text>
@@ -90,10 +104,8 @@ const Login = () => {
         </View>
         <View style={style.direction}>
           <Text>¿Aún no tienes cuenta?</Text>
-          <TouchableHighlight>
-            <Text onPress={toRegister} style={style.textRegister}>
-              Súmate!
-            </Text>
+          <TouchableHighlight onPress={handleRegister}>
+            <Text style={style.textRegister}>Súmate!</Text>
           </TouchableHighlight>
         </View>
       </View>
