@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { TouchableWithoutFeedback, ScrollView, Text, View, Image } from "react-native";
+import { TouchableWithoutFeedback, ScrollView, Text, View, Image, StatusBar } from "react-native";
 
 // Components
 import { ServiceForm } from "../../Form/ServiceForm/ServiceForm";
-import { HeaderBar } from "../../HeaderBar/HeaderBar";
 
 // Styles
 import globalStyles from "../../../globalStyles/globalStyles";
+import { theme } from "../../../globalStyles/theme";
 import { styles } from "./styles";
 
 export default function HomeSupplier() {
@@ -23,7 +23,7 @@ export default function HomeSupplier() {
 
   return (
     <ScrollView >
-      <HeaderBar title="Mi servicio"/>
+      <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
       <View style={globalStyles.container}>
         <View style={styles.imgContainer}>
           <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
