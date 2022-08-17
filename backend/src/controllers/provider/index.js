@@ -7,20 +7,36 @@ let findOneUser = require('../helpers/findOneUser')
 let buildModelEntry = require('../helpers/buildModelEntry')
 let findModelEntry = require('../helpers/findModelEntry')
 let extractQuery = require('../helpers/extractQuery')
+let providerDeleteHandler = require('../client/clientDeleteHandler')
+let postWithData = require('../helpers/postWithData')
+let deleteWithData = require('../helpers/deleteWithData')
+let deleteModelEntry = require('../helpers/deleteModelEntry')
 
-
-let handleCreateProvider = providerCreateHandler(
-    checkAvailableUser(checkAvailableUser(`${process.env.AUTH_DB_URL}/available`),),
+let providerCreateUser = providerCreateHandler(
+    checkAvailableUser(`${process.env.AUTH_DB_URL}/available`),
     postWithData(`${process.env.AUTH_DB_URL}/register`),
     buildModelEntry(Provider),
     errorManager,
     errorResponse
 )
-let handleFindProvider = findOneUser(
+
+let providerFindUser = findOneUser(
     findModelEntry(Provider),
     extractQuery,
+    errorManager,
     errorResponse,
 )
-let handleDeleteProvider = 
 
-module.exports = { handleCreateProvider, handleFindProvider }
+const providerDeleteUser = providerDeleteHandler(
+    findModelEntry(Provider),
+    deleteWithData(`${process.env.AUTH_DB_URL}/delete`),
+    deleteModelEntry(Provider),
+    errorManager,
+    errorResponse
+)
+
+module.exports = {
+    providerCreateUser,
+    providerFindUser,
+    providerDeleteUser
+}
