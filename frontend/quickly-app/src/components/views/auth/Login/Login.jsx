@@ -2,14 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-native";
 import { useAuth } from "../../../../hooks/useAuth";
 import {
-  StyleSheet,
   TextInput,
   TouchableHighlight,
   View,
   Text,
   ImageBackground,
   Image,
-  Button,
 } from "react-native";
 import { CheckBox } from "../../../CheckBox/CheckBox";
 
@@ -26,6 +24,10 @@ const Login = () => {
 
   const handleSubmit = () => {
     console.log("Ingresaste");
+  };
+
+  const toRegister = () => {
+    console.log("to register");
   };
 
   return (
@@ -89,7 +91,9 @@ const Login = () => {
         <View style={style.direction}>
           <Text>¿Aún no tienes cuenta?</Text>
           <TouchableHighlight>
-            <Text style={style.textRegister}>Súmate!</Text>
+            <Text onPress={toRegister} style={style.textRegister}>
+              Súmate!
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
