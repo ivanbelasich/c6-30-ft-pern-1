@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, Button, FlatList } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
 import Calendar from "../Calendar/Calendar";
+import { Link } from "react-router-native";
 
 const categories = [
   { key: 1, label: "Dermatología", value: "Dermatología" },
@@ -41,6 +42,7 @@ const FilterBar = () => {
 
   return (
     <View>
+      <Link to="/"><Text>Back</Text></Link>
       <Text>Selecciona una especialidad:</Text>
       <RNPickerSelect
         onValueChange={(value) => setCategories(value)}
@@ -50,8 +52,17 @@ const FilterBar = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <Text style={{backgroundColor : "red", height: 35, textAlign: "center", marginBottom: 5, marginTop: 5, alignItems: "center" }}>
-            {item.name} {item.category} <Button title={"Appointment"}/>
+          <Text
+            style={{
+              backgroundColor: "red",
+              height: 35,
+              textAlign: "center",
+              marginBottom: 5,
+              marginTop: 5,
+              alignItems: "center",
+            }}
+          >
+            {item.name} {item.category} <Button title={"Appointment"} />
           </Text>
         )}
       />
