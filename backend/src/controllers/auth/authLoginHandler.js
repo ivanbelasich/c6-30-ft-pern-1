@@ -1,13 +1,13 @@
-function authLoginHandler(fetcher, errorManager) {
+function authLoginHandler(fetcher, errorManager, errorResponse) {
     return async function (req, res, next) {
         let { user, password } = req.body
         try {
-            let { data } = await fetcher(process.env.AUTH_DB_URL, user, password)
+            let { data } = await fetcher(user, password)
             return res.status(200).send(data)
         }
         catch (error) {
-            let result = errorManager(error)
-            return res.status(result.status).send(result.json)
+            let {status, message} = errorManager(error)
+            return res.status(status).send(errorResponse(message))
         }
     }
 }
