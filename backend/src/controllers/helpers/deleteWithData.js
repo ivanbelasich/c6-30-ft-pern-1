@@ -1,10 +1,10 @@
 const axios = require('axios').default
 
-function postWithData(url) {
+function deleteWithData(url) {
     return function (data) {
         return axios({
             url,
-            method: "POST",
+            method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -12,4 +12,4 @@ function postWithData(url) {
         })
     }
 }
-module.exports = postWithData
+module.exports = deleteWithData
