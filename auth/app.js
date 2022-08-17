@@ -5,11 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config({ path: path.join(__dirname, '.env') })
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var loginRouter = require('./routes/login')
-var registerRouter = require('./routes/register')
-var refreshRouter = require('./routes/refresh')
-var availableRouter = require('./routes/available')
 
 var app = express();
 var sequelize = require('./sequelize')
@@ -26,10 +21,5 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/login', loginRouter);
-app.use('/register', registerRouter)
-app.use('/refresh', refreshRouter)
-app.use('/available', availableRouter)
 
 module.exports = app;
