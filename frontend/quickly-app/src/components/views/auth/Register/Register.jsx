@@ -36,40 +36,73 @@ const Register = ({ navigation }) => {
         barStyle="light-content"
         backgroundColor={theme.colors.secondary}
       />
-      <View>
-        <Image
-          source={require("../../../../../assets/ClockRegister.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-      </View>
-      <Text style={styles.textMain}>Nos encanta tenerte acá</Text>
-      <View style={styles.block}>
-        <Text style={styles.textSize}>Somos Quickly,</Text>
-        <Text style={styles.textSize}>¿Cómo quieres que te llamemos?</Text>
-      </View>
-      <View style={styles.marginInput}>
-        <TextInput
-          style={styles.inputName}
-          mode="outlined"
-          placeholder="Ingresa tu nombre"
-          onChangeText={(text) => setName(text)}
-        />
-      </View>
-      <View style={styles.marginButton}>
-        <View style={globalStyles.disabledButton}>
-          <TouchableHighlight
-            onPress={handleRegister}
-            style={globalStyles.button}
-          >
-            <Text style={styles.textButton}>Registrar</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
       {view ? (
-        <Text>Tu nombre es correcto</Text>
+        <View>
+          <View>
+            <Text>Hola {name}</Text>
+            <Image
+              source={require("../../../../../assets/ClockRegister.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </View>
+          <View>
+            <Text>
+              Por favor completa estos campos para terminar el registro:
+            </Text>
+          </View>
+          <View>
+            <TextInput>
+              <Text>Mail</Text>
+            </TextInput>
+            <TextInput>
+              <Text>Contraseña</Text>
+            </TextInput>
+          </View>
+          <View style={styles.marginButton}>
+            <View style={globalStyles.disabledButton}>
+              <TouchableHighlight
+                onPress={handleRegister}
+                style={globalStyles.button}
+              >
+                <Text style={styles.textButton}>Registrar</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </View>
       ) : (
-        <Text>Nombre incorrecto</Text>
+        <View>
+          <View>
+            <Image
+              source={require("../../../../../assets/ClockRegister.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
+          </View>
+          <Text style={styles.textMain}>Nos encanta tenerte acá</Text>
+          <View style={styles.block}>
+            <Text style={styles.textSize}>Somos Quickly,</Text>
+            <Text style={styles.textSize}>¿Cómo quieres que te llamemos?</Text>
+          </View>
+          <View style={styles.marginInput}>
+            <TextInput
+              style={styles.inputName}
+              mode="outlined"
+              placeholder="Ingresa tu nombre"
+              onChangeText={(text) => setName(text)}
+            />
+          </View>
+          <View style={styles.marginButton}>
+            <View style={globalStyles.disabledButton}>
+              <TouchableHighlight
+                onPress={handleRegister}
+                style={globalStyles.button}
+              >
+                <Text style={styles.textButton}>Registrar</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </View>
       )}
       <View style={styles.marginDirection}>
         <View style={styles.direction}>
