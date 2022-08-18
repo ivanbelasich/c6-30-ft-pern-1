@@ -7,4 +7,4 @@ function sameUserTokenAndBody(req, res, next) {
     else next()
 }
 
-module.exports = sameUser
+module.exports = sameUserTokenAndBody
