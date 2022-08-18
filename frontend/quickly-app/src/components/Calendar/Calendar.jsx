@@ -30,7 +30,7 @@ const Calendar = () => {
 
   return (
     <View>
-      <Button title="date picker" onPress={() => showMode("date")} />
+      <Button title="Abrir calendario" onPress={() => showMode("date")} />
       <Text>{text}</Text>
       {show && (
         <DateTimePicker
