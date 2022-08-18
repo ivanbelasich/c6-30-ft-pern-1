@@ -26,13 +26,13 @@ export const Login = ({ navigation }) => {
 
   console.log(auth);
 
-  function handleLogin() {
+  const handleLogin = () => {
     auth.signIn();
-  }
+  };
 
-  function handleRegister() {
+  const handleRegister = () => {
     navigation.navigate("Register");
-  }
+  };
 
   const Marked = () => {
     console.log("Esta marcado");
@@ -69,7 +69,6 @@ export const Login = ({ navigation }) => {
           <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
           <TextInput
             mode="outlined"
-            value={password}
             placeholder="Ingresa tu contraseña"
             secureTextEntry={passwordVisible}
             right={

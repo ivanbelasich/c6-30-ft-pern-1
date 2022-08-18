@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ImageBackground,
   ScrollView,
@@ -13,7 +14,18 @@ import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
-const Register = () => {
+const Register = ({ navigation }) => {
+  const [name, setName] = useState("");
+  const [view, setView] = useState(false);
+
+  const handleRegister = () => {
+    if (name == "Fran") {
+      setView(true);
+    } else {
+      setView(false);
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../../../../assets/templates/TemplateRegister.png")}
@@ -41,22 +53,30 @@ const Register = () => {
           style={styles.inputName}
           mode="outlined"
           placeholder="Ingresa tu nombre"
+          onChangeText={(text) => setName(text)}
         />
       </View>
       <View style={styles.marginButton}>
         <View style={globalStyles.disabledButton}>
           <TouchableHighlight
-            onPress={() => console.log("Registrar nombre")}
+            onPress={handleRegister}
             style={globalStyles.button}
           >
             <Text style={styles.textButton}>Registrar</Text>
           </TouchableHighlight>
         </View>
       </View>
+      {view ? (
+        <Text>Tu nombre es correcto</Text>
+      ) : (
+        <Text>Nombre incorrecto</Text>
+      )}
       <View style={styles.marginDirection}>
         <View style={styles.direction}>
           <Text style={styles.textQuestionAccount}>¿Ya tienes cuenta?</Text>
-          <Text style={styles.textLogIn}>¡Inicia Sesión!</Text>
+          <TouchableHighlight onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.textLogIn}>¡Inicia Sesión!</Text>
+          </TouchableHighlight>
         </View>
       </View>
     </ImageBackground>
