@@ -13,6 +13,7 @@ const clientDeleteHandler = require("./clientDeleteHandler");
 const deleteWithData = require("../helpers/deleteWithData");
 
 const clientCreator = clientCreateHandler(
+    "client",
     checkAvailableUser(`${process.env.AUTH_DB_URL}/available`),
     postWithData(`${process.env.AUTH_DB_URL}/register`),
     buildModelEntry(Client),

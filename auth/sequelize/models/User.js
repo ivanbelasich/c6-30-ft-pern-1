@@ -12,9 +12,24 @@ const User = sequelize.define('User', {
     },
     password: {
         type: DataTypes.STRING(128),
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     },
     salt: {
         type: DataTypes.STRING(16),
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
+    },
+    access: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            notEmpty: true
+        }
     }
 }, {
 });

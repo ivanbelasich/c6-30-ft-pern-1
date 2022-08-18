@@ -13,6 +13,7 @@ let deleteWithData = require('../helpers/deleteWithData')
 let deleteModelEntry = require('../helpers/deleteModelEntry')
 
 let providerCreateUser = providerCreateHandler(
+    "provider",
     checkAvailableUser(`${process.env.AUTH_DB_URL}/available`),
     postWithData(`${process.env.AUTH_DB_URL}/register`),
     buildModelEntry(Provider),

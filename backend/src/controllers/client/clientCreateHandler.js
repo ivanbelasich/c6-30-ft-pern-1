@@ -1,11 +1,11 @@
-function clientCreateHandler(availabilityChecker, postAuth, postDB, errorManager, errMessage) {
+function clientCreateHandler(access, availabilityChecker, postAuth, postDB, errorManager, errMessage) {
     return async function (req, res, next) {
         let { user, password, ...props } = req.body
         try {
             let available = await availabilityChecker(user)
             if (!available) return res.status(400).send(errMessage("Username not available."))
             let [authResponse, dbResponse] = await Promise.all([
-                postAuth({ user, password }),
+                postAuth({ user, password, access }),
                 postDB({ user, ...props })
             ])
             let { data: tokens } = authResponse
