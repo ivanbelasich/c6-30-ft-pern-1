@@ -7,17 +7,17 @@ function refresher(accessor, decoder, validator, userExists, tokenError, tokenCr
         let isValidAccessToken = validator(accessTokenPayload)
         if (!isValidAccessToken) return res.status(400).send(tokenError("Invalid access token"))
         
-        let response = await userExists(accessTokenPayload.user)
-        if (!response.success) return res.status(500).send(tokenError("There was a problem querying the database."))
+        let {success, payload} = await userExists(accessTokenPayload.user)
         
-        let user = response.payload
-        if (!user) return res.status(400).send(tokenError("User not registered."))
-
+        if (!success) return res.status(500).send(tokenError("There was a problem querying the database."))
+        if (!payload) return res.status(400).send(tokenError("Invalid user."))
+        
+        let {user, access} = payload
         let refreshTokenPayload = decoder(req.body.refreshToken)
         let isValidRefreshToken = validator(refreshTokenPayload)
         if (!isValidRefreshToken) return res.status(400).send(tokenError("Invalid refresh token"))
 
-        let tokens = tokenCreator(user)
+        let tokens = tokenCreator(user, access)
         return res.send(tokens)
     }
 }
