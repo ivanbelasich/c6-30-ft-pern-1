@@ -18,6 +18,6 @@ async function loginAuthenticator(inputUser, inputPassword) {
         loginSuccess() :
         loginError("Wrong username or password.")
 
-    return result
+    return {result, payload}
 }
 module.exports = loginAuthenticator

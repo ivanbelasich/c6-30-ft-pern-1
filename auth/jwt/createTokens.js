@@ -1,8 +1,8 @@
 const createAccessToken = require("./createAccessToken");
 const createRefreshToken = require("./createRefreshToken");
 
-function createTokens(user) {
-    return { accessToken: createAccessToken(user), refreshToken: createRefreshToken(user) }
+function createTokens(user, access) {
+    return { accessToken: createAccessToken(user, access), refreshToken: createRefreshToken(user, access) }
 }
 
 module.exports = createTokens

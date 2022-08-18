@@ -1,4 +1,4 @@
-function loginValidator(user, password) {
+function loginValidator(user, password, access) {
     let checkTypes = { user, password }
     for (let field in checkTypes) {
         if (typeof checkTypes[field] !== "string") return false
