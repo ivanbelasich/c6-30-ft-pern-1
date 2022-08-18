@@ -1,7 +1,13 @@
 const authLoginHandler = require("./authLoginHandler")
-const authRegisterHandler = require("./authRegisterHandler")
+const authFetcher = require('./authFetcher')
+const errorManager = require('../helpers/errorManager')
+const errorResponse = require("../helpers/errorResponse")
+
+const handleLogin = authLoginHandler(
+    authFetcher(`${process.env.AUTH_DB_URL}/login`),
+    errorManager,
+    errorResponse)
 
 module.exports = {
-    authLoginHandler,
-    authRegisterHandler
+    handleLogin,
 }

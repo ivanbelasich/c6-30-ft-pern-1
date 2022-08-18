@@ -44,18 +44,9 @@ const styles = StyleSheet.create({
     marginTop: 50,
     marginBottom: 10,
   },
-  input: {
-    borderColor: "black",
-    borderRadius: 5,
-    borderWidth: 1,
-    marginRight: 15,
-    marginLeft: 15,
-    fontSize: 20,
-    padding: 6,
-  },
   marginY: {
     marginTop: 15,
-    marginBottom: 30,
+    marginBottom: 20,
   },
   marginX: {
     marginRight: 10,

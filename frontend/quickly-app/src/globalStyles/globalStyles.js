@@ -33,6 +33,7 @@ const globalStyles = StyleSheet.create({
   },
   disabledButton: {
     backgroundColor: theme.colors.disabled,
+    borderRadius: 10,
   },
   cancelButton: {
     backgroundColor: theme.colors.alert,

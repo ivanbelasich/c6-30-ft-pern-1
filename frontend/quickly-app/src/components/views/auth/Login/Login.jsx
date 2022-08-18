@@ -1,28 +1,37 @@
 import { useState } from "react";
-import { TextInput, TouchableHighlight, View, Text, StatusBar, ImageBackground, Image } from "react-native";
 import { useAuth } from "../../../../hooks/useAuth";
+import {
+  TouchableHighlight,
+  View,
+  Text,
+  ImageBackground,
+  Image,
+  StatusBar,
+} from "react-native";
+import { TextInput } from "react-native-paper";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { CheckBox } from "../../../CheckBox/CheckBox";
-
 import { theme } from "../../../../globalStyles/theme";
 import style from "./style";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
 export const Login = ({ navigation }) => {
+  let [user, setUser] = useState("");
+  let [password, setPassword] = useState("Testing");
 
-  let [user, setUser] = useState("Username");
-  let [password, setPassword] = useState("Password");
+  const [passwordVisible, setPasswordVisible] = useState(true);
 
   const auth = useAuth();
 
-    console.log(auth);
+  console.log(auth);
 
   function handleLogin() {
     auth.signIn();
   }
 
   function handleRegister() {
-    navigation.navigate('Register');
+    navigation.navigate("Register");
   }
 
   const Marked = () => {
@@ -35,28 +44,40 @@ export const Login = ({ navigation }) => {
       resizeMode="cover"
       style={style.image}
     >
-      <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={theme.colors.secondary}
+      />
       <View style={style.container}>
         <Image
           source={require("../../../../../assets/logo-quickly.png")}
           style={style.logo}
           resizeMode="center"
         />
-        <View>
+        <View style={style.marginX}>
+          {/* <Text>
+            <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
+          </Text> */}
           <Text style={style.inputContainer}>Ingresa tu usuario</Text>
           <TextInput
-            style={style.input}
-            value={user}
+            mode="outlined"
             placeholder="Ingresa tu usuario"
-            autoFocus={false}
+            right={<TextInput.Affix text="/100" />}
           />
         </View>
-        <View>
+        <View style={style.marginX}>
           <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
           <TextInput
+            mode="outlined"
             value={password}
             placeholder="Ingresa tu contraseña"
-            style={style.input}
+            secureTextEntry={passwordVisible}
+            right={
+              <TextInput.Icon
+                onPress={() => setPasswordVisible(!passwordVisible)}
+                name={passwordVisible ? "eye" : "eye-off"}
+              />
+            }
           />
         </View>
         <View style={style.marginY}>
