@@ -20,6 +20,9 @@ const Home = ({ navigation }) => {
         <TouchableHighlight onPress={() => navigation.navigate('HomeSupplier')}>
           <Text>Home Supplier</Text>
         </TouchableHighlight>
+        <TouchableHighlight onPress={() => navigation.navigate('Turns')}>
+          <Text>Pedir turno</Text>
+        </TouchableHighlight>
         <TouchableHighlight onPress={handleLogout}>
           <Text>Sign Out</Text>
         </TouchableHighlight>
