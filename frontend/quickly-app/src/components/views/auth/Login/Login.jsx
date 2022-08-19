@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -44,77 +45,83 @@ export const Login = ({ navigation }) => {
       resizeMode="cover"
       style={style.image}
     >
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor={theme.colors.secondary}
-      />
-      <View style={style.container}>
-        <Image
-          source={require("../../../../../assets/logo-quickly.png")}
-          style={style.logo}
-          resizeMode="center"
+      <ScrollView>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor={theme.colors.secondary}
         />
-        <View style={style.marginX}>
-          {/* <Text>
+        <View style={style.container}>
+          <Image
+            source={require("../../../../../assets/logo-quickly.png")}
+            style={style.logo}
+            resizeMode="center"
+          />
+          <View style={style.marginX}>
+            {/* <Text>
             <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
           </Text> */}
-          <Text style={style.inputContainer}>Ingresa tu usuario</Text>
-          <TextInput
-            mode="outlined"
-            placeholder="Ingresa tu usuario"
-            right={<TextInput.Affix text="/100" />}
-          />
-        </View>
-        <View style={style.marginX}>
-          <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
-          <TextInput
-            mode="outlined"
-            placeholder="Ingresa tu contraseña"
-            secureTextEntry={passwordVisible}
-            right={
-              <TextInput.Icon
-                onPress={() => setPasswordVisible(!passwordVisible)}
-                name={passwordVisible ? "eye" : "eye-off"}
-              />
-            }
-          />
-        </View>
-        <View style={style.marginY}>
-          <View style={style.direction}>
-            <CheckBox children={"Recordame"} handleChange={Marked} />
-            <Text style={style.textRecuperatePassword}>
-              ¿Olvidaste tu contraseña?
-            </Text>
+            <Text style={style.inputContainer}>Ingresa tu usuario</Text>
+            <TextInput
+              mode="outlined"
+              placeholder="Ingresa tu usuario"
+              right={<TextInput.Affix text="/100" />}
+            />
           </View>
-        </View>
-        <View style={style.marginX}>
-          <View style={globalStyles.normalButton}>
-            <TouchableHighlight
-              onPress={handleLogin}
-              style={globalStyles.button}
-            >
-              <Text style={globalStyles.textButton}>Ingresar</Text>
+          <View style={style.marginX}>
+            <Text style={style.inputContainer}>Ingresa tu contraseña</Text>
+            <TextInput
+              mode="outlined"
+              placeholder="Ingresa tu contraseña"
+              secureTextEntry={passwordVisible}
+              right={
+                <TextInput.Icon
+                  onPress={() => setPasswordVisible(!passwordVisible)}
+                  name={passwordVisible ? "eye" : "eye-off"}
+                />
+              }
+            />
+          </View>
+          <View style={style.marginY}>
+            <View style={style.direction}>
+              <CheckBox children={"Recordame"} handleChange={Marked} />
+              <Text style={style.textRecuperatePassword}>
+                ¿Olvidaste tu contraseña?
+              </Text>
+            </View>
+          </View>
+          <View style={style.marginX}>
+            <View style={globalStyles.normalButton}>
+              <TouchableHighlight
+                onPress={handleLogin}
+                style={globalStyles.button}
+              >
+                <Text style={globalStyles.textButton}>Ingresar</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+          <View style={style.marginX}>
+            <View style={{}}>
+              <View style={style.line}>
+                <View
+                  style={{ flex: 1, height: 1, backgroundColor: "black" }}
+                />
+                <View>
+                  <Text style={{ width: 30, textAlign: "center" }}>O</Text>
+                </View>
+                <View
+                  style={{ flex: 1, height: 1, backgroundColor: "black" }}
+                />
+              </View>
+            </View>
+          </View>
+          <View style={style.direction}>
+            <Text>¿Aún no tienes cuenta?</Text>
+            <TouchableHighlight onPress={handleRegister}>
+              <Text style={style.textRegister}>Súmate!</Text>
             </TouchableHighlight>
           </View>
         </View>
-        <View style={style.marginX}>
-          <View style={{}}>
-            <View style={style.line}>
-              <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
-              <View>
-                <Text style={{ width: 30, textAlign: "center" }}>O</Text>
-              </View>
-              <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
-            </View>
-          </View>
-        </View>
-        <View style={style.direction}>
-          <Text>¿Aún no tienes cuenta?</Text>
-          <TouchableHighlight onPress={handleRegister}>
-            <Text style={style.textRegister}>Súmate!</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
