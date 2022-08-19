@@ -16,13 +16,13 @@ import globalStyles from "../../../../globalStyles/globalStyles";
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState("");
-  const [view, setView] = useState(false);
+  const [show, setShow] = useState(false);
 
   const handleRegister = () => {
     if (name == "Fran") {
-      setView(true);
+      setShow(true);
     } else {
-      setView(false);
+      setShow(false);
     }
   };
 
@@ -36,30 +36,42 @@ const Register = ({ navigation }) => {
         barStyle="light-content"
         backgroundColor={theme.colors.secondary}
       />
-      {view ? (
+      {show ? (
         <View>
-          <View>
-            <Text>Hola {name}</Text>
+          <View style={styles.directionTextLogo}>
+            <View>
+              <Text style={styles.textHello}>¡Hola</Text>
+              <Text style={styles.textName}>{name}!</Text>
+            </View>
             <Image
               source={require("../../../../../assets/ClockRegister.png")}
-              style={styles.logo}
               resizeMode="contain"
+              style={styles.logoPostRegister}
             />
           </View>
-          <View>
-            <Text>
-              Por favor completa estos campos para terminar el registro:
+          <View style={styles.mainText}>
+            <Text style={styles.textMainPost}>
+              Por Favor llena la información
+            </Text>
+            <Text style={styles.textMainPost}>
+              para completar el registro...
             </Text>
           </View>
-          <View>
-            <TextInput>
-              <Text>Mail</Text>
-            </TextInput>
-            <TextInput>
-              <Text>Contraseña</Text>
-            </TextInput>
+          <View style={styles.marginButtonPost}>
+            <Text style={styles.textNameInput}>Mail</Text>
+            <TextInput
+              style={styles.inputName}
+              mode="outlined"
+              placeholder="Ingresa tu Mail"
+            ></TextInput>
+            <Text style={styles.textPasswordInput}>Contraseña</Text>
+            <TextInput
+              style={styles.inputName}
+              mode="outlined"
+              placeholder="Ingresa tu Contraseña"
+            ></TextInput>
           </View>
-          <View style={styles.marginButton}>
+          <View style={styles.marginButtonRegister}>
             <View style={globalStyles.disabledButton}>
               <TouchableHighlight
                 onPress={handleRegister}
