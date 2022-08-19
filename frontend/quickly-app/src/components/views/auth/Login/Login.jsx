@@ -57,9 +57,6 @@ export const Login = ({ navigation }) => {
             resizeMode="center"
           />
           <View style={style.marginX}>
-            {/* <Text>
-            <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
-          </Text> */}
             <Text style={style.inputContainer}>Ingresa tu usuario</Text>
             <TextInput
               mode="outlined"
@@ -81,38 +78,26 @@ export const Login = ({ navigation }) => {
               }
             />
           </View>
-          <View style={style.marginY}>
-            <View style={style.direction}>
-              <CheckBox children={"Recordame"} handleChange={Marked} />
-              <Text style={style.textRecuperatePassword}>
-                ¿Olvidaste tu contraseña?
-              </Text>
-            </View>
+          <View style={[style.marginY, style.direction]}>
+            <CheckBox children={"Recordame"} handleChange={Marked} />
+            <Text style={style.textRecuperatePassword}>
+              ¿Olvidaste tu contraseña?
+            </Text>
           </View>
-          <View style={style.marginX}>
-            <View style={globalStyles.normalButton}>
-              <TouchableHighlight
-                onPress={handleLogin}
-                style={globalStyles.button}
-              >
-                <Text style={globalStyles.textButton}>Ingresar</Text>
-              </TouchableHighlight>
-            </View>
+          <View style={[style.marginX, globalStyles.normalButton]}>
+            <TouchableHighlight
+              onPress={handleLogin}
+              style={globalStyles.button}
+            >
+              <Text style={globalStyles.textButton}>Ingresar</Text>
+            </TouchableHighlight>
           </View>
-          <View style={style.marginX}>
-            <View style={{}}>
-              <View style={style.line}>
-                <View
-                  style={{ flex: 1, height: 1, backgroundColor: "black" }}
-                />
-                <View>
-                  <Text style={{ width: 30, textAlign: "center" }}>O</Text>
-                </View>
-                <View
-                  style={{ flex: 1, height: 1, backgroundColor: "black" }}
-                />
-              </View>
+          <View style={[style.marginX, style.line]}>
+            <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
+            <View>
+              <Text style={{ width: 30, textAlign: "center" }}>O</Text>
             </View>
+            <View style={{ flex: 1, height: 1, backgroundColor: "black" }} />
           </View>
           <View style={style.direction}>
             <Text>¿Aún no tienes cuenta?</Text>
@@ -127,6 +112,10 @@ export const Login = ({ navigation }) => {
 };
 
 export default Login;
+
+/* <Text>
+            <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
+          </Text> */
 
 // export default function Login() {
 //     let [response, setResponse] = useState(["Server response."])

@@ -72,26 +72,24 @@ const Register = ({ navigation }) => {
                 placeholder="Ingresa tu Contraseña"
               ></TextInput>
             </View>
-            <View style={styles.marginButtonRegister}>
-              <View style={globalStyles.normalButton}>
-                <TouchableHighlight
-                  onPress={handleRegister}
-                  style={globalStyles.button}
-                >
-                  <Text style={styles.textButton}>Registrar</Text>
-                </TouchableHighlight>
-              </View>
+            <View
+              style={[styles.marginButtonRegister, globalStyles.normalButton]}
+            >
+              <TouchableHighlight
+                onPress={handleRegister}
+                style={globalStyles.button}
+              >
+                <Text style={styles.textButton}>Registrar</Text>
+              </TouchableHighlight>
             </View>
           </View>
         ) : (
           <View>
-            <View>
-              <Image
-                source={require("../../../../../assets/ClockRegister.png")}
-                style={styles.logo}
-                resizeMode="contain"
-              />
-            </View>
+            <Image
+              source={require("../../../../../assets/ClockRegister.png")}
+              style={styles.logo}
+              resizeMode="contain"
+            />
             <Text style={styles.textMain}>Nos encanta tenerte acá</Text>
             <View style={styles.block}>
               <Text style={styles.textSize}>Somos Quickly,</Text>
@@ -107,25 +105,21 @@ const Register = ({ navigation }) => {
                 onChangeText={(text) => setName(text)}
               />
             </View>
-            <View style={styles.marginButton}>
-              <View style={globalStyles.normalButton}>
-                <TouchableHighlight
-                  onPress={handleRegister}
-                  style={globalStyles.button}
-                >
-                  <Text style={styles.textButton}>Registrar</Text>
-                </TouchableHighlight>
-              </View>
+            <View style={[styles.marginButton, globalStyles.normalButton]}>
+              <TouchableHighlight
+                onPress={handleRegister}
+                style={globalStyles.button}
+              >
+                <Text style={styles.textButton}>Registrar</Text>
+              </TouchableHighlight>
             </View>
           </View>
         )}
-        <View style={styles.marginDirection}>
-          <View style={styles.direction}>
-            <Text style={styles.textQuestionAccount}>¿Ya tienes cuenta?</Text>
-            <TouchableHighlight onPress={() => navigation.navigate("Login")}>
-              <Text style={styles.textLogIn}>¡Inicia Sesión!</Text>
-            </TouchableHighlight>
-          </View>
+        <View style={[styles.marginDirection, styles.direction]}>
+          <Text style={styles.textQuestionAccount}>¿Ya tienes cuenta?</Text>
+          <TouchableHighlight onPress={() => navigation.navigate("Login")}>
+            <Text style={styles.textLogIn}>¡Inicia Sesión!</Text>
+          </TouchableHighlight>
         </View>
       </ScrollView>
     </ImageBackground>
