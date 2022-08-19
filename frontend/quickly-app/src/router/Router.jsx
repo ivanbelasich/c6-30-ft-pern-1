@@ -11,6 +11,7 @@ import HomeUser from "../components/views/user/HomeUser/HomeUser.jsx";
 import HomeSupplier from "../components/views/supplier/HomeSupplier.jsx";
 import Login from "../components/views/auth/Login/Login.jsx";
 import Register from "../components/views/auth/Register/Register.jsx";
+import NewService from "../components/views/supplier/NewService/NewService";
 // Components
 import Notifications from "../components/views/user/Notifications/Notifications.jsx";
 
@@ -42,6 +43,13 @@ const AppStack = () => {
             headerTintColor: theme.colors.background,
           }}
         />
+        <Stack.Screen name="NewService" component={NewService} options={{
+            title: "Nuevo Servicio",
+            headerStyle: {
+              backgroundColor: theme.colors.secondary,
+            },
+            headerTintColor: theme.colors.background,
+          }} />
       </Stack.Navigator>
   );
 };

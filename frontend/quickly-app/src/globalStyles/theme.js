@@ -7,7 +7,9 @@ export const theme = {
     alert: "#E81002",
     accent: "#E8C952",
     success: "#0DA930",
-    disabled: "#C7C3BC",
+    disabled: "#90A9B2",
+    disabled2: "#C7C3BC",
+    bgCard: "#D9D9D9",
   },
   fontSize: {
     logo: 48,
