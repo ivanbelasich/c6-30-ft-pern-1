@@ -51,7 +51,7 @@ const Register = ({ navigation }) => {
           </View>
           <View style={styles.mainText}>
             <Text style={styles.textMainPost}>
-              Por Favor llena la información
+              Por favor llena la información
             </Text>
             <Text style={styles.textMainPost}>
               para completar el registro...
@@ -72,7 +72,7 @@ const Register = ({ navigation }) => {
             ></TextInput>
           </View>
           <View style={styles.marginButtonRegister}>
-            <View style={globalStyles.disabledButton}>
+            <View style={globalStyles.normalButton}>
               <TouchableHighlight
                 onPress={handleRegister}
                 style={globalStyles.button}
@@ -105,7 +105,7 @@ const Register = ({ navigation }) => {
             />
           </View>
           <View style={styles.marginButton}>
-            <View style={globalStyles.disabledButton}>
+            <View style={globalStyles.normalButton}>
               <TouchableHighlight
                 onPress={handleRegister}
                 style={globalStyles.button}

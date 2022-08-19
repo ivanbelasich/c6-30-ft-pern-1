@@ -88,7 +88,7 @@ export const Login = ({ navigation }) => {
           </View>
         </View>
         <View style={style.marginX}>
-          <View style={globalStyles.disabledButton}>
+          <View style={globalStyles.normalButton}>
             <TouchableHighlight
               onPress={handleLogin}
               style={globalStyles.button}

@@ -74,10 +74,13 @@ const styles = StyleSheet.create({
   },
   textHello: {
     fontSize: 28,
+    fontWeight: "600",
   },
   textName: {
     fontSize: 28,
     marginLeft: 35,
+    fontWeight: "600",
+    color: "#DD4E24",
   },
   mainText: {
     marginTop: 20,
@@ -95,7 +98,6 @@ const styles = StyleSheet.create({
   textPasswordInput: {
     marginTop: 15,
     fontSize: 16,
-
     fontWeight: "500",
   },
   textNameInput: {
