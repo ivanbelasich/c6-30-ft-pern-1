@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Platform } from "react-native";
 import Constants from "expo-constants";
 import { theme } from "./theme";
 
@@ -38,6 +38,22 @@ const globalStyles = StyleSheet.create({
   cancelButton: {
     backgroundColor: theme.colors.alert,
   },
+  boxShadow: {
+    ...Platform.select({
+      ios: {
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowColor: "#171717",
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
+  },
   inputContainer: {
     marginVertical: 10,
   },
@@ -51,9 +67,18 @@ const globalStyles = StyleSheet.create({
     padding: 10,
     borderRadius: 15,
   },
+  inputError: {
+    borderColor: theme.colors.alert,
+  },
   textError: {
     fontSize: theme.fontSize.caption,
     color: theme.colors.alert,
+  },
+  cardContainer: {
+    backgroundColor: theme.colors.bgCard,
+    padding: 20,
+    borderRadius: 10,
+    overflow: "hidden",
   },
 });
 

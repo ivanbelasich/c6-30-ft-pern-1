@@ -25,9 +25,7 @@ export const Login = ({ navigation }) => {
 
   const auth = useAuth();
 
-  console.log(auth);
-
-  const handleLogin = () => {
+  function handleLogin() {
     auth.signIn();
   };
 
