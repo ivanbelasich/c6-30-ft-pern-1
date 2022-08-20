@@ -24,8 +24,6 @@ export const Login = ({ navigation }) => {
 
   const auth = useAuth();
 
-  console.log(auth);
-
   function handleLogin() {
     auth.signIn();
   }
