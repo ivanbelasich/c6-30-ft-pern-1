@@ -4,7 +4,7 @@ const Provider = require('../sequelize/models/Provider')
 const sanitizer = require('../middleware/sanitizer');
 const jwtMiddleware = require('../middleware/jwt')
 const sameUserTokenAndBody = require('../middleware/sameUserTokenAndBody')
-const { providerFindUser, providerCreateUser, providerDeleteUser } = require('../controllers/provider');
+const { providerFindUser, providerCreateUser, providerDeleteUser, providerUpdateUser } = require('../controllers/provider');
 
 let { id, createdAt, updatedAt, ...modelProps } = Provider.getAttributes()
 let modelKeys = Object.keys(modelProps)
@@ -20,6 +20,11 @@ router.delete('/',
     jwtMiddleware,
     sameUserTokenAndBody,
     providerDeleteUser
+)
+router.put('/', sanitizePut,
+    jwtMiddleware,
+    sameUserTokenAndBody,
+    providerUpdateUser
 )
 
 

@@ -8,9 +8,12 @@ let buildModelEntry = require('../helpers/buildModelEntry')
 let findModelEntry = require('../helpers/findModelEntry')
 let extractQuery = require('../helpers/extractQuery')
 let providerDeleteHandler = require('../client/clientDeleteHandler')
+let providerUpdateHandler = require('../client/clientUpdateHandler')
 let postWithData = require('../helpers/postWithData')
 let deleteWithData = require('../helpers/deleteWithData')
 let deleteModelEntry = require('../helpers/deleteModelEntry')
+let updateModelEntry = require('../helpers/updateModelEntry')
+
 
 let providerCreateUser = providerCreateHandler(
     "provider",
@@ -36,8 +39,15 @@ const providerDeleteUser = providerDeleteHandler(
     errorResponse
 )
 
+const providerUpdateUser = providerUpdateHandler(
+    updateModelEntry(Provider),
+    errorManager,
+    errorResponse
+)
+
 module.exports = {
     providerCreateUser,
     providerFindUser,
-    providerDeleteUser
+    providerDeleteUser,
+    providerUpdateUser
 }
