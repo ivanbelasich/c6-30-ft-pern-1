@@ -5,29 +5,28 @@ const Provider = sequelize.define("Provider", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    name: {
+    email : {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    name: {
+        type: DataTypes.STRING,
     },
     address: {
         type: DataTypes.STRING,
-        allowNull: false
     },
     city: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     state: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     country: {
         type: DataTypes.STRING,
-        allowNull: false,
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: false,
     }
 })
+
 module.exports = Provider
