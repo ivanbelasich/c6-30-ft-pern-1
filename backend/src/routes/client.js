@@ -8,8 +8,10 @@ const sameUserTokenAndBody = require('../middleware/sameUserTokenAndBody')
 
 let { id, createdAt, updatedAt, ...modelProps } = Client.getAttributes()
 let modelKeys = Object.keys(modelProps)
-let sanitizePost = sanitizer([...modelKeys, 'password'])
+
+let sanitizePost = sanitizer(['user', 'password', 'email'])
 let sanitizeDelete = sanitizer(['user'])
+let sanitizePut = sanitizer([...modelKeys])
 
 router.get('/', clientFindUser)
 router.post('/', sanitizePost, clientCreator)

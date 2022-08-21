@@ -9,8 +9,9 @@ const { providerFindUser, providerCreateUser, providerDeleteUser } = require('..
 let { id, createdAt, updatedAt, ...modelProps } = Provider.getAttributes()
 let modelKeys = Object.keys(modelProps)
 
-let sanitizePost = sanitizer([...modelKeys, 'password'])
+let sanitizePost = sanitizer(['user', 'password', 'email'])
 let sanitizeDelete = sanitizer(['user'])
+let sanitizePut = sanitizer([...modelKeys])
 
 router.get('/', providerFindUser)
 router.post('/', sanitizePost, providerCreateUser)
