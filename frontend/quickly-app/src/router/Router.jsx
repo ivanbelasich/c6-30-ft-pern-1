@@ -17,40 +17,49 @@ import Notifications from "../components/views/user/Notifications/Notifications.
 
 import { theme } from "../globalStyles/theme";
 import FilterBar from "../components/FilterBar/FilterBar";
+import RegisterSuccessful from "../components/views/auth/registerSuccessful/RegisterSuccessful";
 
 const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Turns" component={FilterBar} options={{
-            title: "Nuevo turno",
-            headerStyle: {
-              backgroundColor: theme.colors.secondary,
-            },
-            headerTintColor: theme.colors.background,
-          }}/>
-        <Stack.Screen name="HomeUser" component={HomeUser} />
-        <Stack.Screen
-          name="HomeSupplier"
-          component={HomeSupplier}
-          options={{
-            title: "Mi Servicio",
-            headerStyle: {
-              backgroundColor: theme.colors.secondary,
-            },
-            headerTintColor: theme.colors.background,
-          }}
-        />
-        <Stack.Screen name="NewService" component={NewService} options={{
-            title: "Nuevo Servicio",
-            headerStyle: {
-              backgroundColor: theme.colors.secondary,
-            },
-            headerTintColor: theme.colors.background,
-          }} />
-      </Stack.Navigator>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen
+        name="Turns"
+        component={FilterBar}
+        options={{
+          title: "Nuevo turno",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen name="HomeUser" component={HomeUser} />
+      <Stack.Screen
+        name="HomeSupplier"
+        component={HomeSupplier}
+        options={{
+          title: "Mi Servicio",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="NewService"
+        component={NewService}
+        options={{
+          title: "Nuevo Servicio",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 
@@ -68,6 +77,17 @@ const AuthStack = () => {
       <Stack.Screen
         name="Register"
         component={Register}
+        options={{
+          title: "Registro",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="RegisterSuccessful"
+        component={RegisterSuccessful}
         options={{
           title: "Registro",
           headerStyle: {

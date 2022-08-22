@@ -23,18 +23,14 @@ export const Login = ({ navigation }) => {
 
   const [passwordVisible, setPasswordVisible] = useState(true);
 
-  const auth = useAuth();
-
-  function handleLogin() {
-    auth.signIn();
-  };
-
   const handleRegister = () => {
     navigation.navigate("Register");
   };
 
-  const Marked = () => {
-    console.log("Esta marcado");
+  const auth = useAuth();
+
+  const handleLogin = () => {
+    auth.signIn();
   };
 
   return (
@@ -77,7 +73,7 @@ export const Login = ({ navigation }) => {
             />
           </View>
           <View style={[style.marginY, style.direction]}>
-            <CheckBox children={"Recordame"} handleChange={Marked} />
+            <CheckBox children={"Recordame"} />
             <Text style={style.textRecuperatePassword}>
               ¿Olvidaste tu contraseña?
             </Text>
@@ -116,10 +112,7 @@ export default Login;
           </Text> */
 
 // export default function Login() {
-//     let [response, setResponse] = useState(["Server response."])
-
-//     const navigate = useNavigate();
-
+//     let [response, setResponse] = useState(["Server response."]
 //     const auth = useAuth();
 
 //     async function login(user, password) {

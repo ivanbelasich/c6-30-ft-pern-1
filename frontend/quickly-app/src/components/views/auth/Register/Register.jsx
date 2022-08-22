@@ -18,11 +18,19 @@ const Register = ({ navigation }) => {
   const [name, setName] = useState("");
   const [show, setShow] = useState(false);
 
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleRegister = () => {
     if (name == "Fran") {
       setShow(true);
     } else {
       setShow(false);
+    }
+    console.log(password);
+    console.log(mail);
+    if (mail == "algo" && password == "algo") {
+      navigation.navigate("RegisterSuccessful");
     }
   };
 
@@ -64,12 +72,14 @@ const Register = ({ navigation }) => {
                 style={styles.inputName}
                 mode="outlined"
                 placeholder="Ingresa tu Mail"
+                onChangeText={(email) => setMail(email)}
               ></TextInput>
               <Text style={styles.textPasswordInput}>Contraseña</Text>
               <TextInput
                 style={styles.inputName}
                 mode="outlined"
                 placeholder="Ingresa tu Contraseña"
+                onChangeText={(pw) => setPassword(pw)}
               ></TextInput>
             </View>
             <View
