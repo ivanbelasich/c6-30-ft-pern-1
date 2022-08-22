@@ -1,17 +1,12 @@
 let Date = require('../../sequelize/models/Date')
 let Service = require('../../sequelize/models/Service')
 
-function serviceCreateHandler(errorManager, errorResponse) {
+function serviceCreateHandler(exists, creator, errorManager, errorResponse) {
     return async function (req, res, next) {
         try {
-            const { user, name, value, date, description } = req.body;
-            const ServiceData = await Service.create({
-                userName: user,
-                name,
-                value,
-                description,
-            })
-            await ServiceData.createDate(date)
+            let user = await exists({ where: { user: req.body.user } })
+            if (!user) return res.status(400).send(errorResponse("Provider not found"))
+            let success = await creator(req.body)
             return res.send({ success: true, message: "Service created successfully" });
         } catch (err) {
             let { status, message } = errorManager(err)
