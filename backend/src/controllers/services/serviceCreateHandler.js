@@ -1,6 +1,3 @@
-let Date = require('../../sequelize/models/Date')
-let Service = require('../../sequelize/models/Service')
-
 function serviceCreateHandler(exists, creator, errorManager, errorResponse) {
     return async function (req, res, next) {
         try {
