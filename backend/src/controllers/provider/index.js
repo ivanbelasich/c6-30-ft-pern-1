@@ -1,6 +1,8 @@
 let providerCreateHandler = require('../client/clientCreateHandler')
 let checkAvailableUser = require('../client/checkAvailableUser')
 let Provider = require('../../sequelize/models/Provider')
+let Service = require('../../sequelize/models/Service')
+let Date = require('../../sequelize/models/Date')
 let errorManager = require('../helpers/errorManager')
 let errorResponse = require('../helpers/errorResponse')
 let findOneUser = require('../helpers/findOneUser')
@@ -13,7 +15,7 @@ let postWithData = require('../helpers/postWithData')
 let deleteWithData = require('../helpers/deleteWithData')
 let deleteModelEntry = require('../helpers/deleteModelEntry')
 let updateModelEntry = require('../helpers/updateModelEntry')
-
+let findProviderIncludeService = require('./findProviderIncludeService')
 
 let providerCreateUser = providerCreateHandler(
     "provider",
@@ -25,7 +27,7 @@ let providerCreateUser = providerCreateHandler(
 )
 
 let providerFindUser = findOneUser(
-    findModelEntry(Provider),
+    findProviderIncludeService(Provider, {model: Service, include: Date }),
     extractQuery,
     errorManager,
     errorResponse,

@@ -3,6 +3,7 @@ const sequelize = require('../index')
 const Provider = sequelize.define("Provider", {
     user: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false
     },
     email : {
@@ -26,7 +27,7 @@ const Provider = sequelize.define("Provider", {
     },
     img: {
         type: DataTypes.STRING,
-    }
+    },
 })
 
 module.exports = Provider

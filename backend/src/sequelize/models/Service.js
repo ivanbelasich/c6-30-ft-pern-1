@@ -6,6 +6,9 @@ const Service = sequelize.define("Service", {
 		defaultValue: DataTypes.UUIDV4,
 		primaryKey: true,
 		allowNull: false,
+		get() {
+			return this.getDataValue("id")
+		}
 	},
 	name: {
 		type: DataTypes.STRING,
