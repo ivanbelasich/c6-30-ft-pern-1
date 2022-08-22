@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { createService } = require('../controllers/services/index')
+const { createService, deleteService } = require('../controllers/services/index')
 // import { deleteServices, getService, getServices, getServicesCount, updateServices, saveServices, createServices } from '../controllers/services'
 
 const router = Router();
@@ -9,7 +9,7 @@ const router = Router();
 router.post('/', createService);
 // router.get('/:id', getService);
 // router.post('/services', saveServices);
-// router.delete('/:id', deleteServices);
+router.delete('/', deleteService);
 // router.put('/:id', updateServices);
 
 module.exports = router;

@@ -3,7 +3,9 @@ let dbServiceCreator = require('./dbServiceCreator')
 let errorManager = require('../helpers/errorManager')
 let errorResponse = require('../helpers/errorResponse')
 const findModelEntry = require("../helpers/findModelEntry")
-const { Provider } = require("../../sequelize/models")
+const { Provider, Service } = require("../../sequelize/models")
+const serviceDeleteHandler = require("./serviceDeleteHandler")
+const deleteModelEntry = require("../helpers/deleteModelEntry")
 
 let createService = serviceCreateHandler(
     findModelEntry(Provider),
@@ -12,4 +14,10 @@ let createService = serviceCreateHandler(
     errorResponse
 )
 
-module.exports = { createService }
+let deleteService = serviceDeleteHandler(
+    deleteModelEntry(Service),
+    errorManager,
+    errorResponse
+)
+
+module.exports = { createService, deleteService }
