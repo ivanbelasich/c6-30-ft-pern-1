@@ -10,6 +10,10 @@ const Service = sequelize.define("Service", {
 			return this.getDataValue("id")
 		}
 	},
+	category: {
+		type: DataTypes.STRING,
+		allowNull: false
+	},
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false,
