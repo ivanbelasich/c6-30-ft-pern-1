@@ -11,6 +11,8 @@ const findModelEntry = require("../helpers/findModelEntry");
 const deleteModelEntry = require('../helpers/deleteModelEntry')
 const clientDeleteHandler = require("./clientDeleteHandler");
 const deleteWithData = require("../helpers/deleteWithData");
+const clientUpdateHandler = require("./clientUpdateHandler");
+const updateModelEntry = require("../helpers/updateModelEntry");
 
 const clientCreator = clientCreateHandler(
     "client",
@@ -36,8 +38,15 @@ const clientDeleteUser = clientDeleteHandler(
     errorResponse
 )
 
+const clientUpdateUser = clientUpdateHandler(
+    updateModelEntry(Client),
+    errorManager,
+    errorResponse
+)
+
 module.exports = {
     clientCreator,
     clientFindUser,
-    clientDeleteUser
+    clientDeleteUser,
+    clientUpdateUser
 }

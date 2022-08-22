@@ -2,14 +2,16 @@ const { Router } = require('express');
 const router = Router();
 const Client = require('../sequelize/models/Client')
 const sanitizer = require('../middleware/sanitizer');
-const { clientCreator, clientFindUser, clientDeleteUser } = require('../controllers/client/index')
 const jwtMiddleware = require('../middleware/jwt')
 const sameUserTokenAndBody = require('../middleware/sameUserTokenAndBody')
+const { clientCreator, clientFindUser, clientDeleteUser, clientUpdateUser } = require('../controllers/client/index')
 
 let { id, createdAt, updatedAt, ...modelProps } = Client.getAttributes()
 let modelKeys = Object.keys(modelProps)
-let sanitizePost = sanitizer([...modelKeys, 'password'])
+
+let sanitizePost = sanitizer(['user', 'password', 'email'])
 let sanitizeDelete = sanitizer(['user'])
+let sanitizePut = sanitizer([...modelKeys])
 
 router.get('/', clientFindUser)
 router.post('/', sanitizePost, clientCreator)
@@ -18,6 +20,12 @@ router.delete('/',
     jwtMiddleware,
     sameUserTokenAndBody,
     clientDeleteUser
+)
+router.put('/',
+    sanitizePut,
+    jwtMiddleware,
+    sameUserTokenAndBody,
+    clientUpdateUser
 )
 
 module.exports = router;
