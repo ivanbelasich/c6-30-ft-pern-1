@@ -23,14 +23,18 @@ export const Login = ({ navigation }) => {
 
   const [passwordVisible, setPasswordVisible] = useState(true);
 
-  const handleRegister = () => {
-    navigation.navigate("Register");
-  };
-
   const auth = useAuth();
 
   const handleLogin = () => {
     auth.signIn();
+  };
+
+  const handleRegister = () => {
+    navigation.navigate("Register");
+  };
+
+  const handleForgetPassword = () => {
+    navigation.navigate("ForgetPassword");
   };
 
   return (
@@ -74,9 +78,11 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={[style.marginY, style.direction]}>
             <CheckBox children={"Recordame"} />
-            <Text style={style.textRecuperatePassword}>
-              ¿Olvidaste tu contraseña?
-            </Text>
+            <TouchableHighlight onPress={handleForgetPassword}>
+              <Text style={style.textRecuperatePassword}>
+                ¿Olvidaste tu contraseña?
+              </Text>
+            </TouchableHighlight>
           </View>
           <View style={[style.marginX, globalStyles.normalButton]}>
             <TouchableHighlight

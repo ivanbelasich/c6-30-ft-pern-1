@@ -18,6 +18,7 @@ import Notifications from "../components/views/user/Notifications/Notifications.
 import { theme } from "../globalStyles/theme";
 import FilterBar from "../components/FilterBar/FilterBar";
 import RegisterSuccessful from "../components/views/auth/registerSuccessful/RegisterSuccessful";
+import ForgetPassword from "../components/views/auth/ForgetPassword/ForgetPassword";
 
 const Stack = createStackNavigator();
 
@@ -79,6 +80,17 @@ const AuthStack = () => {
         component={Register}
         options={{
           title: "Registro",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+        options={{
+          title: "Recuperar Contraseña",
           headerStyle: {
             backgroundColor: theme.colors.secondary,
           },
