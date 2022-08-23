@@ -1,11 +1,13 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../index')
 const Order = sequelize.define("Order", {
-	provider: {
-		type: DataTypes.STRING,
+	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
+		primaryKey: true,
 		allowNull: false,
 	},
-	client: {
+	status: {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},

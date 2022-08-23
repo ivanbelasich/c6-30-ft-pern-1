@@ -1,7 +1,6 @@
 let errorResponse = require('./errorResponse')
 
 function errorManager(error) {
-    console.log(error)
     if (error.response) {
         return {
             status: error.response.status,
