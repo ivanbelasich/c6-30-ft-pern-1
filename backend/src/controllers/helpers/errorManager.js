@@ -1,10 +1,17 @@
 let errorResponse = require('./errorResponse')
 
 function errorManager(error) {
+    // console.log(Object.keys(error))
+    // console.log(error.parent)
     if (error.response) {
         return {
             status: error.response.status,
             ...errorResponse(error.response.data.message || `Server responded with code ${error.response.status}`)
+        }
+    } else if (error.parent) {
+        return {
+            status: 400,
+            ...errorResponse(error.parent.message)
         }
     } else if (error.request) {
         return {

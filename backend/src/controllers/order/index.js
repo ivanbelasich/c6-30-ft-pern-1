@@ -12,12 +12,11 @@ let orderUpdateHandler = require("./orderUpdateHandler")
 let findModelEntry = require("../helpers/findModelEntry")
 let updateOrderEntry = require("./updateOrderEntry")
 let findOneQuery = require('../helpers/findOneQuery')
-let extractQuery = require("../helpers/extractQuery")
-
+let extractParameter = require('../helpers/extractParameter')
 
 let getOrder = findOneQuery(
     findModelEntryInclude(Order, [Client, Provider, Service]),
-    extractQuery,
+    extractParameter("id"),
     errorManager,
     errorResponse
 )
