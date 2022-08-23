@@ -4,6 +4,7 @@ import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import globalStyles from "../../../../globalStyles/globalStyles";
 import styles from "./styles";
+import NewPassword from "../NewPassword/NewPassword";
 
 const ForgetPassword = () => {
   const [view, setView] = useState(true);
@@ -39,15 +40,18 @@ const ForgetPassword = () => {
               </View>
             </View>
           </TouchableOpacity>
+          <View style={[globalStyles.normalButton, styles.marginButton]}>
+            <TouchableOpacity
+              onPress={handleSubmit}
+              style={globalStyles.button}
+            >
+              <Text style={globalStyles.textButton}>Continuar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       ) : (
-        <Text>Aca va la parte donde te llega el codigo.</Text>
+        <NewPassword />
       )}
-      <View style={[globalStyles.normalButton, styles.marginButton]}>
-        <TouchableOpacity onPress={handleSubmit} style={globalStyles.button}>
-          <Text style={globalStyles.textButton}>Continuar</Text>
-        </TouchableOpacity>
-      </View>
     </ScrollView>
   );
 };
