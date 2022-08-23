@@ -1,11 +1,19 @@
-function orderCreateHandler(fetchOrders,availabler, dbOrderCreate, errorManager, errorResponse) {
+function orderCreateHandler(fetchOrders, checkIfAssigned, dbOrderCreate, errorManager, errorResponse) {
     return async function (req, res, next) {
-        let { user, provider, serviceId, date } = req.body
+        let { client, serviceId, date } = req.body
         try {
-            let assignedOrders = await fetchOrders(serviceId)
-            let isAvailable = availabler(date, assignedOrders)
-            if (!isAvailable) return res.status(400).send(errorResponse("Date already assigned."))
-            let creation = await dbOrderCreate(user, provider, serviceId)
+            let service = await fetchOrders(serviceId)
+            let { Orders, Provider, description, value } = service
+            let isAssigned = checkIfAssigned(date, Orders.map(k => k.dataValues.date))
+            if (isAssigned) return res.status(400).send(errorResponse("Date already assigned."))
+            let order = await dbOrderCreate({
+                client,
+                provider: Provider.user,
+                date,
+                description,
+                value
+            })
+            await service.addOrder(order)
             return res.send({ success: true, message: "Order successfully created." })
         } catch (error) {
             let { status, message } = errorManager(error)
