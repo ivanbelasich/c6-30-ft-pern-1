@@ -89,10 +89,6 @@ const AuthStack = () => {
         name="RegisterSuccessful"
         component={RegisterSuccessful}
         options={{
-          title: "Registro",
-          headerStyle: {
-            backgroundColor: theme.colors.secondary,
-          },
           headerTintColor: theme.colors.background,
         }}
       />
