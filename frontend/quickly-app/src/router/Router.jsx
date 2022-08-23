@@ -17,7 +17,7 @@ import Notifications from "../components/views/user/Notifications/Notifications.
 
 import { theme } from "../globalStyles/theme";
 import FilterBar from "../components/FilterBar/FilterBar";
-import RegisterSuccessful from "../components/views/auth/registerSuccessful/RegisterSuccessful";
+import RegisterSuccessful from "../components/views/auth/RegisterSuccessful/RegisterSuccessful";
 import ForgetPassword from "../components/views/auth/ForgetPassword/ForgetPassword";
 
 const Stack = createStackNavigator();
