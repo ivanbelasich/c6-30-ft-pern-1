@@ -4,14 +4,15 @@ function orderCreateHandler(fetchOrders, checkIfAvailable, checkIfAssigned, dbOr
         try {
             let service = await fetchOrders(serviceId)
             if (!service) return res.status(400).send(errorResponse("Service ID not found."))
-            let { Orders, Provider, description, value, Date } = service
+            let { Orders, provider, description, value, Date } = service
             let { monday, tuesday, wednesday, thursday, friday, saturday, sunday } = Date.dataValues
             let isAvailable = checkIfAvailable(date, { monday, tuesday, wednesday, thursday, friday, saturday, sunday })
+            if (!isAvailable) return res.status(400).send(errorResponse("Date not available."))
             let isAssigned = checkIfAssigned(date, Orders.map(k => k.dataValues.date))
             if (!isAvailable || isAssigned) return res.status(400).send(errorResponse("Date already assigned."))
             let order = await dbOrderCreate({
                 client,
-                provider: Provider.user,
+                provider,
                 date,
                 description,
                 value,

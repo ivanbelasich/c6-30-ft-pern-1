@@ -15,7 +15,7 @@ function isDateAvailable(date, availableDates) {
     let minutes = twoDigits(String(mappedDate.getMinutes()))
     
     if (!availableDates[day] || !availableDates[day]) return false
-    else return !availableDates[day].includes(`${hour}:${minutes}`)
+    else return availableDates[day].includes(`${hour}:${minutes}`)
 }
 
 module.exports = isDateAvailable
