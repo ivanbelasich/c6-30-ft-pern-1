@@ -14,7 +14,7 @@ function isDateAvailable(date, availableDates) {
     let hour = twoDigits(String(mappedDate.getHours()))
     let minutes = twoDigits(String(mappedDate.getMinutes()))
     
-    if (!availableDates[day] || !availableDates[day]) return false
+    if (!availableDates[day] || !availableDates[day] instanceof Array) return false
     else return availableDates[day].includes(`${hour}:${minutes}`)
 }
 
