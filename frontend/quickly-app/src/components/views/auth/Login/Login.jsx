@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { CheckBox } from "../../../CheckBox/CheckBox";
 import { theme } from "../../../../globalStyles/theme";

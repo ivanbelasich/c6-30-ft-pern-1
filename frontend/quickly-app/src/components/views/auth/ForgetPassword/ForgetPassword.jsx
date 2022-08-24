@@ -6,7 +6,7 @@ import globalStyles from "../../../../globalStyles/globalStyles";
 import styles from "./styles";
 import NewPassword from "../NewPassword/NewPassword";
 
-const ForgetPassword = () => {
+const ForgetPassword = ({ navigation }) => {
   const [view, setView] = useState(true);
 
   const handleSubmit = () => {
@@ -50,7 +50,7 @@ const ForgetPassword = () => {
           </View>
         </View>
       ) : (
-        <NewPassword />
+        <NewPassword navigation={navigation} />
       )}
     </ScrollView>
   );
