@@ -10,7 +10,6 @@ import {
   ScrollView,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { CheckBox } from "../../../CheckBox/CheckBox";
 import { theme } from "../../../../globalStyles/theme";
@@ -25,7 +24,7 @@ export const Login = ({ navigation }) => {
 
   const auth = useAuth();
 
-  function handleLogin() {
+  const handleLogin = () => {
     auth.signIn();
   };
 
@@ -33,8 +32,8 @@ export const Login = ({ navigation }) => {
     navigation.navigate("Register");
   };
 
-  const Marked = () => {
-    console.log("Esta marcado");
+  const handleForgetPassword = () => {
+    navigation.navigate("ForgetPassword");
   };
 
   return (
@@ -77,10 +76,12 @@ export const Login = ({ navigation }) => {
             />
           </View>
           <View style={[style.marginY, style.direction]}>
-            <CheckBox children={"Recordame"} handleChange={Marked} />
-            <Text style={style.textRecuperatePassword}>
-              ¿Olvidaste tu contraseña?
-            </Text>
+            <CheckBox children={"Recordame"} />
+            <TouchableHighlight onPress={handleForgetPassword}>
+              <Text style={style.textRecuperatePassword}>
+                ¿Olvidaste tu contraseña?
+              </Text>
+            </TouchableHighlight>
           </View>
           <View style={[style.marginX, globalStyles.normalButton]}>
             <TouchableHighlight
@@ -116,10 +117,7 @@ export default Login;
           </Text> */
 
 // export default function Login() {
-//     let [response, setResponse] = useState(["Server response."])
-
-//     const navigate = useNavigate();
-
+//     let [response, setResponse] = useState(["Server response."]
 //     const auth = useAuth();
 
 //     async function login(user, password) {
