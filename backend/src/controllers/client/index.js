@@ -14,6 +14,9 @@ let deleteWithData = require("../helpers/deleteWithData");
 let clientUpdateHandler = require("./clientUpdateHandler");
 let updateModelEntry = require("../helpers/updateModelEntry");
 let { Order, Client } = require("../../sequelize/models");
+const findOneQuery = require("../helpers/findOneQuery");
+const findModelEntriesInclude = require("../helpers/findModelEntriesInclude");
+const extractParameter = require("../helpers/extractParameter");
 
 let clientCreator = clientCreateHandler(
     "client",
@@ -24,11 +27,19 @@ let clientCreator = clientCreateHandler(
     errorResponse
 )
 
-let clientFindUser =  findOneUser(
+let clientFindUser =  findOneQuery(
     findModelEntryInclude(Client, Order),
-    extractQuery,
+    extractParameter("user"),
     errorManager,
     errorResponse    
+)
+
+
+let clientFindUsers = findOneQuery(
+    findModelEntriesInclude(Client, Order),
+    extractQuery,
+    errorManager,
+    errorResponse
 )
 
 let clientDeleteUser = clientDeleteHandler(
@@ -48,6 +59,7 @@ let clientUpdateUser = clientUpdateHandler(
 module.exports = {
     clientCreator,
     clientFindUser,
+    clientFindUsers,
     clientDeleteUser,
     clientUpdateUser
 }

@@ -16,6 +16,10 @@ let deleteWithData = require('../helpers/deleteWithData')
 let deleteModelEntry = require('../helpers/deleteModelEntry')
 let updateModelEntry = require('../helpers/updateModelEntry')
 let findProviderIncludeService = require('./findProviderIncludeService')
+let findOneQuery = require('../helpers/findOneQuery')
+let findModelEntryInclude = require('../helpers/findModelEntryInclude')
+let findModelEntriesInclude = require('../helpers/findModelEntriesInclude')
+let extractParameter = require('../helpers/extractParameter')
 
 let providerCreateUser = providerCreateHandler(
     "provider",
@@ -26,14 +30,23 @@ let providerCreateUser = providerCreateHandler(
     errorResponse
 )
 
-let providerFindUser = findOneUser(
-    findProviderIncludeService(Provider, {model: Service, include: Date }),
-    extractQuery,
+let providerFindUser = findOneQuery(
+    findModelEntryInclude(Provider, [{ model: Service, include: Date}]),
+    extractParameter("user"),
     errorManager,
-    errorResponse,
+    errorResponse
 )
 
-const providerDeleteUser = providerDeleteHandler(
+
+let providerFindUsers = findOneQuery(
+    findModelEntriesInclude(Provider, [{ model: Service, include: Date}]),
+    extractQuery,
+    errorManager,
+    errorResponse
+)
+
+
+let providerDeleteUser = providerDeleteHandler(
     findModelEntry(Provider),
     deleteWithData(`${process.env.AUTH_DB_URL}/delete`),
     deleteModelEntry(Provider),
@@ -41,7 +54,7 @@ const providerDeleteUser = providerDeleteHandler(
     errorResponse
 )
 
-const providerUpdateUser = providerUpdateHandler(
+let providerUpdateUser = providerUpdateHandler(
     updateModelEntry(Provider),
     errorManager,
     errorResponse
@@ -50,6 +63,7 @@ const providerUpdateUser = providerUpdateHandler(
 module.exports = {
     providerCreateUser,
     providerFindUser,
+    providerFindUsers,
     providerDeleteUser,
     providerUpdateUser
 }
