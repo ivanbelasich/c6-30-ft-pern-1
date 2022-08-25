@@ -15,38 +15,66 @@ import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
 const Register = ({ navigation }) => {
-  const [name, setName] = useState("");
+  const [user, setUser] = useState("");
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState({});
 
   const [show, setShow] = useState(false);
 
-  const handleRegisterName = () => {
-    if ([name].includes("")) {
+  const URL = "https://quickly-a.herokuapp.com/api/client";
+  const data = {
+    user,
+    email,
+    password,
+  };
+
+  const handleRegisterUser = () => {
+    if (user.length <= 2) {
       setAlert({
         msg: "El nombre es obligatorio!",
         error: true,
       });
       return;
-    } else {
-      setShow(true);
-      setAlert({
-        error: false,
-      });
     }
+
+    setShow(true);
+    setAlert({});
   };
 
-  const handleRegisterEmailAndPw = () => {
-    if ([email && password].includes("")) {
+  const handleRegisterEmailAndPw = async () => {
+    // Validations
+    if (password.length < 6) {
       setAlert({
-        msg: "Todos los campos son obligatorios!",
+        msg: "La contraseña es muy corta, agrega al menos 6 caracteres!",
         error: true,
       });
       return;
-    } else {
-      navigation.navigate("RegisterSuccessful");
     }
+
+    if (email.length < 6) {
+      setAlert({
+        msg: "El email es incorrecto!",
+        error: true,
+      });
+      return;
+    }
+
+    // Request API
+    try {
+      let response = await fetch(URL, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      console.log(response.text());
+    } catch (error) {
+      console.log(error);
+    }
+
+    // navigation.navigate("RegisterSuccessful");
   };
 
   const { msg } = alert;
@@ -67,7 +95,7 @@ const Register = ({ navigation }) => {
             <View style={styles.directionTextLogo}>
               <View>
                 <Text style={styles.textHello}>¡Hola</Text>
-                <Text style={styles.textName}>{name}!</Text>
+                <Text style={styles.textName}>{user}!</Text>
               </View>
               <Image
                 source={require("../../../../../assets/ClockRegister.png")}
@@ -133,13 +161,13 @@ const Register = ({ navigation }) => {
                 style={styles.inputName}
                 mode="outlined"
                 placeholder="Ingresa tu nombre"
-                value={name}
-                onChangeText={(name) => setName(name)}
+                value={user}
+                onChangeText={(user) => setUser(user)}
               />
             </View>
             <View style={[styles.marginButton, globalStyles.normalButton]}>
               <TouchableHighlight
-                onPress={handleRegisterName}
+                onPress={handleRegisterUser}
                 style={globalStyles.button}
               >
                 <Text style={styles.textButton}>Registrar</Text>
