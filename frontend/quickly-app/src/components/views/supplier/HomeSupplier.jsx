@@ -4,43 +4,49 @@ import { TouchableWithoutFeedback, ScrollView, Text, View, Image, StatusBar, Ale
 // Styles
 import globalStyles from "../../../globalStyles/globalStyles";
 import { theme } from "../../../globalStyles/theme";
+import { CardService } from "../../CardService/CardService";
 import { styles } from "./styles";
 
 export default function HomeSupplier({ navigation }) {
 
-  const [service, setService] = useState(null);
+  const [services, setServices] = useState([]);
 
   useEffect(() => {
-    setService({
-      name: "Odontología",
-      description: "Solicitar turno con anticipación",
-      value: "120",
-      date: {
-        monday: [],
-        tuesday: [],
-        wednesday: ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30"],
-        thursday: ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30"],
-        friday: ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30"],
-        saturday: [],
-        sunday: [],
-      }
-    });
-  }, [])
-  
+    getServices("");
+  }, [services])
+
+  const getServices = (path) => {
+    fetch('https://quickly-a.herokuapp.com/api/provider?user=Provider'+path)
+      .then(res => res.json())
+      .then(data => {
+        listServices(data.payload.Services);
+      });
+  }
+
+  const listServices = (data) => {
+    setServices(data);
+  }
 
   const handleAddService = () => {
     navigation.navigate('NewService');
   }
-  
-  const handleDeleteService = () => {
+
+  const handleDeleteService = (id) => {
     Alert.alert('¿Estas seguro de eliminar el servicio?',
     undefined,
     [
       {
         text: "Accept",
         onPress: () => {
-          setService(null);
-          Alert.alert("Servicio eliminado!")
+            console.log(id)
+            fetch("https://quickly-a.herokuapp.com/api/service", {
+                method: 'DELETE',
+                body: JSON.stringify(id),
+                // headers
+            })
+            .then(res => res.json())
+            .then(data => console.log(data));
+            Alert.alert("Servicio eliminado!")
         },
         style: "cancel",
       },
@@ -61,71 +67,32 @@ export default function HomeSupplier({ navigation }) {
 
   return (
     <ScrollView >
-      <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
       <View style={[globalStyles.container, styles.container]}>
         <View style={styles.imgContainer}>
           <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
         </View>
         <View style={globalStyles.cardContainer}>
+          <Text style={[globalStyles.title, styles.title]}>{services?.length > 1 ? "Mis servicios" : "Mi servicio"}</Text>
           {
-            service ? (
+            services ? (
               <>
-                <Text>Nombre: {service?.name}</Text>
-                <Text>Precio: {service?.value}</Text>
-                <Text>Descripción: {service?.description}</Text>
-                <View>
-                  <Text>Horarios:</Text>
-                  <View>
-                    {
-                      service?.date.monday.map(time => (
-                        <View key={time}>
-                          <Text>{time}</Text>
-                        </View>
-                      ))
-                    }
-                    {
-                      service?.date.wednesday.map(time => (
-                        <View key={time}>
-                          <Text>{time}</Text>
-                        </View>
-                      ))
-                    }
-                  </View>
-                </View>
+                {
+                  services.map(service => <CardService key={service.id} data={service} handleDelete={handleDeleteService} />)
+                }
               </>
             ) : (
               <>
-                <Text style={[globalStyles.title, styles.title]}>Mi servicio</Text>
                 <Text>Aún no tienes creado ningún servicio</Text>
               </>
             )
           }
           
         </View>
-        {
-          service ? (
-            <View>
-              <TouchableWithoutFeedback onPress={handleDeleteService}>
-                <View style={globalStyles.button}>
-                  <Text style={globalStyles.textButton}>Modificar servicio</Text>
-                </View>
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback onPress={handleDeleteService}>
-                <View style={[globalStyles.button, globalStyles.cancelButton]}>
-                  <Text style={globalStyles.textButton}>Eliminar servicio</Text>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-          ) : (
-            <>
-              <TouchableWithoutFeedback onPress={handleAddService}>
-                    <View style={[globalStyles.button, globalStyles.normalButton]}>
-                      <Text style={globalStyles.textButton}>+ Crear servicio</Text>
-                    </View>
-                </TouchableWithoutFeedback>
-            </>
-          )
-        }
+        <TouchableWithoutFeedback onPress={handleAddService}>
+          <View style={[globalStyles.button, globalStyles.normalButton]}>
+            <Text style={globalStyles.textButton}>+ Crear servicio</Text>
+          </View>
+        </TouchableWithoutFeedback>
       </View>
     </ScrollView>
   );
