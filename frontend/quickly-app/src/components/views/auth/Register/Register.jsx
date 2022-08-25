@@ -9,30 +9,47 @@ import {
   TouchableHighlight,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-
+import Alert from "../../../Alert/Alert";
 import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
 
 const Register = ({ navigation }) => {
   const [name, setName] = useState("");
+  const [email, setMail] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState({});
+
   const [show, setShow] = useState(false);
 
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleRegister = () => {
-    if (name == "Fran") {
-      setShow(true);
+  const handleRegisterName = () => {
+    if ([name].includes("")) {
+      setAlert({
+        msg: "El nombre es obligatorio!",
+        error: true,
+      });
+      return;
     } else {
-      setShow(false);
+      setShow(true);
+      setAlert({
+        error: false,
+      });
     }
-    console.log(password);
-    console.log(mail);
-    if (mail == "algo" && password == "algo") {
+  };
+
+  const handleRegisterEmailAndPw = () => {
+    if ([email && password].includes("")) {
+      setAlert({
+        msg: "Todos los campos son obligatorios!",
+        error: true,
+      });
+      return;
+    } else {
       navigation.navigate("RegisterSuccessful");
     }
   };
+
+  const { msg } = alert;
 
   return (
     <ImageBackground
@@ -66,12 +83,14 @@ const Register = ({ navigation }) => {
                 para completar el registro...
               </Text>
             </View>
+            {msg && <Alert alert={alert} />}
             <View style={styles.marginButtonPost}>
-              <Text style={styles.textNameInput}>Mail</Text>
+              <Text style={styles.textNameInput}>Email</Text>
               <TextInput
                 style={styles.inputName}
                 mode="outlined"
-                placeholder="Ingresa tu Mail"
+                placeholder="Ingresa tu Email"
+                value={email}
                 onChangeText={(email) => setMail(email)}
               ></TextInput>
               <Text style={styles.textPasswordInput}>Contraseña</Text>
@@ -79,6 +98,7 @@ const Register = ({ navigation }) => {
                 style={styles.inputName}
                 mode="outlined"
                 placeholder="Ingresa tu Contraseña"
+                value={password}
                 onChangeText={(pw) => setPassword(pw)}
               ></TextInput>
             </View>
@@ -86,7 +106,7 @@ const Register = ({ navigation }) => {
               style={[styles.marginButtonRegister, globalStyles.normalButton]}
             >
               <TouchableHighlight
-                onPress={handleRegister}
+                onPress={handleRegisterEmailAndPw}
                 style={globalStyles.button}
               >
                 <Text style={styles.textButton}>Registrar</Text>
@@ -107,17 +127,19 @@ const Register = ({ navigation }) => {
                 ¿Cómo quieres que te llamemos?
               </Text>
             </View>
+            {msg && <Alert alert={alert} />}
             <View style={styles.marginInput}>
               <TextInput
                 style={styles.inputName}
                 mode="outlined"
                 placeholder="Ingresa tu nombre"
-                onChangeText={(text) => setName(text)}
+                value={name}
+                onChangeText={(name) => setName(name)}
               />
             </View>
             <View style={[styles.marginButton, globalStyles.normalButton]}>
               <TouchableHighlight
-                onPress={handleRegister}
+                onPress={handleRegisterName}
                 style={globalStyles.button}
               >
                 <Text style={styles.textButton}>Registrar</Text>
