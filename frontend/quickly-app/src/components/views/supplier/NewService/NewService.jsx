@@ -5,7 +5,7 @@ import { ServiceForm } from '../../../Form/ServiceForm/ServiceForm'
 import globalStyles from '../../../../globalStyles/globalStyles'
 import { styles } from '../styles'
 
-const CreateService = () => {
+const CreateService = ({navigation}) => {
   return (
     <ScrollView>
       <View style={[globalStyles.container, styles.container]}>
@@ -13,7 +13,7 @@ const CreateService = () => {
             <Image source={require('../../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
           </View>
           <View>
-              <ServiceForm />
+              <ServiceForm navigation={navigation}/>
           </View>
       </View>
     </ScrollView>

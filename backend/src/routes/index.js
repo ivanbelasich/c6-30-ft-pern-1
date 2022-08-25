@@ -14,6 +14,4 @@ router.use('/auth', authRouter)
 router.use('/client', clientRouter)
 router.use('/provider', providerRouter)
 
-
-
 module.exports = router;

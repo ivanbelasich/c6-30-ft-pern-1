@@ -1,26 +1,28 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../index')
 const Order = sequelize.define("Order", {
-	name: {
+	id: {
+		type: DataTypes.UUID,
+		defaultValue: DataTypes.UUIDV4,
+		primaryKey: true,
+		allowNull: false,
+	},
+	status: {
 		type: DataTypes.STRING,
 		allowNull: false,
-		unique: false,
 	},
 	value: {
 		type: DataTypes.INTEGER,
+		allowNull: false
 	},
 	date: {
-		type: DataTypes.STRING,
-		allowNull: false,
-	},
-	time: {
 		type: DataTypes.STRING,
 		allowNull: false,
 	},
 	description: {
 		type: DataTypes.STRING,
 		allowNull: false,
-	},
+	}
 })
 
 module.exports = Order
