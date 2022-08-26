@@ -1,8 +1,7 @@
-const deleter = require("./deleter");
-const userDeleter = require("./userDelete");
-const userFinder = require("./userFinder");
-const loginError = require('../login/loginError')
+let deleter = require("./deleter");
+let userDeleter = require("./userDelete");
+let successResponse = require('../../utils/successResponse')
 
-let handleDelete = deleter(userFinder, userDeleter, loginError)
+let handleDelete = deleter(userDeleter, successResponse)
 
 module.exports = { handleDelete }
