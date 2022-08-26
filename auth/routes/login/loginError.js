@@ -1,5 +1,8 @@
-function loginError(message) {
-    return { result: false, message }
+class LoginError extends Error {
+    constructor(status, message) {
+        super(message)
+        this.status = status
+    }
 }
 
-module.exports = loginError
+module.exports = LoginError

@@ -1,23 +1,13 @@
-const User = require("../../sequelize/models/User")
-const dbError = require("../../utils/dbError")
-const dbSuccess = require("../../utils/dbSuccess")
 const recodePassword = require("../../utils/recodePassword")
-const loginError = require("./loginError")
-const loginSuccess = require('./loginSuccess')
+const LoginError = require("./LoginError")
 
-async function loginAuthenticator(inputUser, inputPassword) {
-    let { success, payload, message } = await User.findOne({ where: { user: inputUser } })
-        .then(response => dbSuccess(response))
-        .catch(error => dbError(error))
-
-    if (!success) return loginError(message)
-    if (success && !payload) return loginError("The username does not exist.")
-
-    let { password, salt } = payload.toJSON()
-    let result = recodePassword(inputPassword, salt) === password ?
-        loginSuccess() :
-        loginError("Wrong username or password.")
-
-    return {result, payload}
+async function loginAuthenticator(inputPassword, storedPassword, storedSalt) {
+    try {
+        let result = recodePassword(inputPassword, storedSalt) === storedPassword
+        if (!result) throw new LoginError(403, "Incorrect username or password.")
+        else return true
+    } catch (error) {
+        throw error
+    }
 }
 module.exports = loginAuthenticator
