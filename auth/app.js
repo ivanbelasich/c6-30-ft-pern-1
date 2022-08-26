@@ -7,7 +7,8 @@ require('dotenv').config({ path: path.join(__dirname, '.env') })
 var indexRouter = require('./routes/index');
 
 var app = express();
-var sequelize = require('./sequelize')
+var sequelize = require('./sequelize');
+const errorCatcher = require('./middleware/errorCatcher');
 
 sequelize.authenticate()
     .then(() => console.log('Sequelize connection has been established successfully.'))
@@ -21,5 +22,5 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-
+app.use(errorCatcher)
 module.exports = app;
