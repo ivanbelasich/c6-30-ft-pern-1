@@ -1,5 +1,7 @@
-function dbError(sequelizeError){
-    return {success: false, message: sequelizeError.name || "There was a problem connecting to the database"}
+class DBError extends Error{
+    constructor(status, message){
+        super(message);
+        this.status = status
+    }
 }
-
-module.exports = dbError
+module.exports = DBError
