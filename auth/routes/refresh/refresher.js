@@ -1,25 +1,21 @@
-function refresher(accessor, decoder, validator, userExists, tokenError, tokenCreator) {
+let TokenError = require('./TokenError')
+function refresher(accessor, decoder, validator, userExists, tokenCreator, payloadResponse) {
     return async function (req, res, next) {
         try {
-            let accessorResult = accessor(req.headers.authorization)
-            if (!accessorResult.success) return res.status(400).send(accessorResult)
+            let accessToken = await accessor(req.headers.authorization)
 
-            let accessTokenPayload = decoder(accessorResult.token)
+            let accessTokenPayload = decoder(accessToken)
             let isValidAccessToken = validator(accessTokenPayload)
-            if (!isValidAccessToken) return res.status(400).send(tokenError("Invalid access token"))
+            if (!isValidAccessToken) throw new TokenError(403, "Invalid access token")
 
-            let { success, payload } = await userExists(accessTokenPayload.user)
+            let { user, access } = await userExists(accessTokenPayload.user)
 
-            if (!success) return res.status(500).send(tokenError("There was a problem querying the database."))
-            if (!payload) return res.status(400).send(tokenError("Invalid user."))
-
-            let { user, access } = payload
             let refreshTokenPayload = decoder(req.body.refreshToken)
             let isValidRefreshToken = validator(refreshTokenPayload)
-            if (!isValidRefreshToken) return res.status(400).send(tokenError("Invalid refresh token"))
+            if (!isValidRefreshToken) throw new TokenError(403, "Invalid refresh token")
 
             let tokens = tokenCreator(user, access)
-            return res.send(tokens)
+            return res.send(payloadResponse({ user, access, tokens }))
         }
         catch (error) {
             next(error)

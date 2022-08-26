@@ -1,9 +1,14 @@
-const tokenError = require('./tokenError')
+const TokenError = require('./TokenError')
 
-function getAccessToken(authorization) {
-    if (!authorization) return tokenError("Authorization missing.")
-    if (!authorization.startsWith('Bearer ')) return tokenError("Invalid authorization.")
-    return { success: true, token: authorization.split(' ')[1] }
+
+async function getAccessToken(authorization) {
+    try {
+        if (!authorization) throw new TokenError(400, "Missing authorization header.")
+        else if (!authorization.startsWith('Bearer ')) throw new TokenError(403, "Invalid authorization header.")
+        else return authorization.split(' ')[1]
+    } catch (error) {
+        throw error
+    }
 }
 
 module.exports = getAccessToken
