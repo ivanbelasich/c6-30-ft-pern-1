@@ -1,21 +1,16 @@
-function updater(authenticate, encrypter, dbFinder, dbUpdater, errorMessage) {
+function updater(authenticate, encrypter, dbFinder, dbUpdater, successMessage) {
     return async function (req, res, next) {
         let { user, password: oldPassword, newPassword } = req.body
         try {
-            let exists = await dbFinder(user)
-            if (!exists) return res.status(400).send(errorMessage(`User ${user} doesn't exist.`))
-
-            let { result, message } = await authenticate(user, oldPassword)
-            if (!result) return res.status(403).send(errorMessage(message))
+            let { password: storedPassword, salt: storedSalt } = await dbFinder(user)
+            await authenticate(oldPassword, storedPassword, storedSalt)
 
             let { password, salt } = await encrypter(newPassword)
+            await dbUpdater(user, password, salt)
 
-            let success = await dbUpdater(user, password, salt)
-            if (!success) return res.status(500).send(errorMessage(`There was a problem updating user ${user}`))
-
-            else return res.send({ success: true, message: `User ${user} was successfully updated.` })
+            return res.send(successMessage(`User ${user} was successfully updated.`))
         } catch (error) {
-            return res.status(500).send(errorMessage("There was a problem trying to update the user."))
+            next(error)
         }
     }
 }

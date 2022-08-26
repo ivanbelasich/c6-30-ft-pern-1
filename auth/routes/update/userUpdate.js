@@ -1,9 +1,11 @@
 let User = require('../../sequelize/models/User')
+let DBError = require('../../utils/DBError')
 
 async function userUpdate(user, password, salt) {
     try {
         let updated = await User.update({ password, salt }, { where: { user } })
-        return updated > 0
+        if (updated < 1) throw new DBError(`There was a problem while updating user ${user}`)
+        else return true
     }
     catch (error) {
         throw error
