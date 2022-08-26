@@ -1,10 +1,17 @@
-function registerCreate(creator, tokenGenerator, registerError) {
+function registerCreate(availabler, creator, passwordGenerator, tokenGenerator, payloadMessage) {
     return async function (req, res, next) {
-        let { user, password, access } = req.body
-        const result = await creator(user, password, access)
-        if (!result) res.status(403).send(registerError("There was a problem registering the user"))
-        else if (!result.success) res.status(400).send(registerError(result.message))
-        else res.send(tokenGenerator(user, access))
+        try {
+            let { user, password: inputPassword, access } = req.body
+            let { password, salt } = passwordGenerator(inputPassword)
+            let data = { user, password, salt, access }
+            await availabler(user)
+            await creator(data)
+            let tokens = tokenGenerator(user, access)
+            res.send(payloadMessage({ user, access, tokens }))
+        }
+        catch (error) {
+            next(error)
+        }
     }
 }
 

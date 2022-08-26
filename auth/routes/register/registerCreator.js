@@ -1,14 +1,12 @@
 let User = require('../../sequelize/models/User')
-let dbError = require('../../utils/dbError')
-const dbSuccess = require('../../utils/dbSuccess')
-let generatePassword = require('../../utils/generatePassword')
-
-async function registerCreator(user, inputPassword, access) {
-    let { password, salt } = generatePassword(inputPassword)
-    let result = User.create({ user, password, salt, access })
-        .then(entry => dbSuccess(entry))
-        .catch(error => dbError(error))
-    return result
+async function registerCreator(data) {
+    try {
+        let result = await User.create(data)
+        return true
+    }
+    catch (error) {
+        throw error
+    }
 }
 
 module.exports = registerCreator
