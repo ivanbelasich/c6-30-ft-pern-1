@@ -5,13 +5,21 @@ const Client = require('./Client')
 const Provider = require('./Provider')
 
 
-Order.belongsToMany(Service, { through: 'servi_orde' });
 Service.hasMany(Order);
+Order.belongsTo(Service);
 
-Provider.hasMany(Service, { sourceKey: "user", foreignKey: "userName" })
-Service.belongsTo(Provider, { targetKey: "user", foreignKey: "userName" })
+Client.hasMany(Order, { sourceKey: "user", foreignKey: "client" })
+Order.belongsTo(Client, { targetKey: "user", foreignKey: "client" })
 
-Service.hasOne(Date, {sourceKey:"id", foreignKey:"serviceId"});
-Date.belongsTo(Service, {targetKey: "id", foreignKey:"serviceId"});
+Provider.hasMany(Order, { sourceKey: "user", foreignKey: "provider" })
+Order.belongsTo(Provider, { targetKey: "user", foreignKey: "provider" })
+
+
+
+Provider.hasMany(Service, { sourceKey: "user", foreignKey: "provider" })
+Service.belongsTo(Provider, { targetKey: "user", foreignKey: "provider" })
+
+Service.hasOne(Date);
+Date.belongsTo(Service);
 
 module.exports = { Date, Order, Service, Client, Provider }

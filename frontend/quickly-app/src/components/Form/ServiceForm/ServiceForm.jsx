@@ -13,7 +13,7 @@ import { styles } from "./styles";
 // Utils
 import { arrayDate } from "../../../utils/arrayDate";
 
-export const ServiceForm = () => {
+export const ServiceForm = ({navigation}) => {
   const initialValues = {
     name: "",
     value: "",
@@ -51,21 +51,35 @@ export const ServiceForm = () => {
 
   const onSubmit = (values, {resetForm}) => {
     const sendValues = {
+      user: "Provider",
       name: values.name,
       value: values.value,
       description: values.description,
+      category: "Mascotas",
       date: {
-        monday: values.monday ? arrayDate(values.from, values.to) : [],
-        tuesday: values.tuesday ? arrayDate(values.from, values.to) : [],
-        wednesday: values.wednesday ? arrayDate(values.from, values.to) : [],
-        thursday: values.thursday ? arrayDate(values.from, values.to) : [],
-        friday: values.friday ? arrayDate(values.from, values.to) : [],
-        saturday: values.saturday ? arrayDate(values.from, values.to) : [],
-        sunday: values.sunday ? arrayDate(values.from, values.to) : [],
+        monday: values.monday ? arrayDate(values.from, values.to) : null,
+        tuesday: values.tuesday ? arrayDate(values.from, values.to) : null,
+        wednesday: values.wednesday ? arrayDate(values.from, values.to) : null,
+        thursday: values.thursday ? arrayDate(values.from, values.to) : null,
+        friday: values.friday ? arrayDate(values.from, values.to) : null,
+        saturday: values.saturday ? arrayDate(values.from, values.to) : null,
+        sunday: values.sunday ? arrayDate(values.from, values.to) : null,
       },
     };
-    console.log(sendValues);
-    console.log("Creado correctamente");
+    fetch("https://quickly-a.herokuapp.com/api/service", {
+      method: 'POST',
+      body: JSON.stringify(sendValues),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        console.log(data.message);
+        navigation.navigate('HomeSupplier')
+      }
+    });
     resetForm();
   };
 

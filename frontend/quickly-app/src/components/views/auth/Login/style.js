@@ -62,7 +62,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     fontSize: 15,
   },
-  title: {},
   buttonContainer: {
     marginVertical: 5,
     flexDirection: "row",

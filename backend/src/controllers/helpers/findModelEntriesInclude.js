@@ -1,7 +1,7 @@
 function findModelEntriesInclude(model, modelInclude) {
     return async function (query) {
         try {
-            let response = await model.findAll({ ...query, include: { model: modelInclude } })
+            let response = await model.findAll({ ...query, include: modelInclude })
             return response
         }
         catch (error) {

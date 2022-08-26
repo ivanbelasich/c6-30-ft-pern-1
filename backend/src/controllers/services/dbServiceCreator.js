@@ -4,7 +4,7 @@ async function dbServiceCreator(props) {
     let { date, user, ...rest } = props
     try {
         let service = await Service.create({
-            userName: user,
+            provider: user,
             ...rest
         })
         let success = await service.createDate(date)

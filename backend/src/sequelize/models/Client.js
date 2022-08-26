@@ -4,6 +4,7 @@ const sequelize = require('../index')
 const Client = sequelize.define("Client", {
     user: {
         type: DataTypes.STRING,
+        unique: true,
         allowNull: false
     },
     email: {
