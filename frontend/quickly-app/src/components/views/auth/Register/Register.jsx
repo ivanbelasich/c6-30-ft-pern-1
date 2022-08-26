@@ -13,6 +13,7 @@ import Alert from "../../../Alert/Alert";
 import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
+import axios from "axios";
 
 const Register = ({ navigation }) => {
   const [user, setUser] = useState("");
@@ -22,7 +23,6 @@ const Register = ({ navigation }) => {
 
   const [show, setShow] = useState(false);
 
-  const URL = "https://quickly-a.herokuapp.com/api/client";
   const data = {
     user,
     email,
@@ -44,6 +44,7 @@ const Register = ({ navigation }) => {
 
   const handleRegisterEmailAndPw = async () => {
     // Validations
+
     if (password.length < 6) {
       setAlert({
         msg: "La contraseña es muy corta, agrega al menos 6 caracteres!",
@@ -61,21 +62,39 @@ const Register = ({ navigation }) => {
     }
 
     // Request API
-    try {
-      let response = await fetch(URL, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      console.log(response.text());
-    } catch (error) {
-      console.log(error);
-    }
 
-    // navigation.navigate("RegisterSuccessful");
+    axios
+      .post("https://quickly-a.herokuapp.com/api/client", {
+        user,
+        email,
+        password,
+      })
+      .then((res) => console.log(res));
+
+    // try {
+    //   let responseApi = await fetch(
+    //     "https://quickly-a.herokuapp.com/api/client",
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         user: "fran",
+    //         email: "fran@franfran",
+    //         password: "1234123",
+    //       }),
+    //     }
+    //   )
+    //     .then((response) => response.json())
+    //     .then((data) => console.log(data));
+    //   console.log(responseApi);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
+
+  // navigation.navigate("RegisterSuccessful");
 
   const { msg } = alert;
 
@@ -95,7 +114,7 @@ const Register = ({ navigation }) => {
             <View style={styles.directionTextLogo}>
               <View>
                 <Text style={styles.textHello}>¡Hola</Text>
-                <Text style={styles.textName}>{user}!</Text>
+                <Text style={styles.textName}>!</Text>
               </View>
               <Image
                 source={require("../../../../../assets/ClockRegister.png")}
