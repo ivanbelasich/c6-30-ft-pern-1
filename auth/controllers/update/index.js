@@ -1,7 +1,7 @@
 let updater = require("./updater");
 let generatePassword = require("../../utils/generatePassword");
-let loginAuthenticator = require("../../controllers/login/loginAuthenticator");
-let userFinder = require('../../controllers/login/findEntry')
+let loginAuthenticator = require("../login/loginAuthenticator");
+let userFinder = require('../login/findEntry')
 let userUpdate = require('./userUpdate')
 let successResponse = require('../../utils/successResponse')
 
