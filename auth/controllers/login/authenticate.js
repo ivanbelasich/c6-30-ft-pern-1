@@ -1,4 +1,4 @@
-function postLoginHandler(finder, authenticator, tokenGenerator, payloadResponse) {
+function authenticate(finder, authenticator, tokenGenerator, payloadResponse) {
     return async function (req, res, next) {
         try {
             let { user: inputUser, password: inputPassword } = req.body
@@ -13,4 +13,4 @@ function postLoginHandler(finder, authenticator, tokenGenerator, payloadResponse
     }
 }
 
-module.exports = postLoginHandler
+module.exports = authenticate
