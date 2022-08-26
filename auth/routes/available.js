@@ -1,12 +1,15 @@
 var express = require('express');
 var availabler = require('./available/availabler')
 var availableCheck = require('./available/availableCheck')
-var authError = require('./login/authenticationError');
+var sanitizer = require('../middleware/sanitizer')
 
+var successResponse = require('../utils/successResponse');
+var sanitizeAvailable = sanitizer(['user'])
 var router = express.Router();
-var handlePost = availabler(availableCheck, authError)
 
-router.post('/', handlePost);
+var handlePost = availabler(availableCheck, successResponse)
+
+router.post('/', sanitizeAvailable, handlePost);
 
 module.exports = router;
 
