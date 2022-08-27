@@ -18,36 +18,31 @@ import globalStyles from "../../../../globalStyles/globalStyles";
 
 export const Login = ({ navigation }) => {
   let [user, setUser] = useState("");
-  let [password, setPassword] = useState("Testing");
+  let [password, setPassword] = useState("");
 
   const [passwordVisible, setPasswordVisible] = useState(true);
 
-  const auth = useAuth();
+  // const auth = useAuth();
+  // auth.signIn();
 
-  const handleLogin = () => {
-    auth.signIn();
-  };
+  const url = "https://quickly-a.herokuapp.com/api/auth/login";
+  const data = { user, password };
 
-  // const url = "https://quickly-a.herokuapp.com/api/auth/login";
-  // const data = { user: "Provider", password: "123456" };
-
-  // fetch(url, {
-  //   method: "POST",
-  //   body: JSON.stringify(data),
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  // })
-  //   .then((res) => res.json())
-  //   .catch((error) => console.error("Error:", error))
-  //   .then((response) => console.log("Success:", response));
-
-  const handleRegister = () => {
-    navigation.navigate("Register");
-  };
-
-  const handleForgetPassword = () => {
-    navigation.navigate("ForgetPassword");
+  const handleLogin = async () => {
+    try {
+      let responseApi = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => console.log(data.payload.tokens.accessToken));
+      console.log(responseApi);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -72,6 +67,8 @@ export const Login = ({ navigation }) => {
             <TextInput
               mode="outlined"
               placeholder="Ingresa tu usuario"
+              onChangeText={(user) => setUser(user)}
+              value={user}
               right={<TextInput.Affix text="/100" />}
             />
           </View>
@@ -80,6 +77,8 @@ export const Login = ({ navigation }) => {
             <TextInput
               mode="outlined"
               placeholder="Ingresa tu contraseña"
+              onChangeText={(pw) => setPassword(pw)}
+              value={password}
               secureTextEntry={passwordVisible}
               right={
                 <TextInput.Icon
@@ -91,7 +90,9 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={[style.marginY, style.direction]}>
             <CheckBox children={"Recordame"} />
-            <TouchableHighlight onPress={handleForgetPassword}>
+            <TouchableHighlight
+              onPress={() => navigation.navigate("ForgetPassword")}
+            >
               <Text style={style.textRecuperatePassword}>
                 ¿Olvidaste tu contraseña?
               </Text>
@@ -114,7 +115,7 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={style.direction}>
             <Text>¿Aún no tienes cuenta?</Text>
-            <TouchableHighlight onPress={handleRegister}>
+            <TouchableHighlight onPress={() => navigation.navigate("Register")}>
               <Text style={style.textRegister}>Súmate!</Text>
             </TouchableHighlight>
           </View>

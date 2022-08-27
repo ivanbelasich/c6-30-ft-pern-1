@@ -48,9 +48,6 @@ const NewPassword = ({ navigation }) => {
           </Text>
           <View style={{ flexDirection: "row" }}>
             <TextInput mode="outlined" placeholder="Ingresa tu contraseña" />
-            <TextInput mode="outlined" placeholder="Ingresa tu contraseña" />
-            <TextInput mode="outlined" placeholder="Ingresa tu contraseña" />
-            <TextInput mode="outlined" placeholder="Ingresa tu contraseña" />
           </View>
           <Text>Reenviando Código en 52 s</Text>
           <TouchableHighlight onPress={handleSubmit}>

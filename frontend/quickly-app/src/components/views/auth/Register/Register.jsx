@@ -13,21 +13,15 @@ import Alert from "../../../Alert/Alert";
 import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
-import axios from "axios";
 
 const Register = ({ navigation }) => {
   const [user, setUser] = useState("");
   const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
-  const [alert, setAlert] = useState({});
 
   const [show, setShow] = useState(false);
 
-  const data = {
-    user,
-    email,
-    password,
-  };
+  const [alert, setAlert] = useState({});
 
   const handleRegisterUser = () => {
     if (user.length <= 2) {
@@ -61,40 +55,36 @@ const Register = ({ navigation }) => {
       return;
     }
 
-    // Request API
+    try {
+      let responseApi = await fetch(
+        "https://quickly-a.herokuapp.com/api/client",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user,
+            email,
+            password,
+          }),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => console.log(data.payload));
+      console.log(responseApi);
 
-    axios
-      .post("https://quickly-a.herokuapp.com/api/client", {
-        user,
-        email,
-        password,
-      })
-      .then((res) => console.log(res));
+      setUser("");
+      setMail("");
+      setPassword("");
+    } catch (error) {
+      console.log(error);
+    }
 
-    // try {
-    //   let responseApi = await fetch(
-    //     "https://quickly-a.herokuapp.com/api/client",
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         user: "fran",
-    //         email: "fran@franfran",
-    //         password: "1234123",
-    //       }),
-    //     }
-    //   )
-    //     .then((response) => response.json())
-    //     .then((data) => console.log(data));
-    //   console.log(responseApi);
-    // } catch (error) {
-    //   console.log(error);
+    // if (tokens !== "") {
+    //   navigation.navigate("RegisterSuccessful");
     // }
   };
-
-  // navigation.navigate("RegisterSuccessful");
 
   const { msg } = alert;
 
@@ -114,7 +104,7 @@ const Register = ({ navigation }) => {
             <View style={styles.directionTextLogo}>
               <View>
                 <Text style={styles.textHello}>¡Hola</Text>
-                <Text style={styles.textName}>!</Text>
+                <Text style={styles.textName}>¡{user}!</Text>
               </View>
               <Image
                 source={require("../../../../../assets/ClockRegister.png")}
@@ -179,7 +169,7 @@ const Register = ({ navigation }) => {
               <TextInput
                 style={styles.inputName}
                 mode="outlined"
-                placeholder="Ingresa tu nombre"
+                placeholder="Ingresa tu nombre de usuario"
                 value={user}
                 onChangeText={(user) => setUser(user)}
               />
