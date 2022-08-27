@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, FlatList, Alert } from "react-native";
-/* import RNPickerSelect from "react-native-picker-select"; */
+import { View, Text, Alert } from "react-native";
 import Calendar from "../Calendar/Calendar";
 import axios from "axios";
 import globalStyles from "../../globalStyles/globalStyles";
@@ -8,9 +7,10 @@ import { Picker } from "@react-native-picker/picker";
 
 const FilterBar = ({ navigation }) => {
   const [category, setCategories] = useState("");
-  const [provider, setProvider] = useState("");
+  const [provider, setProvider] = useState();
   const [usuarios, setUsuarios] = useState();
   const [data, setData] = useState();
+  const [prueba, setPrueba] = useState()
 
   useEffect(() => {
     axios.get("https://quickly-a.herokuapp.com/api/service").then((res) => {
@@ -65,24 +65,31 @@ const FilterBar = ({ navigation }) => {
           <Picker.Item label={el} value={el} key={index} />
         ))}
       </Picker>
+      <Text>{category}</Text>
       <Picker
         selectedValue={provider}
-        onValueChange={(itemValue, itemIndex) => setProvider(itemValue)}
+        onValueChange={(itemValue, itemIndex, label) => setProvider(itemValue)}
       >
         <Picker.Item label={"Selecciona un especialista"} value={undefined} />
         {!category ? (
-          <Picker.Item label={""} value={null} />
+          <Picker.Item label={""} value={null} enabled={false} />
         ) : (
           usuarios
             ?.filter((el) =>
               el.Services.map((a) => a.category).includes(category)
             )
             .map((el, index) => (
-              <Picker.Item label={el.user} value={el.user} key={index} />
-            ))
-        )}
+              <Picker.Item
+                label={el.user}
+                key={index}
+                value={el.Services[0].id}
+              />
+            ) )
+           
+        ) }
       </Picker>
-      <Text>{provider}</Text>
+      <Text> id de proveedor: {provider}</Text>
+      <Text></Text>
       <Text>Selecciona la fecha:</Text>
       <Calendar />
       <View style={[globalStyles.button, globalStyles.normalButton]}>
