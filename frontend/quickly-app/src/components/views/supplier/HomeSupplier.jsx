@@ -25,7 +25,8 @@ export default function HomeSupplier({ navigation }) {
       .then(res => res.json())
       .then(data => {
         listServices(data.payload[0].Services);
-      });
+      })
+      .catch(error => console.log(error));
   }
 
   const listServices = (data) => {
@@ -50,7 +51,7 @@ export default function HomeSupplier({ navigation }) {
                 }),
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: "Bearer " + authData.accessToken,
+                  Authorization: "Bearer " + authData.tokens.accessToken,
                 }
             })
             .then(res => res.json())
