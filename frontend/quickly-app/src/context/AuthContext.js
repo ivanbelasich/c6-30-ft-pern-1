@@ -26,16 +26,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signIn = async () => {
-    const authDataToken = {
-      username: "Hola",
-      correo: "prueba@gmail.com",
-      token: "dsadasgfadsfasfasd",
-    };
-
-    setAuthData(authDataToken);
-
-    SecureStore.setItemAsync("_token", JSON.stringify(authDataToken));
+  const signIn = async (user, password) => {
+    await fetch("https://quickly-a.herokuapp.com/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        user,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setAuthData(data.payload))
+      .catch((error) => {
+        console.log(error);
+      });
+    SecureStore.setItemAsync("_token", JSON.stringify(authData));
   };
 
   const signOut = async () => {
@@ -45,7 +52,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authData, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ setAuthData, authData, loading, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );
