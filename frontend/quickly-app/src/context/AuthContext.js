@@ -26,18 +26,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signIn = async () => {
-    const authDataToken = {
-      user: "Provider",
-      accessToken:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiUHJvdmlkZXIiLCJhY2Nlc3MiOiJwcm92aWRlciIsImlzcyI6InF1aWNrbHkuY29tL2F1dGgiLCJhdWQiOiJxdWlja3kuY29tL2Zyb250IiwiZXhwIjoxNjYxNzEzODk1LCJpYXQiOjE2NjE2Mjc0OTV9.lnRRfr5sxFw8mxu5bF9KkP-2LJLFrb3Xb6aGRiknobg",
-      refreshToken:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiUHJvdmlkZXIiLCJhY2Nlc3MiOiJwcm92aWRlciIsImlzcyI6InF1aWNrbHkuY29tL2F1dGgiLCJhdWQiOiJxdWlja3kuY29tL2Zyb250IiwiZXhwIjoxNjY0MDczMjc0LCJpYXQiOjE2NjE0ODEyNzR9.cj009eJrLgzMo2RWwGzf3sizgrWE0k-Zb-1QQusqvFc",
-    };
-
-    setAuthData(authDataToken);
-
-    SecureStore.setItemAsync("_token", JSON.stringify(authDataToken));
+  const signIn = async (user, password) => {
+    await fetch("https://quickly-a.herokuapp.com/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        user,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setAuthData(data.payload))
+      .catch((error) => {
+        console.log(error);
+      });
+    SecureStore.setItemAsync("_token", JSON.stringify(authData));
   };
 
   const signOut = async () => {
@@ -47,7 +52,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authData, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ setAuthData, authData, loading, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

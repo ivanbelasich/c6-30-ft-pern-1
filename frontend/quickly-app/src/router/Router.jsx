@@ -130,7 +130,7 @@ export const Router = () => {
 
   return (
     <NavigationContainer>
-      {authData?.accessToken ? <AppStack /> : <AuthStack />}
+      {authData?.user ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
