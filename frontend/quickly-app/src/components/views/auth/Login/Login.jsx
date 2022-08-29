@@ -25,8 +25,7 @@ export const Login = ({ navigation }) => {
 
   const [passwordVisible, setPasswordVisible] = useState(true);
 
-  const { auth, setAuthData } = useAuth();
-  // auth.signIn();
+  const auth = useAuth();
 
   const handleLogin = async () => {
     if ([user, password].includes("")) {
@@ -37,22 +36,7 @@ export const Login = ({ navigation }) => {
       return;
     }
 
-    try {
-      await fetch("https://quickly-a.herokuapp.com/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify({
-          user,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => setAuthData(data.payload));
-    } catch (error) {
-      console.log(error);
-    }
+    auth.signIn(user, password);
   };
 
   return (

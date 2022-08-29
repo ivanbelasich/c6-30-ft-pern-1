@@ -12,8 +12,6 @@ export const AuthProvider = ({ children }) => {
     loadStorageData();
   }, []);
 
-  console.log(authData);
-
   const loadStorageData = async () => {
     try {
       const authDataSerialized = await SecureStore.getItemAsync("_token");
@@ -28,7 +26,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signIn = async () => {
+  const signIn = async (user, password) => {
+    await fetch("https://quickly-a.herokuapp.com/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        user,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => setAuthData(data.payload))
+      .catch((error) => {
+        console.log(error);
+      });
     SecureStore.setItemAsync("_token", JSON.stringify(authData));
   };
 
