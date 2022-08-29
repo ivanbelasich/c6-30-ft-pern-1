@@ -56,23 +56,19 @@ const Register = ({ navigation }) => {
     }
 
     try {
-      let responseApi = await fetch(
-        "https://quickly-a.herokuapp.com/api/client",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            user,
-            email,
-            password,
-          }),
-        }
-      )
+      await fetch("https://quickly-a.herokuapp.com/api/client", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user,
+          email,
+          password,
+        }),
+      })
         .then((response) => response.json())
         .then((data) => console.log(data.payload));
-      console.log(responseApi);
 
       setUser("");
       setMail("");

@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
     loadStorageData();
   }, []);
 
+  console.log(authData);
+
   const loadStorageData = async () => {
     try {
       const authDataSerialized = await SecureStore.getItemAsync("_token");
@@ -27,15 +29,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const signIn = async () => {
-    const authDataToken = {
-      username: "Hola",
-      correo: "prueba@gmail.com",
-      token: "dsadasgfadsfasfasd",
-    };
-
-    setAuthData(authDataToken);
-
-    SecureStore.setItemAsync("_token", JSON.stringify(authDataToken));
+    SecureStore.setItemAsync("_token", JSON.stringify(authData));
   };
 
   const signOut = async () => {
@@ -45,7 +39,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authData, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ setAuthData, authData, loading, signIn, signOut }}
+    >
       {children}
     </AuthContext.Provider>
   );

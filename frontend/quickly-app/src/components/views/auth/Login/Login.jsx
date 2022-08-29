@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../../../hooks/useAuth";
 import {
   TouchableHighlight,
@@ -9,6 +9,7 @@ import {
   StatusBar,
   ScrollView,
 } from "react-native";
+import Alert from "../../../Alert/Alert";
 import { TextInput } from "react-native-paper";
 
 import { CheckBox } from "../../../CheckBox/CheckBox";
@@ -20,26 +21,35 @@ export const Login = ({ navigation }) => {
   let [user, setUser] = useState("");
   let [password, setPassword] = useState("");
 
+  const [alert, setAlert] = useState(false);
+
   const [passwordVisible, setPasswordVisible] = useState(true);
 
-  // const auth = useAuth();
+  const { auth, setAuthData } = useAuth();
   // auth.signIn();
 
-  const url = "https://quickly-a.herokuapp.com/api/auth/login";
-  const data = { user, password };
-
   const handleLogin = async () => {
+    if ([user, password].includes("")) {
+      setAlert({
+        msg: "Todos los campos son obligatorios",
+        error: true,
+      });
+      return;
+    }
+
     try {
-      let responseApi = await fetch(url, {
+      await fetch("https://quickly-a.herokuapp.com/api/auth/login", {
         method: "POST",
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          user,
+          password,
+        }),
         headers: {
           "Content-Type": "application/json",
         },
       })
         .then((response) => response.json())
-        .then((data) => console.log(data.payload.tokens.accessToken));
-      console.log(responseApi);
+        .then((data) => setAuthData(data.payload));
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +72,7 @@ export const Login = ({ navigation }) => {
             style={style.logo}
             resizeMode="center"
           />
+          {alert && <Alert alert={alert} />}
           <View style={style.marginX}>
             <Text style={style.inputContainer}>Ingresa tu usuario</Text>
             <TextInput
@@ -130,83 +141,3 @@ export default Login;
 /* <Text>
             <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
           </Text> */
-
-// export default function Login() {
-//     let [response, setResponse] = useState(["Server response."]
-//     const auth = useAuth();
-
-//     async function login(user, password) {
-//         let headers = new Headers()
-//         headers.append("Content-Type", "application/json")
-//         try {
-//             let response = await fetch('https://quickly-b.herokuapp.com/login', {
-//                 headers,
-//                 method: "POST",
-//                 body: JSON.stringify({
-//                     user,
-//                     password
-//                 })
-//             })
-//             let data = await response.json()
-//             let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
-//             setResponse(toText)
-//             auth.signIn();
-//             navigate("/", {replace: true});
-//         }
-//         catch (error) {
-//             console.log('error', error)
-//         }
-
-//     }
-//     async function register(user, password) {
-//         try {
-//             let headers = new Headers()
-//             headers.append("Content-Type", "application/json")
-//             let response = await fetch('https://quickly-b.herokuapp.com/register', {
-//                 headers,
-//                 method: "POST",
-//                 body: JSON.stringify({
-//                     user,
-//                     password
-//                 })
-//             })
-//             let data = await response.json()
-//             let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
-//             setResponse(toText)
-//         }
-//         catch (error) {
-//             console.log('error', error)
-//         }
-//     }
-//     function handlePressLogin() {
-//         login(user, password)
-//     }
-//     function handlePressRegister() {
-//         register(user, password)
-//     }
-
-//     return (
-//         <View style={style.container}>
-//             <Text style={style.title}>Login/Register view</Text>
-//             <TextInput value={user} onChange={e => setUser(e.target.value)} style={style.input} />
-//             <TextInput value={password} onChange={e => setPassword(e.target.value)} style={style.input} />
-//             <View style={style.buttonContainer}>
-//                 <TouchableHighlight onPress={handlePressLogin} style={style.button}>
-//                     <Text style={style.buttonText}>Login</Text>
-//                 </TouchableHighlight>
-//                 <TouchableHighlight onPress={handlePressRegister} style={style.button}>
-//                     <Text style={style.buttonText}>Register</Text>
-//                 </TouchableHighlight>
-//             </View>
-//             <View>
-//                 {response.map((k, index) => <Text key={`serverResponse${index}`}>{k}</Text>)}
-//             </View>
-//             <View>
-//                 <Text>¿Aún no tienes una cuenta?</Text>
-//                 <Link to="/register">
-//                     <Text>¡Súmate!</Text>
-//                 </Link>
-//             </View>
-//         </View>
-//     );
-// }
