@@ -9,7 +9,7 @@ const Calendar = () => {
   const [text, setText] = useState("Empty");
 
   const onChange = (e, selectedDate) => {
-    const currentDate = selectedDate || date; 
+    const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
 
@@ -30,7 +30,7 @@ const Calendar = () => {
 
   return (
     <View>
-      <Button title="Abrir calendario" onPress={() => showMode("date")} />
+      <Button title="Seleccionar fecha" onPress={() => showMode("date")} />
       <Text>{text}</Text>
       {show && (
         <DateTimePicker
@@ -39,6 +39,7 @@ const Calendar = () => {
           mode={mode}
           is24Hour
           display="default"
+          minimumDate={new Date(Date())}
           onChange={onChange}
         />
       )}
