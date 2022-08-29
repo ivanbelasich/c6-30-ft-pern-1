@@ -124,4 +124,4 @@ export default Login;
 
 /* <Text>
             <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
-          </Text> */
+    </Text> */
