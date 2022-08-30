@@ -1,26 +1,32 @@
 import { useEffect, useState } from "react";
-import { TouchableWithoutFeedback, ScrollView, Text, View, Image, StatusBar, Alert } from "react-native";
-
+import { TouchableWithoutFeedback, ScrollView, Text, View, Image, Alert } from "react-native";
+// Components
+import { CardService } from "../../CardService/CardService";
+// Hooks
+import { useAuth } from "../../../hooks/useAuth";
 // Styles
 import globalStyles from "../../../globalStyles/globalStyles";
-import { theme } from "../../../globalStyles/theme";
-import { CardService } from "../../CardService/CardService";
 import { styles } from "./styles";
 
 export default function HomeSupplier({ navigation }) {
 
+  const { authData } = useAuth();
   const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     getServices("");
+    setIsLoading(false);
   }, [services])
 
   const getServices = (path) => {
-    fetch('https://quickly-a.herokuapp.com/api/provider?user=Provider'+path)
+    setIsLoading(true);
+    fetch(`https://quickly-a.herokuapp.com/api/provider?user=${authData?.user}${path}`)
       .then(res => res.json())
       .then(data => {
-        listServices(data.payload.Services);
-      });
+        listServices(data.payload[0].Services);
+      })
+      .catch(error => console.log(error));
   }
 
   const listServices = (data) => {
@@ -38,14 +44,19 @@ export default function HomeSupplier({ navigation }) {
       {
         text: "Accept",
         onPress: () => {
-            console.log(id)
             fetch("https://quickly-a.herokuapp.com/api/service", {
-                method: 'DELETE',
-                body: JSON.stringify(id),
-                // headers
+                method: "DELETE",
+                body: JSON.stringify({
+                  id: id,
+                }),
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + authData.tokens.accessToken,
+                }
             })
             .then(res => res.json())
-            .then(data => console.log(data));
+            .then(data => console.log(data))
+            .catch(err=>console.log(err))
             Alert.alert("Servicio eliminado!")
         },
         style: "cancel",
@@ -71,16 +82,16 @@ export default function HomeSupplier({ navigation }) {
         <View style={styles.imgContainer}>
           <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
         </View>
-        <View style={globalStyles.cardContainer}>
+        <View style={[globalStyles.cardOutlineContainer, styles.cardContainer]}>
           <Text style={[globalStyles.title, styles.title]}>{services?.length > 1 ? "Mis servicios" : "Mi servicio"}</Text>
           {
-            services ? (
+            services !== [] ? (isLoading ? <><Text>Cargando...</Text></> : (
               <>
                 {
                   services.map(service => <CardService key={service.id} data={service} handleDelete={handleDeleteService} />)
                 }
               </>
-            ) : (
+            )) : (
               <>
                 <Text>Aún no tienes creado ningún servicio</Text>
               </>
@@ -89,7 +100,7 @@ export default function HomeSupplier({ navigation }) {
           
         </View>
         <TouchableWithoutFeedback onPress={handleAddService}>
-          <View style={[globalStyles.button, globalStyles.normalButton]}>
+          <View style={[globalStyles.button, globalStyles.normalButton, styles.button]}>
             <Text style={globalStyles.textButton}>+ Crear servicio</Text>
           </View>
         </TouchableWithoutFeedback>
