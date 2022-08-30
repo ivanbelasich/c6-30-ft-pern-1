@@ -7,9 +7,9 @@ import {
   StatusBar,
   Image,
   TouchableHighlight,
+  Alert,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import Alert from "../../../Alert/Alert";
 import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
@@ -21,37 +21,23 @@ const Register = ({ navigation }) => {
 
   const [show, setShow] = useState(false);
 
-  const [alert, setAlert] = useState({});
-
   const handleRegisterUser = () => {
     if (user.length <= 2) {
-      setAlert({
-        msg: "El nombre es obligatorio!",
-        error: true,
-      });
+      Alert.alert("Caracteres insuficientes");
       return;
     }
 
     setShow(true);
-    setAlert({});
   };
 
   const handleRegisterEmailAndPw = async () => {
-    // Validations
-
     if (password.length < 6) {
-      setAlert({
-        msg: "La contraseña es muy corta, agrega al menos 6 caracteres!",
-        error: true,
-      });
+      Alert.alert("¡La contraseña es muy corta!");
       return;
     }
 
-    if (email.length < 6) {
-      setAlert({
-        msg: "El email es incorrecto!",
-        error: true,
-      });
+    if (email.length < 8) {
+      Alert.alert("¡El email es invalido!");
       return;
     }
 
@@ -78,8 +64,6 @@ const Register = ({ navigation }) => {
     }
     navigation.navigate("RegisterSuccessful");
   };
-
-  const { msg } = alert;
 
   return (
     <ScrollView>
@@ -108,7 +92,6 @@ const Register = ({ navigation }) => {
               para completar el registro...
             </Text>
           </View>
-          {msg && <Alert alert={alert} />}
           <View style={styles.marginButtonPost}>
             <Text style={styles.textNameInput}>Email</Text>
             <TextInput
@@ -150,7 +133,6 @@ const Register = ({ navigation }) => {
             <Text style={styles.textSize}>Somos Quickly,</Text>
             <Text style={styles.textSize}>¿Cómo quieres que te llamemos?</Text>
           </View>
-          {msg && <Alert alert={alert} />}
           <View style={styles.marginInput}>
             <TextInput
               style={styles.inputName}
