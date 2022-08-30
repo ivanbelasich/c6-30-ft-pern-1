@@ -3,6 +3,11 @@ import { StyleSheet } from "react-native";
 // Style password successful
 
 export const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+    position: "relative",
+    resizeMode: "cover",
+  },
   container: {
     width: "100%",
     justifyContent: "center",

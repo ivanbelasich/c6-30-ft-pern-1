@@ -8,8 +8,8 @@ import {
   Image,
   StatusBar,
   ScrollView,
+  Alert,
 } from "react-native";
-import Alert from "../../../Alert/Alert";
 import { TextInput } from "react-native-paper";
 
 import { CheckBox } from "../../../CheckBox/CheckBox";
@@ -21,18 +21,13 @@ export const Login = ({ navigation }) => {
   let [user, setUser] = useState("");
   let [password, setPassword] = useState("");
 
-  const [alert, setAlert] = useState(false);
-
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const auth = useAuth();
 
   const handleLogin = async () => {
     if ([user, password].includes("")) {
-      setAlert({
-        msg: "Todos los campos son obligatorios",
-        error: true,
-      });
+      Alert.alert("Los datos ingresados son incorrectos");
       return;
     }
 
@@ -56,7 +51,6 @@ export const Login = ({ navigation }) => {
             style={style.logo}
             resizeMode="center"
           />
-          {alert && <Alert alert={alert} />}
           <View style={style.marginX}>
             <Text style={style.inputContainer}>Ingresa tu usuario</Text>
             <TextInput
@@ -110,7 +104,9 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={style.direction}>
             <Text>¿Aún no tienes cuenta?</Text>
-            <TouchableHighlight onPress={() => navigation.navigate("Register")}>
+            <TouchableHighlight
+              onPress={() => navigation.navigate("ProviderOrClient")}
+            >
               <Text style={style.textRegister}>Súmate!</Text>
             </TouchableHighlight>
           </View>

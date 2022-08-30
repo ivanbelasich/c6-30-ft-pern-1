@@ -1,18 +1,19 @@
 import { useState } from "react";
 import {
-  ImageBackground,
   ScrollView,
   Text,
   View,
   StatusBar,
   Image,
   TouchableHighlight,
+  Alert,
+  ImageBackground,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-import Alert from "../../../Alert/Alert";
 import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const Register = ({ navigation }) => {
   const [user, setUser] = useState("");
@@ -21,72 +22,79 @@ const Register = ({ navigation }) => {
 
   const [show, setShow] = useState(false);
 
-  const [alert, setAlert] = useState({});
+  const { rol } = useAuth();
 
   const handleRegisterUser = () => {
     if (user.length <= 2) {
-      setAlert({
-        msg: "El nombre es obligatorio!",
-        error: true,
-      });
+      Alert.alert("Caracteres insuficientes");
       return;
     }
 
     setShow(true);
-    setAlert({});
   };
 
   const handleRegisterEmailAndPw = async () => {
-    // Validations
-
     if (password.length < 6) {
-      setAlert({
-        msg: "La contraseña es muy corta, agrega al menos 6 caracteres!",
-        error: true,
-      });
+      Alert.alert("¡La contraseña es muy corta!");
       return;
     }
 
-    if (email.length < 6) {
-      setAlert({
-        msg: "El email es incorrecto!",
-        error: true,
-      });
+    if (email.length < 8) {
+      Alert.alert("¡El email es invalido!");
       return;
     }
 
-    try {
-      await fetch("https://quickly-a.herokuapp.com/api/client", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          user,
-          email,
-          password,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data.payload));
+    if (rol === "user") {
+      try {
+        await fetch("https://quickly-a.herokuapp.com/api/client", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user,
+            email,
+            password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data.payload));
 
-      setUser("");
-      setMail("");
-      setPassword("");
-    } catch (error) {
-      console.log(error);
+        setUser("");
+        setMail("");
+        setPassword("");
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (rol === "provider") {
+      try {
+        await fetch("https://quickly-a.herokuapp.com/api/provider", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user,
+            email,
+            password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data.payload));
+
+        setUser("");
+        setMail("");
+        setPassword("");
+      } catch (error) {
+        console.log(error);
+      }
     }
-
-    // if (tokens !== "") {
-    //   navigation.navigate("RegisterSuccessful");
-    // }
+    navigation.navigate("RegisterSuccessful");
   };
-
-  const { msg } = alert;
 
   return (
     <ImageBackground
-      source={require("../../../../../assets/templates/TemplateRegister.png")}
+      source={require("../../../../../assets/templates/TemplateRegisterSmall.png")}
       resizeMode="cover"
       style={styles.imageBackground}
     >
@@ -116,7 +124,6 @@ const Register = ({ navigation }) => {
                 para completar el registro...
               </Text>
             </View>
-            {msg && <Alert alert={alert} />}
             <View style={styles.marginButtonPost}>
               <Text style={styles.textNameInput}>Email</Text>
               <TextInput
@@ -160,7 +167,6 @@ const Register = ({ navigation }) => {
                 ¿Cómo quieres que te llamemos?
               </Text>
             </View>
-            {msg && <Alert alert={alert} />}
             <View style={styles.marginInput}>
               <TextInput
                 style={styles.inputName}

@@ -28,11 +28,11 @@ const ForgetPassword = ({ navigation }) => {
             restablecimiento de la contraseña, por favor elige una de las
             opciones:
           </Text>
-          <TouchableOpacity style={styles.inputButton}>
-            <View style={[styles.containerButton]}>
+          <TouchableOpacity style={[styles.inputButton]}>
+            <View style={styles.containerButton}>
               <MaterialCommunityIcons
                 name="email"
-                style={{ color: "#B13513", fontSize: 50 }}
+                style={{ color: "#DD4E24", fontSize: 50 }}
               />
               <View style={styles.containerTextButton}>
                 <Text>Via Email:</Text>
