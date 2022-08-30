@@ -36,6 +36,8 @@ export const Login = ({ navigation }) => {
       return;
     }
 
+    setAlert({});
+
     auth.signIn(user, password);
   };
 

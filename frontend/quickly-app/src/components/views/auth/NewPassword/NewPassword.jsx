@@ -1,6 +1,8 @@
 import { Text, TouchableHighlight, View, ScrollView } from "react-native";
 import { TextInput } from "react-native-paper";
 import { useState } from "react";
+import styles from "./styles";
+import globalStyles from "../../../../globalStyles/globalStyles";
 
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -21,38 +23,66 @@ const NewPassword = ({ navigation }) => {
     <ScrollView>
       <Ionicons
         name="ios-shield-checkmark"
-        style={{ color: "#479BB6", fontSize: 80 }}
+        style={{
+          color: "#479BB6",
+          fontSize: 80,
+          flexDirection: "row",
+          textAlign: "center",
+          marginTop: 40,
+        }}
       />
       {view ? (
         <View>
-          <Text>Crea una nueva contraseña</Text>
-          <TextInput
-            mode="outlined"
-            placeholder="Ingresa tu contraseña"
-            secureTextEntry={passwordVisible}
-            right={
-              <TextInput.Icon
-                onPress={() => setPasswordVisible(!passwordVisible)}
-                name={passwordVisible ? "eye" : "eye-off"}
-              />
-            }
-          />
-          <TouchableHighlight onPress={handleSubmitNewPassword}>
-            <Text>Continuar</Text>
-          </TouchableHighlight>
+          <Text style={[styles.textContainer, styles.marginContainer]}>
+            Crea una nueva contraseña
+          </Text>
+          <View style={styles.container}>
+            <TextInput
+              style={styles.inputContainer}
+              mode="outlined"
+              placeholder="Ingresa tu contraseña"
+              secureTextEntry={passwordVisible}
+              right={
+                <TextInput.Icon
+                  onPress={() => setPasswordVisible(!passwordVisible)}
+                  name={passwordVisible ? "eye" : "eye-off"}
+                />
+              }
+            />
+          </View>
+          <View style={[globalStyles.normalButton, styles.marginButton]}>
+            <TouchableHighlight
+              style={globalStyles.button}
+              onPress={handleSubmitNewPassword}
+            >
+              <Text style={globalStyles.textButton}>Continuar</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       ) : (
         <View>
-          <Text>
-            El Código se envió al “Numero de Contacto” Escribe el codigo:
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            <TextInput mode="outlined" placeholder="Ingresa tu contraseña" />
+          <View style={styles.marginContainer}>
+            <Text style={styles.textContainer}>
+              El Código se envió al “Numero de Contacto”
+            </Text>
+            <Text style={styles.textContainer}>Escribe el codigo:</Text>
           </View>
-          <Text>Reenviando Código en 52 s</Text>
-          <TouchableHighlight onPress={handleSubmit}>
-            <Text>Continuar</Text>
-          </TouchableHighlight>
+          <View style={styles.container}>
+            <TextInput
+              mode="outlined"
+              placeholder="Ingresa el codigo recibido"
+              style={styles.inputContainer}
+            />
+          </View>
+          <Text style={styles.textCounter}>Reenviando Código en 52 s</Text>
+          <View style={[globalStyles.normalButton, styles.marginButton]}>
+            <TouchableHighlight
+              style={globalStyles.button}
+              onPress={handleSubmit}
+            >
+              <Text style={globalStyles.textButton}>Continuar</Text>
+            </TouchableHighlight>
+          </View>
         </View>
       )}
     </ScrollView>
