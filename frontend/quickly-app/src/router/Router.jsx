@@ -16,6 +16,7 @@ import FilterBar from "../components/FilterBar/FilterBar";
 import ForgetPassword from "../components/views/auth/ForgetPassword/ForgetPassword";
 import RegisterSuccessful from "../components/views/auth/RegisterSuccessful/RegisterSuccessful";
 import NewPasswordSuccessful from "../components/views/auth/NewPasswordSuccessful/NewPasswordSuccessful";
+import ProviderOrClient from "../components/views/auth/ProviderOrClient/ProviderOrClient";
 
 // Components
 import Notifications from "../components/views/user/Notifications/Notifications.jsx";
@@ -75,6 +76,17 @@ const AuthStack = () => {
         options={{
           title: "Login",
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProviderOrClient"
+        component={ProviderOrClient}
+        options={{
+          title: "¿Provedor o Cliente?",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
         }}
       />
       <Stack.Screen
