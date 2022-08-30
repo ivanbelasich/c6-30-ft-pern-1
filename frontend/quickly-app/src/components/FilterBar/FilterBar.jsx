@@ -38,7 +38,7 @@ const FilterBar = () => {
       tempDate.getDate();
     setText(fDate);
     console.log(
-      new Date(text.concat("T" + time + ":00")).toLocaleString(),
+      new Date(text.concat("T" + time + ":00")).toString(),
       "esta es la fecha"
     );
   };
@@ -90,7 +90,7 @@ const FilterBar = () => {
       const resp = await axios.post(`${url}/api/order`, {
         client: "Ivan",
         serviceId: provider,
-        date: new Date(text.concat("T" + time + ":00")).toLocaleString(),
+        date: new Date(text.concat("T" + time + ":00")).toString(),
       });
       console.log(resp.data, "esta es la datita");
     } catch (error) {
