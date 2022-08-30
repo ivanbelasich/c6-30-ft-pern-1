@@ -110,6 +110,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginLeft: 20,
   },
+  imageBackground: {
+    flex: 1,
+    position: "relative",
+    resizeMode: "cover",
+  },
 });
 
 export default styles;

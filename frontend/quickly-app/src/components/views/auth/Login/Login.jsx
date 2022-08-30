@@ -21,8 +21,6 @@ export const Login = ({ navigation }) => {
   let [user, setUser] = useState("");
   let [password, setPassword] = useState("");
 
-  const [alert, setAlert] = useState(false);
-
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const auth = useAuth();
@@ -32,8 +30,6 @@ export const Login = ({ navigation }) => {
       Alert.alert("Los datos ingresados son incorrectos");
       return;
     }
-
-    setAlert({});
 
     auth.signIn(user, password);
   };

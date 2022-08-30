@@ -82,8 +82,11 @@ const AuthStack = () => {
         name="ProviderOrClient"
         component={ProviderOrClient}
         options={{
-          title: "ProviderOrClient",
-          headerShown: false,
+          title: "¿Provedor o Cliente?",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
         }}
       />
       <Stack.Screen
