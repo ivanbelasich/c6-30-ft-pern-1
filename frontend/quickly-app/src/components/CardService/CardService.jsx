@@ -17,7 +17,7 @@ export const CardService = ({data, handleDelete}) => {
                 <Text>Horarios:</Text>
                 <View style={styles.textContainer}>
                     {
-                        data?.Date.monday.map(time => (
+                        data?.Date?.monday?.map(time => (
                             <Text key={time} style={[styles.text, styles.textLabel]}>{time}</Text>
                         ))
                     }
