@@ -2,17 +2,19 @@
 
 [Español](#ES) - [English](#EN)
 
-## Índice {#ES}
+<a name="ES"></a>
+## Índice 
 1. [Descripción del proyecto](#descripcion)
 2. [Tecnologías aplicadas](#tecnologias)
 3. [Integrantes](#integrantes)
 4. [Deploy](#deploy-es)
 
-
-## Descripción del proyecto {#descripcion}
+<a name="descripcion"></a>
+## Descripción del proyecto 
 Quickly es una aplicación comunitaria móvil para la gestión y administración de turnos entre distintos tipos de servicios y clientes. El objetivo principal del producto es servir de puente entre los usuarios clientes y los usuarios proveedores, donde el proveedor puede establecer una serie de horarios y fechas de disponibilidad, y el cliente elige aquella que sirva más a su conveniencia.
 
-## Stack y Tecnologías aplicadas {#tecnologias}
+<a name="tecnologias"></a>
+## Stack y Tecnologías aplicadas
 |Frontend       |Backend        |
 |---------------|---------------|
 | React Native  |Express        |
@@ -20,8 +22,8 @@ Quickly es una aplicación comunitaria móvil para la gestión y administración
 | Axios         |Sequelize      |
 | Babel         |JWT            |
 
-
-## Integrantes y roles {#integrantes}
+<a name="integrantes"></a>
+## Integrantes y roles
 Miembros del Cohorte 6, Grupo 30, Fullstack, PERNstack de No Country.
 |Integrante                 |Rol        |Github|LinkedIn|
 |---------------------------|-----------|-----------------------------------------------|---|
@@ -34,8 +36,8 @@ Miembros del Cohorte 6, Grupo 30, Fullstack, PERNstack de No Country.
 |Victoria Ruiz              |Team Leader|||
 
 
-
-## Deploy {#deploy-es}
+<a name="deploy-es"></a>
+## Deploy
 Para probar la aplicación:
 1. Debe descargar desde su celular la aplicación Expo. 
 - [Android Playstore](https://play.google.com/store/apps/details?id=host.exp.exponent)
@@ -45,18 +47,19 @@ Para probar la aplicación:
 Para probar la API:
 La API y su documentación están disponibles a través de su link en Heroku: https://quickly-a.herokuapp.com 
 
-
-## Table of contents {#EN}
+<a name="EN"></a>
+## Table of contents
 1. [About Quickly](#description)
 2. [Tech Stack](#stack)
 3. [Team members](#members)
 4. [Deploy](#deploy-en)
 
-
-## About Quickly {#description}
+<a name="description"></a>
+## About Quickly 
 Quickly is a communal mobile app for the management and administration of appointments and between different types of services and clients. The main objective is to be the bridge between Users-clients and Users-providers of a specific service, where the provider can offer a fixed set of available dates and times, and the client can pick and choose between those to select whichever is more convenient.
 
-## Tech stack {#stack}
+<a name="stack"></a>
+## Tech stack 
 |Frontend       |Backend        |
 |---------------|---------------|
 | React Native  |Express        |
@@ -64,8 +67,8 @@ Quickly is a communal mobile app for the management and administration of appoin
 | Axios         |Sequelize      |
 | Babel         |JWT            |
 
-
-## Team members and roles {#members}
+<a name="members"></a>
+## Team members and roles 
 Members of No Country's Cohort 6 - Group 30 - Fullstack - PERNstack.
 |Member                 |Role        |Github|LinkedIn|
 |---------------------------|-----------|-----------------------------------------------|---|
@@ -78,8 +81,8 @@ Members of No Country's Cohort 6 - Group 30 - Fullstack - PERNstack.
 |Victoria Ruiz              |Team Leader|||
 
 
-
-## Deploy {#deploy-en}
+<a name="deploy-en"></a>
+## Deploy 
 To test the mobile app:
 1. Download the Expo app to your mobile:
 - [Android Playstore](https://play.google.com/store/apps/details?id=host.exp.exponent)
