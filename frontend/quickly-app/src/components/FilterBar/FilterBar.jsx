@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Alert, Button } from "react-native";
-
 import axios from "axios";
 import globalStyles from "../../globalStyles/globalStyles";
 import { Picker } from "@react-native-picker/picker";
@@ -24,21 +23,43 @@ const FilterBar = () => {
     setMode(currentMode);
   };
 
-  const onChange = (e, selectedDate) => {
+  /*   const onChange = (e, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
     let fDate =
-      tempDate.getFullYear() +
-      "-" +
+      tempDate.getFullYear() + 
+      "-0" +
       (tempDate.getMonth() + 1) +
       "-" +
       tempDate.getDate();
     setText(fDate);
     console.log(
       new Date(text.concat("T" + time + ":00")).toString(),
+      "esta es la fecha"
+    );
+  }; */
+  const onChange = (e, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === "ios");
+    setDate(currentDate);
+    let min2 = (num) => {
+      if (num < 10) return "0" + num;
+      else return String(num);
+    };
+    let tempDate = new Date(selectedDate);
+    let fDate =
+      tempDate.getFullYear() +
+      "-" +
+      min2(tempDate.getMonth() + 1) +
+      "-" +
+      tempDate.getDate();
+    setText(new Date(fDate.concat("T" + time + ":00")).toString());
+
+    console.log(
+      new Date(fDate.concat("T" + time + ":00")).toString(),
       "esta es la fecha"
     );
   };
@@ -90,7 +111,7 @@ const FilterBar = () => {
       const resp = await axios.post(`${url}/api/order`, {
         client: "Ivan",
         serviceId: provider,
-        date: new Date(text.concat("T" + time + ":00")).toString(),
+        date: text,
       });
       console.log(resp.data, "esta es la datita");
     } catch (error) {
