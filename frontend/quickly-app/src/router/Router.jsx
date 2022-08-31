@@ -8,11 +8,12 @@ import { useAuth } from "../hooks/useAuth";
 
 // Views
 import HomeUser from "../components/views/user/HomeUser/HomeUser.jsx";
+import FilterBar from "../components/FilterBar/FilterBar";
 import HomeSupplier from "../components/views/supplier/HomeSupplier.jsx";
+import NewService from "../components/views/supplier/NewService/NewService";
+import OrdersList from "../components/views/supplier/OrdersList/OrdersList";
 import Login from "../components/views/auth/Login/Login.jsx";
 import Register from "../components/views/auth/Register/Register.jsx";
-import NewService from "../components/views/supplier/NewService/NewService";
-import FilterBar from "../components/FilterBar/FilterBar";
 import ForgetPassword from "../components/views/auth/ForgetPassword/ForgetPassword";
 import RegisterSuccessful from "../components/views/auth/RegisterSuccessful/RegisterSuccessful";
 import NewPasswordSuccessful from "../components/views/auth/NewPasswordSuccessful/NewPasswordSuccessful";
@@ -31,7 +32,7 @@ const AppClientStack = () => {
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeUser} options={{
+      <Stack.Screen name="HomeUser" component={HomeUser} options={{
           title: "Home",
           headerStyle: {
             backgroundColor: theme.colors.secondary,
@@ -65,7 +66,7 @@ const AppProviderStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="HomeSupplier"
         component={HomeSupplier}
         options={{
           title: "Home",
@@ -85,6 +86,17 @@ const AppProviderStack = () => {
         component={NewService}
         options={{
           title: "Nuevo Servicio",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="OrdersList"
+        component={OrdersList}
+        options={{
+          title: "Servicio",
           headerStyle: {
             backgroundColor: theme.colors.secondary,
           },
