@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Alert, Button } from "react-native";
+import { View, Text, Button } from "react-native";
 import axios from "axios";
 import globalStyles from "../../globalStyles/globalStyles";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Alerts from "../Alerts/Alerts";
 
 const url = "https://quickly-a.herokuapp.com";
 
@@ -23,45 +24,22 @@ const FilterBar = () => {
     setMode(currentMode);
   };
 
-  /*   const onChange = (e, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === "ios");
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate =
-      tempDate.getFullYear() + 
-      "-0" +
-      (tempDate.getMonth() + 1) +
-      "-" +
-      tempDate.getDate();
-    setText(fDate);
-    console.log(
-      new Date(text.concat("T" + time + ":00")).toString(),
-      "esta es la fecha"
-    );
-  }; */
   const onChange = (e, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
-    let min2 = (num) => {
-      if (num < 10) return "0" + num;
-      else return String(num);
-    };
     let tempDate = new Date(selectedDate);
-    let fDate =
-      tempDate.getFullYear() +
-      "-" +
-      min2(tempDate.getMonth() + 1) +
-      "-" +
-      tempDate.getDate();
-    setText(new Date(fDate.concat("T" + time + ":00")).toString());
-
-    console.log(
-      new Date(fDate.concat("T" + time + ":00")).toString(),
-      "esta es la fecha"
+    let [hours, minutes] = time.split(":");
+    let date = new Date(
+      tempDate.getFullYear(),
+      tempDate.getMonth(),
+      tempDate.getDate(),
+      hours,
+      minutes,
+      0
     );
+    let finalText = date.toString();
+    setText(finalText);
   };
 
   useEffect(() => {
@@ -80,31 +58,6 @@ const FilterBar = () => {
     return data.indexOf(item) === index;
   });
 
-  const showAlert = () =>
-    Alert.alert(
-      "Estás seguro que deseas guardar el turno?",
-      undefined,
-      [
-        {
-          text: "Accept",
-          onPress: () => Alert.alert("Turno agendado!"),
-          style: "cancel",
-        },
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-      ],
-      {
-        cancelable: true,
-        onDismiss: () =>
-          console.log(
-            "This alert was dismissed by tapping outside of the alert dialog."
-          ),
-      }
-    );
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -113,9 +66,9 @@ const FilterBar = () => {
         serviceId: provider,
         date: text,
       });
-      console.log(resp.data, "esta es la datita");
+      console.log(resp.data, "Data de solicitud de turno");
     } catch (error) {
-      console.log(error.resp, "este es el error");
+      console.log(error.resp, "Error al solicitar un turno");
     }
   };
 
@@ -130,7 +83,6 @@ const FilterBar = () => {
           <Picker.Item label={el} value={el} key={index} />
         ))}
       </Picker>
-      <Text>{category}</Text>
       <Picker
         selectedValue={provider}
         onValueChange={(itemValue, itemIndex, label) => setProvider(itemValue)}
@@ -147,14 +99,14 @@ const FilterBar = () => {
               <Picker.Item
                 label={el.user}
                 key={index}
-                value={el.Services[0].id}
+                value={el.Services.filter(d => d.category.includes(category))[0].id}
               />
             ))
         )}
       </Picker>
-      <Text> id de proveedor: {provider}</Text>
+      <Text>id: {provider}</Text>
       <Button title="Seleccionar fecha" onPress={() => showMode("date")} />
-      <Text>Fecha elegida: {text}</Text>
+      <Text>Fecha seleccionada: {text}</Text>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -171,17 +123,12 @@ const FilterBar = () => {
         onValueChange={(itemValue) => setTime(itemValue)}
       >
         <Picker.Item label={"Selecciona un horario"} value={null} />
-        <Picker.Item label={"08:30"} value={"08:30"} />
+        <Picker.Item label={"07:30"} value={"07:30"} />
         <Picker.Item label={"09:30"} value={"09:30"} />
-        <Picker.Item label={"10:30"} value={"10:30"} />
+        <Picker.Item label={"12:30"} value={"12:30"} />
       </Picker>
-      <Text>Hora seleccionada: {time}</Text>
-      <Text>{text.concat("T" + time + ":00")}</Text>
-      <View style={[globalStyles.button, globalStyles.normalButton]}>
-        <Text onPress={showAlert} style={globalStyles.textButton}>
-          + Guardar turno
-        </Text>
-      </View>
+      <Text>hora seleccionada: {time}</Text>
+      <Alerts />
       <Button onPress={handleSubmit} title="guarda pa" />
     </View>
   );
