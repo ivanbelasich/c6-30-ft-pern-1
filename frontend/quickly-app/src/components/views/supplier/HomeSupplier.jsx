@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TouchableWithoutFeedback, ScrollView, Text, View, Image, Alert } from "react-native";
+import { TouchableWithoutFeedback, ScrollView, Text, View, Image, Alert, StatusBar } from "react-native";
 // Components
 import { CardService } from "../../CardService/CardService";
 // Hooks
@@ -7,6 +7,7 @@ import { useAuth } from "../../../hooks/useAuth";
 // Styles
 import globalStyles from "../../../globalStyles/globalStyles";
 import { styles } from "./styles";
+import { theme } from "../../../globalStyles/theme";
 
 export default function HomeSupplier({ navigation, route }) {
 
@@ -81,6 +82,7 @@ export default function HomeSupplier({ navigation, route }) {
 
   return (
     <ScrollView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
       <View style={[globalStyles.container, styles.container]}>
         <View style={styles.imgContainer}>
           <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
