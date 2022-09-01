@@ -4,6 +4,7 @@ import { View, TextInput, TouchableWithoutFeedback, Text } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 
+// Components
 import { CheckBox } from "../../CheckBox/CheckBox";
 
 // Styles
@@ -13,6 +14,7 @@ import { styles } from "./styles";
 import { useAuth } from "../../../hooks/useAuth";
 // Utils
 import { arrayDate } from "../../../utils/arrayDate";
+import { capitalize } from "../../../utils/capitalize";
 
 export const ServiceForm = ({navigation}) => {
 
@@ -58,10 +60,10 @@ export const ServiceForm = ({navigation}) => {
   const onSubmit = async (values, {resetForm}) => {
     const sendValues = {
       user: authData.user,
-      name: values.name,
-      category: values.category,
+      name: capitalize(values.name),
+      category: capitalize(values.category),
       value: values.value,
-      description: values.description,
+      description: capitalize(values.description),
       date: {
         monday: values.monday ? arrayDate(values.from, values.to) : null,
         tuesday: values.tuesday ? arrayDate(values.from, values.to) : null,

@@ -80,6 +80,10 @@ export default function HomeSupplier({ navigation, route }) {
     });
   }
 
+  const navigateOrdersList = (id, name) => {
+    navigation.navigate("OrdersList", {"id": id, "name": name})
+  }
+
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
@@ -93,7 +97,7 @@ export default function HomeSupplier({ navigation, route }) {
             services?.length !== 0 ? (isLoading ? <><Text>Cargando...</Text></> : (
               <>
                 {
-                  services.map(service => <CardService key={service.id} data={service} handleDelete={handleDeleteService} />)
+                  services.map(service => <CardService key={service.id} data={service} handleDelete={handleDeleteService} navigateOrdersList={navigateOrdersList}/>)
                 }
               </>
             )) : (

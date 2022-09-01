@@ -2,14 +2,17 @@ import { StyleSheet } from "react-native";
 import { theme } from "../../globalStyles/theme";
 
 export const styles = StyleSheet.create({
+  cardContainer: {
+    flexDirection: "column",
+    backgroundColor: theme.colors.bgCard,
+    overflow: "hidden",
+    borderRadius: 20,
+    padding: 30,
+    marginVertical: 5,
+  },
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: theme.colors.bgCard,
-    borderRadius: 20,
-    padding: 20,
-    marginVertical: 5,
-    overflow: "hidden",
   },
   dataContainer: {
     width: "85%",
