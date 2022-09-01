@@ -85,13 +85,13 @@ export default function HomeSupplier({ navigation, route }) {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
       <View style={[globalStyles.container, styles.container]}>
         <View style={styles.imgContainer}>
           <Image source={require('../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>
         </View>
-        <View style={[globalStyles.cardOutlineContainer, styles.cardContainer]}>
+        <View style={styles.cardContainer}>
           <Text style={[globalStyles.title, styles.title]}>{services?.length > 1 ? "Mis servicios" : "Mi servicio"}</Text>
           {
             services?.length !== 0 ? (isLoading ? <><Text>Cargando...</Text></> : (
