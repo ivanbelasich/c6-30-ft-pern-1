@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
-import axios from "axios";
-import globalStyles from "../../globalStyles/globalStyles";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Alerts from "../Alerts/Alerts";
+import axios from "axios";
 
 const url = "https://quickly-a.herokuapp.com";
 
@@ -29,34 +28,39 @@ const FilterBar = () => {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
     let tempDate = new Date(selectedDate);
-    let [hours, minutes] = time.split(":");
-    let date = new Date(
-      tempDate.getFullYear(),
-      tempDate.getMonth(),
-      tempDate.getDate(),
-      hours,
+    /* let [hours, minutes] = time.split(":"); */
+    let date =
+      tempDate.getFullYear() +
+      "-" +
+      (tempDate.getMonth() + 1 < 10
+        ? "0" + (tempDate.getMonth() + 1)
+        : tempDate.getMonth() + 1) +
+      "-" +
+      (tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate());
+    /*  hours,
       minutes,
-      0
-    );
-    let finalText = date.toString();
-    setText(finalText);
+      0 */
+    setText(date);
   };
+
+  /* const fechaFinal = `${text}T${time}`;
+  const stri = fechaFinal.toString()
+  const fechit = new Date(stri) */
 
   useEffect(() => {
     axios.get(`${url}/api/service`).then((res) => {
-      setData(res.data.payload.map((el) => el.category));
+      setData(res.data.payload);
     });
-  }, []);
-
-  useEffect(() => {
     axios.get(`${url}/api/provider`).then((res) => {
       setUsuarios(res.data.payload);
     });
   }, []);
 
-  const categFiltered = data?.filter((item, index) => {
-    return data.indexOf(item) === index;
-  });
+  const categFiltered = data
+    ?.map((el) => el.category)
+    .filter((item, index) => {
+      return data.map((el) => el.category).indexOf(item) === index;
+    });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -64,9 +68,10 @@ const FilterBar = () => {
       const resp = await axios.post(`${url}/api/order`, {
         client: "Ivan",
         serviceId: provider,
-        date: text,
+        date: new Date(`${text}T${time}`.toString()),
       });
       console.log(resp.data, "Data de solicitud de turno");
+      /*  console.log(date, "esto es la fecha final en el post"); */
     } catch (error) {
       console.log(error.resp, "Error al solicitar un turno");
     }
@@ -74,6 +79,7 @@ const FilterBar = () => {
 
   return (
     <View>
+      {/*  <Text>FECHA FINAL: {fechaFinal}</Text> */}
       <Picker
         selectedValue={category}
         onValueChange={(itemValue, itemIndex) => setCategories(itemValue)}
@@ -99,7 +105,9 @@ const FilterBar = () => {
               <Picker.Item
                 label={el.user}
                 key={index}
-                value={el.Services.filter(d => d.category.includes(category))[0].id}
+                value={
+                  el.Services.filter((d) => d.category.includes(category))[0].id
+                }
               />
             ))
         )}
@@ -123,13 +131,22 @@ const FilterBar = () => {
         onValueChange={(itemValue) => setTime(itemValue)}
       >
         <Picker.Item label={"Selecciona un horario"} value={null} />
-        <Picker.Item label={"07:30"} value={"07:30"} />
-        <Picker.Item label={"09:30"} value={"09:30"} />
-        <Picker.Item label={"12:30"} value={"12:30"} />
+        {
+          data
+            ?.filter((el) => el.id.includes(provider))
+            .map((time, index) =>
+              time.Date.monday.map((hour) => (
+                <Picker.Item value={hour} label={hour} key={index} />
+              ))
+            )
+          /*   .map((hora) => (
+            <Picker.Time label={hora.Date.monday} value={hora.Date.monday} />
+          )) */
+        }
       </Picker>
       <Text>hora seleccionada: {time}</Text>
-      <Alerts />
-      <Button onPress={handleSubmit} title="guarda pa" />
+      {/* <Alerts /> */}
+      <Button onPress={handleSubmit} title=" + Guardar turno" />
     </View>
   );
 };
