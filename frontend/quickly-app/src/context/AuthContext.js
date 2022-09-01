@@ -11,7 +11,11 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadStorageData();
+    async function preload() {
+      await loadStorageData();
+      if (authData.tokens) await refreshTokens()
+    }
+    preload()
   }, []);
 
   const loadStorageData = async () => {
@@ -24,7 +28,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
@@ -40,12 +44,40 @@ export const AuthProvider = ({ children }) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => setAuthData(data.payload))
+      .then((data) => {
+        setAuthData(data.payload)
+        SecureStore.setItemAsync("_token", JSON.stringify(data.payload))
+      })
       .catch((error) => {
         console.log(error);
-      });
-    SecureStore.setItemAsync("_token", JSON.stringify(authData));
+      })
+      .finally(() => setLoading(false))
+
   };
+
+  const refreshTokens = async () => {
+    setLoading(true)
+    try {
+      let response = await fetch("https://quickly-a.herokuapp.com/api/auth/refresh", {
+        method: "POST",
+        body: JSON.stringify({
+          refreshToken: authData.refreshToken
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': authData.accessToken
+        }
+      })
+      let data = await response.json()
+      setAuthData(data)
+    }
+    catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+
+
+  }
 
   const signOut = async () => {
     setAuthData(null);
