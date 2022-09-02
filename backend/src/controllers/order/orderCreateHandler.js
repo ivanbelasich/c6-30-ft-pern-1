@@ -2,7 +2,7 @@ function orderCreateHandler(fetchOrders, checkIfAvailable, checkIfAssigned, dbOr
     return async function (req, res, next) {
         let { client, serviceId, date } = req.body
         try {
-            let service = await fetchOrders(serviceId)
+            let service = await fetchOrders({ where: { id: serviceId } })
             if (!service) return res.status(400).send(errorResponse("Service ID not found."))
             let { Orders, provider, description, value, Date } = service
             let { monday, tuesday, wednesday, thursday, friday, saturday, sunday } = Date.dataValues
