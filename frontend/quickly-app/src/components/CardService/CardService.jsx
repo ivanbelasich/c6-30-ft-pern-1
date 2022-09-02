@@ -10,10 +10,9 @@ export const CardService = ({data, handleDelete, navigateOrdersList}) => {
     <View style={[globalStyles.cardOutlineContainer, styles.cardContainer]}>
         <View style={styles.container}>
             <View style={styles.dataContainer}>
-                <Text style={[globalStyles.title, styles.title]}>{data?.name}</Text>
+                <Text style={[globalStyles.title, styles.title]}>{data?.category}</Text>
+                <Text style={styles.textSubtitle}>{data?.name}</Text>
                 <Text>Descripción: {data?.description}</Text>
-                <Text>Precio:</Text>
-                <Text style={styles.textSubtitle}>${data?.value}</Text>
                 <View>
                     <Text>Horarios:</Text>
                     <View style={styles.textContainer}>
@@ -46,7 +45,7 @@ export const CardService = ({data, handleDelete, navigateOrdersList}) => {
             </View>
         </View>
         <Pressable style={[globalStyles.normalButton, globalStyles.button, styles.button2]} onPress={() => {navigateOrdersList(data?.id, data?.name)}}>
-            <Text style={styles.textButton}>Ver más...</Text>
+            <Text style={styles.textButton}>Ver turnos solicitados</Text>
         </Pressable>
     </View>
   )
