@@ -3,6 +3,7 @@ import { View, Text, TouchableWithoutFeedback } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
+import { useAuth } from "../../hooks/useAuth";
 import globalStyles from "../../globalStyles/globalStyles";
 import { styles } from "./styles";
 
@@ -18,6 +19,8 @@ const FilterBar = () => {
   const [text, setText] = useState("Empty");
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
+
+  const { authData } = useAuth();
 
   const showMode = (currentMode) => {
     setShow(true);
@@ -65,7 +68,7 @@ const FilterBar = () => {
     e.preventDefault();
     try {
       const resp = await axios.post(`${url}/api/order`, {
-        client: "Ivancho",
+        client: authData.user,
         serviceId: provider,
         date: `${text}T${time}`,
       });
