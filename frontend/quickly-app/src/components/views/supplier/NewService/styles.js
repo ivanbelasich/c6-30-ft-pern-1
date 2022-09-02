@@ -15,4 +15,7 @@ export const styles = StyleSheet.create({
   title: {
     marginBottom: 5,
   },
+  formContainer: {
+    marginBottom: 10,
+  },
 });

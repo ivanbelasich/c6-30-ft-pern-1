@@ -1,42 +1,100 @@
 import { useState } from "react";
 import {
-  ImageBackground,
   ScrollView,
   Text,
   View,
   StatusBar,
   Image,
   TouchableHighlight,
+  Alert,
+  ImageBackground,
 } from "react-native";
 import { TextInput } from "react-native-paper";
-
 import styles from "./styles";
 import { theme } from "../../../../globalStyles/theme";
 import globalStyles from "../../../../globalStyles/globalStyles";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const Register = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [show, setShow] = useState(false);
-
-  const [mail, setMail] = useState("");
+  const [user, setUser] = useState("");
+  const [email, setMail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleRegister = () => {
-    if (name == "Fran") {
-      setShow(true);
-    } else {
-      setShow(false);
+  const [show, setShow] = useState(false);
+
+  const { rol } = useAuth();
+
+  const handleRegisterUser = () => {
+    if (user.length <= 2) {
+      Alert.alert("Caracteres insuficientes");
+      return;
     }
-    console.log(password);
-    console.log(mail);
-    if (mail == "algo" && password == "algo") {
-      navigation.navigate("RegisterSuccessful");
+
+    setShow(true);
+  };
+
+  const handleRegisterEmailAndPw = async () => {
+    if (password.length < 6) {
+      Alert.alert("¡La contraseña es muy corta!");
+      return;
     }
+
+    if (email.length < 8) {
+      Alert.alert("¡El email es invalido!");
+      return;
+    }
+
+    if (rol === "user") {
+      try {
+        await fetch("https://quickly-a.herokuapp.com/api/client", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user,
+            email,
+            password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data.payload));
+
+        setUser("");
+        setMail("");
+        setPassword("");
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (rol === "provider") {
+      try {
+        await fetch("https://quickly-a.herokuapp.com/api/provider", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user,
+            email,
+            password,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data.payload));
+
+        setUser("");
+        setMail("");
+        setPassword("");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    navigation.navigate("RegisterSuccessful");
   };
 
   return (
     <ImageBackground
-      source={require("../../../../../assets/templates/TemplateRegister.png")}
+      source={require("../../../../../assets/templates/TemplateRegisterSmall.png")}
       resizeMode="cover"
       style={styles.imageBackground}
     >
@@ -50,7 +108,7 @@ const Register = ({ navigation }) => {
             <View style={styles.directionTextLogo}>
               <View>
                 <Text style={styles.textHello}>¡Hola</Text>
-                <Text style={styles.textName}>{name}!</Text>
+                <Text style={styles.textName}>¡{user}!</Text>
               </View>
               <Image
                 source={require("../../../../../assets/ClockRegister.png")}
@@ -67,11 +125,12 @@ const Register = ({ navigation }) => {
               </Text>
             </View>
             <View style={styles.marginButtonPost}>
-              <Text style={styles.textNameInput}>Mail</Text>
+              <Text style={styles.textNameInput}>Email</Text>
               <TextInput
                 style={styles.inputName}
                 mode="outlined"
-                placeholder="Ingresa tu Mail"
+                placeholder="Ingresa tu Email"
+                value={email}
                 onChangeText={(email) => setMail(email)}
               ></TextInput>
               <Text style={styles.textPasswordInput}>Contraseña</Text>
@@ -79,6 +138,7 @@ const Register = ({ navigation }) => {
                 style={styles.inputName}
                 mode="outlined"
                 placeholder="Ingresa tu Contraseña"
+                value={password}
                 onChangeText={(pw) => setPassword(pw)}
               ></TextInput>
             </View>
@@ -86,7 +146,7 @@ const Register = ({ navigation }) => {
               style={[styles.marginButtonRegister, globalStyles.normalButton]}
             >
               <TouchableHighlight
-                onPress={handleRegister}
+                onPress={handleRegisterEmailAndPw}
                 style={globalStyles.button}
               >
                 <Text style={styles.textButton}>Registrar</Text>
@@ -111,13 +171,14 @@ const Register = ({ navigation }) => {
               <TextInput
                 style={styles.inputName}
                 mode="outlined"
-                placeholder="Ingresa tu nombre"
-                onChangeText={(text) => setName(text)}
+                placeholder="Ingresa tu nombre de usuario"
+                value={user}
+                onChangeText={(user) => setUser(user)}
               />
             </View>
             <View style={[styles.marginButton, globalStyles.normalButton]}>
               <TouchableHighlight
-                onPress={handleRegister}
+                onPress={handleRegisterUser}
                 style={globalStyles.button}
               >
                 <Text style={styles.textButton}>Registrar</Text>

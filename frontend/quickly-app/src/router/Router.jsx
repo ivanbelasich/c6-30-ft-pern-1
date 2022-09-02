@@ -1,21 +1,23 @@
-import { Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Hook
 import { useAuth } from "../hooks/useAuth";
 
 // Views
-import Home from "../components/views/Home/Home";
 import HomeUser from "../components/views/user/HomeUser/HomeUser.jsx";
+import FilterBar from "../components/FilterBar/FilterBar";
 import HomeSupplier from "../components/views/supplier/HomeSupplier.jsx";
+import NewService from "../components/views/supplier/NewService/NewService";
+import OrdersList from "../components/views/supplier/OrdersList/OrdersList";
 import Login from "../components/views/auth/Login/Login.jsx";
 import Register from "../components/views/auth/Register/Register.jsx";
-import NewService from "../components/views/supplier/NewService/NewService";
-import FilterBar from "../components/FilterBar/FilterBar";
 import ForgetPassword from "../components/views/auth/ForgetPassword/ForgetPassword";
 import RegisterSuccessful from "../components/views/auth/RegisterSuccessful/RegisterSuccessful";
 import NewPasswordSuccessful from "../components/views/auth/NewPasswordSuccessful/NewPasswordSuccessful";
+import ProviderOrClient from "../components/views/auth/ProviderOrClient/ProviderOrClient";
 
 // Components
 import Notifications from "../components/views/user/Notifications/Notifications.jsx";
@@ -24,10 +26,24 @@ import { theme } from "../globalStyles/theme";
 
 const Stack = createStackNavigator();
 
-const AppStack = () => {
+const AppClientStack = () => {
+
+  const auth = useAuth();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="HomeUser" component={HomeUser} options={{
+          title: "Home",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+          headerRight: () => (
+            <Pressable onPress={() => auth.signOut()}>
+              <Icon name="ios-log-out-outline" size={35} color={theme.colors.background} style={{marginRight: 5}}/>
+            </Pressable>
+          )
+        }} />
       <Stack.Screen
         name="Turns"
         component={FilterBar}
@@ -39,16 +55,30 @@ const AppStack = () => {
           headerTintColor: theme.colors.background,
         }}
       />
-      <Stack.Screen name="HomeUser" component={HomeUser} />
+    </Stack.Navigator>
+  );
+};
+
+const AppProviderStack = () => {
+
+  const auth = useAuth();
+
+  return (
+    <Stack.Navigator>
       <Stack.Screen
         name="HomeSupplier"
         component={HomeSupplier}
         options={{
-          title: "Mi Servicio",
+          title: "Home",
           headerStyle: {
             backgroundColor: theme.colors.secondary,
           },
           headerTintColor: theme.colors.background,
+          headerRight: () => (
+            <Pressable onPress={() => auth.signOut()}>
+              <Icon name="ios-log-out-outline" size={35} color={theme.colors.background} style={{marginRight: 5}}/>
+            </Pressable>
+          )
         }}
       />
       <Stack.Screen
@@ -62,9 +92,20 @@ const AppStack = () => {
           headerTintColor: theme.colors.background,
         }}
       />
+      <Stack.Screen
+        name="OrdersList"
+        component={OrdersList}
+        options={{
+          title: "Servicio",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const AuthStack = () => {
   return (
@@ -75,6 +116,17 @@ const AuthStack = () => {
         options={{
           title: "Login",
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="ProviderOrClient"
+        component={ProviderOrClient}
+        options={{
+          title: "¿Provedor o Cliente?",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
         }}
       />
       <Stack.Screen
@@ -130,7 +182,7 @@ export const Router = () => {
 
   return (
     <NavigationContainer>
-      {authData?.token ? <AppStack /> : <AuthStack />}
+      {authData?.tokens?.accessToken ? (authData?.access === "provider" ? <AppProviderStack /> : <AppClientStack />) : <AuthStack />}
     </NavigationContainer>
   );
 };

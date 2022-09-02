@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../../../hooks/useAuth";
 import {
   TouchableHighlight,
@@ -8,6 +8,7 @@ import {
   Image,
   StatusBar,
   ScrollView,
+  Alert,
 } from "react-native";
 import { TextInput } from "react-native-paper";
 
@@ -18,22 +19,19 @@ import globalStyles from "../../../../globalStyles/globalStyles";
 
 export const Login = ({ navigation }) => {
   let [user, setUser] = useState("");
-  let [password, setPassword] = useState("Testing");
+  let [password, setPassword] = useState("");
 
   const [passwordVisible, setPasswordVisible] = useState(true);
 
   const auth = useAuth();
 
-  const handleLogin = () => {
-    auth.signIn();
-  };
+  const handleLogin = async () => {
+    if ([user, password].includes("")) {
+      Alert.alert("Los datos ingresados son incorrectos");
+      return;
+    }
 
-  const handleRegister = () => {
-    navigation.navigate("Register");
-  };
-
-  const handleForgetPassword = () => {
-    navigation.navigate("ForgetPassword");
+    auth.signIn(user, password);
   };
 
   return (
@@ -58,6 +56,8 @@ export const Login = ({ navigation }) => {
             <TextInput
               mode="outlined"
               placeholder="Ingresa tu usuario"
+              onChangeText={(user) => setUser(user)}
+              value={user}
               right={<TextInput.Affix text="/100" />}
             />
           </View>
@@ -66,6 +66,8 @@ export const Login = ({ navigation }) => {
             <TextInput
               mode="outlined"
               placeholder="Ingresa tu contraseña"
+              onChangeText={(pw) => setPassword(pw)}
+              value={password}
               secureTextEntry={passwordVisible}
               right={
                 <TextInput.Icon
@@ -77,7 +79,9 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={[style.marginY, style.direction]}>
             <CheckBox children={"Recordame"} />
-            <TouchableHighlight onPress={handleForgetPassword}>
+            <TouchableHighlight
+              onPress={() => navigation.navigate("ForgetPassword")}
+            >
               <Text style={style.textRecuperatePassword}>
                 ¿Olvidaste tu contraseña?
               </Text>
@@ -100,7 +104,9 @@ export const Login = ({ navigation }) => {
           </View>
           <View style={style.direction}>
             <Text>¿Aún no tienes cuenta?</Text>
-            <TouchableHighlight onPress={handleRegister}>
+            <TouchableHighlight
+              onPress={() => navigation.navigate("ProviderOrClient")}
+            >
               <Text style={style.textRegister}>Súmate!</Text>
             </TouchableHighlight>
           </View>
@@ -114,84 +120,4 @@ export default Login;
 
 /* <Text>
             <AntDesign name="star" style={{ color: "green", fontSize: 20 }} />
-          </Text> */
-
-// export default function Login() {
-//     let [response, setResponse] = useState(["Server response."]
-//     const auth = useAuth();
-
-//     async function login(user, password) {
-//         let headers = new Headers()
-//         headers.append("Content-Type", "application/json")
-//         try {
-//             let response = await fetch('https://quickly-b.herokuapp.com/login', {
-//                 headers,
-//                 method: "POST",
-//                 body: JSON.stringify({
-//                     user,
-//                     password
-//                 })
-//             })
-//             let data = await response.json()
-//             let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
-//             setResponse(toText)
-//             auth.signIn();
-//             navigate("/", {replace: true});
-//         }
-//         catch (error) {
-//             console.log('error', error)
-//         }
-
-//     }
-//     async function register(user, password) {
-//         try {
-//             let headers = new Headers()
-//             headers.append("Content-Type", "application/json")
-//             let response = await fetch('https://quickly-b.herokuapp.com/register', {
-//                 headers,
-//                 method: "POST",
-//                 body: JSON.stringify({
-//                     user,
-//                     password
-//                 })
-//             })
-//             let data = await response.json()
-//             let toText = Object.keys(data).map(k => `${k}: ${data[k]}`)
-//             setResponse(toText)
-//         }
-//         catch (error) {
-//             console.log('error', error)
-//         }
-//     }
-//     function handlePressLogin() {
-//         login(user, password)
-//     }
-//     function handlePressRegister() {
-//         register(user, password)
-//     }
-
-//     return (
-//         <View style={style.container}>
-//             <Text style={style.title}>Login/Register view</Text>
-//             <TextInput value={user} onChange={e => setUser(e.target.value)} style={style.input} />
-//             <TextInput value={password} onChange={e => setPassword(e.target.value)} style={style.input} />
-//             <View style={style.buttonContainer}>
-//                 <TouchableHighlight onPress={handlePressLogin} style={style.button}>
-//                     <Text style={style.buttonText}>Login</Text>
-//                 </TouchableHighlight>
-//                 <TouchableHighlight onPress={handlePressRegister} style={style.button}>
-//                     <Text style={style.buttonText}>Register</Text>
-//                 </TouchableHighlight>
-//             </View>
-//             <View>
-//                 {response.map((k, index) => <Text key={`serverResponse${index}`}>{k}</Text>)}
-//             </View>
-//             <View>
-//                 <Text>¿Aún no tienes una cuenta?</Text>
-//                 <Link to="/register">
-//                     <Text>¡Súmate!</Text>
-//                 </Link>
-//             </View>
-//         </View>
-//     );
-// }
+    </Text> */

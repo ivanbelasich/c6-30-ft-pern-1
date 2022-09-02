@@ -40,4 +40,9 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 20,
   },
+  imageBackground: {
+    flex: 1,
+    position: "relative",
+    resizeMode: "cover",
+  },
 });

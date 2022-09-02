@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { theme } from "../../../globalStyles/theme";
+import { theme } from "../../../../globalStyles/theme";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,23 +9,21 @@ export const styles = StyleSheet.create({
   imgContainer: {
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom: 30,
   },
   imgLogo: {
     width: 165,
     height: 55,
+  },
+  title: {
+    marginBottom: 5,
+    marginTop: 10,
+    fontSize: theme.fontSize.headline,
   },
   cardContainer: {
     marginBottom: 20,
     backgroundColor: theme.colors.bgCard,
     borderRadius: 20,
     padding: 20,
-  },
-  title: {
-    marginBottom: 5,
-    fontWeight: theme.fontWeights.medium,
-  },
-  button: {
-    marginBottom: 10,
   },
 });

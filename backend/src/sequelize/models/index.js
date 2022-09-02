@@ -5,8 +5,8 @@ const Client = require('./Client')
 const Provider = require('./Provider')
 
 
-Service.hasMany(Order);
-Order.belongsTo(Service);
+Service.hasMany(Order, { sourceKey: "id", foreignKey: "Orders" });
+Order.belongsTo(Service, { sourceKey: "id", foreignKey: "Orders" });
 
 Client.hasMany(Order, { sourceKey: "user", foreignKey: "client" })
 Order.belongsTo(Client, { targetKey: "user", foreignKey: "client" })
