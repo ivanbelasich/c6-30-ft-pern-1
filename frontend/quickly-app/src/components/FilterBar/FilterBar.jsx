@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, TouchableWithoutFeedback } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Alerts from "../Alerts/Alerts";
 import axios from "axios";
+import globalStyles from "../../globalStyles/globalStyles";
+import { styles } from "./styles";
 
 const url = "https://quickly-a.herokuapp.com";
 
@@ -78,43 +80,58 @@ const FilterBar = () => {
   };
 
   return (
-    <View>
-      {/*  <Text>FECHA FINAL: {fechaFinal}</Text> */}
-      <Picker
-        selectedValue={category}
-        onValueChange={(itemValue, itemIndex) => setCategories(itemValue)}
-      >
-        <Picker.Item label={"Selecciona una categoría"} value={null} />
-        {categFiltered?.map((el, index) => (
-          <Picker.Item label={el} value={el} key={index} />
-        ))}
-      </Picker>
-      <Picker
-        selectedValue={provider}
-        onValueChange={(itemValue, itemIndex, label) => setProvider(itemValue)}
-      >
-        <Picker.Item label={"Selecciona un especialista"} value={undefined} />
-        {!category ? (
-          <Picker.Item label={""} value={null} enabled={false} />
-        ) : (
-          usuarios
-            ?.filter((el) =>
-              el.Services.map((a) => a.category).includes(category)
-            )
-            .map((el, index) => (
-              <Picker.Item
-                label={el.user}
-                key={index}
-                value={
-                  el.Services.filter((d) => d.category.includes(category))[0].id
-                }
-              />
-            ))
-        )}
-      </Picker>
-      <Text>id: {provider}</Text>
-      <Button title="Seleccionar fecha" onPress={() => showMode("date")} />
-      <Text>Fecha seleccionada: {text}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Selecciona una categoría:</Text>
+      <View style={styles.viewSelect}>
+        <Picker
+          style={styles.select}
+          selectedValue={category}
+          onValueChange={(itemValue, itemIndex) => setCategories(itemValue)}
+        >
+          <Picker.Item label={"Selecciona una categoría"} value={null} />
+          {categFiltered?.map((el, index) => (
+            <Picker.Item label={el} value={el} key={index} />
+          ))}
+        </Picker>
+      </View>
+      <Text style={styles.text}>Selecciona un profesional:</Text>
+      <View style={styles.viewSelect}>
+        <Picker
+          style={styles.select}
+          selectedValue={provider}
+          onValueChange={(itemValue, itemIndex, label) =>
+            setProvider(itemValue)
+          }
+        >
+          <Picker.Item
+            style={styles.viewSelect}
+            label={"Selecciona un especialista"}
+            value={undefined}
+          />
+          {!category ? (
+            <Picker.Item label={""} value={null} enabled={false} />
+          ) : (
+            usuarios
+              ?.filter((el) =>
+                el.Services.map((a) => a.category).includes(category)
+              )
+              .map((el, index) => (
+                <Picker.Item
+                  label={el.user}
+                  key={index}
+                  value={
+                    el.Services.filter((d) => d.category.includes(category))[0]
+                      .id
+                  }
+                />
+              ))
+          )}
+        </Picker>
+      </View>
+      <Text style={styles.text}>Selecciona una fecha del calendario:</Text>
+      <View style={styles.selectCalendar}>
+        <Text style={styles.textCalendar} onPress={() => showMode("date")}>Seleccionar fecha:</Text>
+      </View>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -126,27 +143,29 @@ const FilterBar = () => {
           onChange={onChange}
         />
       )}
-      <Picker
-        selectedValue={time}
-        onValueChange={(itemValue) => setTime(itemValue)}
-      >
-        <Picker.Item label={"Selecciona un horario"} value={null} />
-        {
-          data
+      <Text style={styles.text}>Selecciona un horario:</Text>
+      <View style={styles.viewSelect}>
+        <Picker
+          style={styles.select}
+          selectedValue={time}
+          onValueChange={(itemValue) => setTime(itemValue)}
+        >
+          <Picker.Item label={"Selecciona un horario"} value={null} />
+          {data
             ?.filter((el) => el.id.includes(provider))
             .map((time, index) =>
               time.Date.monday.map((hour) => (
                 <Picker.Item value={hour} label={hour} key={index} />
               ))
-            )
-          /*   .map((hora) => (
-            <Picker.Time label={hora.Date.monday} value={hora.Date.monday} />
-          )) */
-        }
-      </Picker>
-      <Text>hora seleccionada: {time}</Text>
+            )}
+        </Picker>
+      </View>
       {/* <Alerts /> */}
-      <Button onPress={handleSubmit} title=" + Guardar turno" />
+      <TouchableWithoutFeedback onPress={handleSubmit}>
+        <View style={[globalStyles.button, globalStyles.normalButton, styles.appointmentButtonView]}>
+          <Text style={[globalStyles.textButton, styles.appointmentButton]}>+ Nuevo turno</Text>
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
