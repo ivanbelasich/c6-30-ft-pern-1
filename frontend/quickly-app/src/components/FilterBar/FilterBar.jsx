@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button, TouchableWithoutFeedback } from "react-native";
+import { View, Text, TouchableWithoutFeedback } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import Alerts from "../Alerts/Alerts";
 import axios from "axios";
 import globalStyles from "../../globalStyles/globalStyles";
 import { styles } from "./styles";
@@ -29,25 +28,23 @@ const FilterBar = () => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === "ios");
     setDate(currentDate);
-    let tempDate = new Date(selectedDate);
+    /*  let tempDate = new Date(selectedDate); */
     /* let [hours, minutes] = time.split(":"); */
     let date =
-      tempDate.getFullYear() +
+      selectedDate.getFullYear() +
       "-" +
-      (tempDate.getMonth() + 1 < 10
-        ? "0" + (tempDate.getMonth() + 1)
-        : tempDate.getMonth() + 1) +
+      (selectedDate.getMonth() + 1 < 10
+        ? "0" + (selectedDate.getMonth() + 1)
+        : selectedDate.getMonth() + 1) +
       "-" +
-      (tempDate.getDate() < 10 ? "0" + tempDate.getDate() : tempDate.getDate());
+      (selectedDate.getDate() < 10
+        ? "0" + selectedDate.getDate()
+        : selectedDate.getDate());
     /*  hours,
       minutes,
       0 */
     setText(date);
   };
-
-  /* const fechaFinal = `${text}T${time}`;
-  const stri = fechaFinal.toString()
-  const fechit = new Date(stri) */
 
   useEffect(() => {
     axios.get(`${url}/api/service`).then((res) => {
@@ -68,9 +65,9 @@ const FilterBar = () => {
     e.preventDefault();
     try {
       const resp = await axios.post(`${url}/api/order`, {
-        client: "Ivan",
+        client: "Ivancho",
         serviceId: provider,
-        date: new Date(`${text}T${time}`.toString()),
+        date: `${text}T${time}`,
       });
       console.log(resp.data, "Data de solicitud de turno");
       /*  console.log(date, "esto es la fecha final en el post"); */
@@ -130,8 +127,24 @@ const FilterBar = () => {
       </View>
       <Text style={styles.text}>Selecciona una fecha del calendario:</Text>
       <View style={styles.selectCalendar}>
-        <Text style={styles.textCalendar} onPress={() => showMode("date")}>Seleccionar fecha:</Text>
+        {text === "Empty" ? (
+          <Text style={styles.textCalendar} onPress={() => showMode("date")}>
+            Seleccionar fecha:
+          </Text>
+        ) : (
+          <Text style={styles.textCalendar} onPress={() => showMode("date")}>
+            {text}
+          </Text>
+        )}
       </View>
+      {/*  <Text>fecha date: {date.toString()}</Text>
+      <Text>fecha text: {text}</Text>
+      <Text>
+        lo que le llega al post: {text}T{time}
+      </Text>
+      <Text>fecha final: {finalData.toString()}</Text>
+         <Text>hora seleccionada:{"0" + (Number(hora) + 2) + ":" + minuto}</Text>
+      <Text>hora final: {time}</Text> */}
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -154,16 +167,23 @@ const FilterBar = () => {
           {data
             ?.filter((el) => el.id.includes(provider))
             .map((time, index) =>
-              time.Date.monday.map((hour) => (
+              time.Date.monday?.map((hour) => (
                 <Picker.Item value={hour} label={hour} key={index} />
               ))
             )}
         </Picker>
       </View>
-      {/* <Alerts /> */}
       <TouchableWithoutFeedback onPress={handleSubmit}>
-        <View style={[globalStyles.button, globalStyles.normalButton, styles.appointmentButtonView]}>
-          <Text style={[globalStyles.textButton, styles.appointmentButton]}>+ Nuevo turno</Text>
+        <View
+          style={[
+            globalStyles.button,
+            globalStyles.normalButton,
+            styles.appointmentButtonView,
+          ]}
+        >
+          <Text style={[globalStyles.textButton, styles.appointmentButton]}>
+            + Nuevo turno
+          </Text>
         </View>
       </TouchableWithoutFeedback>
     </View>
