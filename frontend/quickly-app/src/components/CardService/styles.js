@@ -34,6 +34,9 @@ export const styles = StyleSheet.create({
   button: {
     padding: 3,
   },
+  button2: {
+    marginVertical: 5,
+  },
   textLabel: {
     backgroundColor: theme.colors.background,
     padding: 5,
@@ -45,5 +48,9 @@ export const styles = StyleSheet.create({
   },
   textSubtitle: {
     fontSize: theme.fontSize.title,
+  },
+  textButton: {
+    fontSize: theme.fontSize.subheading,
+    color: theme.colors.background,
   },
 });

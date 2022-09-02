@@ -7,7 +7,7 @@ import { styles } from './styles';
 export const CardService = ({data, handleDelete, navigateOrdersList}) => {
 
   return (
-    <View style={styles.cardContainer}>
+    <View style={[globalStyles.cardOutlineContainer, styles.cardContainer]}>
         <View style={styles.container}>
             <View style={styles.dataContainer}>
                 <Text style={[globalStyles.title, styles.title]}>{data?.name}</Text>
@@ -45,8 +45,8 @@ export const CardService = ({data, handleDelete, navigateOrdersList}) => {
                 </Pressable>
             </View>
         </View>
-        <Pressable style={[globalStyles.normalButton, globalStyles.button, styles.button]} onPress={() => {navigateOrdersList(data?.id, data?.name)}}>
-            <Text style={globalStyles.textButton}>Ver más...</Text>
+        <Pressable style={[globalStyles.normalButton, globalStyles.button, styles.button2]} onPress={() => {navigateOrdersList(data?.id, data?.name)}}>
+            <Text style={styles.textButton}>Ver más...</Text>
         </Pressable>
     </View>
   )

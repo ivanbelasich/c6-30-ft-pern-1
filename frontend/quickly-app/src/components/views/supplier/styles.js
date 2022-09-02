@@ -3,8 +3,8 @@ import { theme } from "../../../globalStyles/theme";
 
 export const styles = StyleSheet.create({
   container: {
-    height: "100%",
     backgroundColor: theme.colors.background,
+    minHeight: "100%",
   },
   imgContainer: {
     justifyContent: "center",
@@ -17,6 +17,9 @@ export const styles = StyleSheet.create({
   },
   cardContainer: {
     marginBottom: 20,
+    backgroundColor: theme.colors.bgCard,
+    borderRadius: 20,
+    padding: 20,
   },
   title: {
     marginBottom: 5,
