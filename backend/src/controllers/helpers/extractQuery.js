@@ -1,5 +1,5 @@
-function extractQuery(url) {
-    let params = new URLSearchParams(url.split('?')[1])
+function extractQuery(req) {
+    let params = new URLSearchParams(req.url.split('?')[1])
     return Array
         .from(params.entries())
         .reduce((a, b) => {

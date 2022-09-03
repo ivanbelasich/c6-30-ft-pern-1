@@ -6,10 +6,16 @@ export const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const [authData, setAuthData] = useState({});
 
+  const [rol, setRol] = useState("");
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadStorageData();
+    async function preload() {
+      await loadStorageData();
+      if (authData.tokens) await refreshTokens()
+    }
+    preload()
   }, []);
 
   const loadStorageData = async () => {
@@ -22,21 +28,56 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   };
 
-  const signIn = async () => {
-    const authDataToken = {
-      username: "Hola",
-      correo: "prueba@gmail.com",
-      token: "dsadasgfadsfasfasd",
-    };
+  const signIn = async (user, password) => {
+    await fetch("https://quickly-a.herokuapp.com/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        user,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setAuthData(data.payload)
+        SecureStore.setItemAsync("_token", JSON.stringify(data.payload))
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => setLoading(false))
 
-    setAuthData(authDataToken);
-
-    SecureStore.setItemAsync("_token", JSON.stringify(authDataToken));
   };
+
+  const refreshTokens = async () => {
+    setLoading(true)
+    try {
+      let response = await fetch("https://quickly-a.herokuapp.com/api/auth/refresh", {
+        method: "POST",
+        body: JSON.stringify({
+          refreshToken: authData.refreshToken
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          'authorization': authData.accessToken
+        }
+      })
+      let data = await response.json()
+      setAuthData(data)
+    }
+    catch (error) {
+      console.log(error)
+    }
+    setLoading(false)
+
+
+  }
 
   const signOut = async () => {
     setAuthData(null);
@@ -45,7 +86,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ authData, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ setAuthData, authData, loading, signIn, signOut, setRol, rol }}
+    >
       {children}
     </AuthContext.Provider>
   );

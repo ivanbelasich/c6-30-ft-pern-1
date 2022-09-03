@@ -1,6 +1,6 @@
 function findOneUser(findOne, extractor, errorManager, errorResponse) {
     return async function (req, res, next) {
-        let { user } = extractor(req.url)
+        let { user } = extractor(req)
         try {
             let data = await findOne({ where: { user } })
             if (!data) return res.status(400).send(errorResponse("User not found"))

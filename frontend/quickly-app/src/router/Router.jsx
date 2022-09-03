@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -6,31 +6,44 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useAuth } from "../hooks/useAuth";
 
 // Views
-import Home from "../components/views/Home/Home";
-import Turns from "../components/views/user/Turns/Turns.jsx";
-import HomeUser from "../components/views/user/HomeUser/HomeUser.jsx";
-import HomeSupplier from "../components/views/supplier/HomeSupplier.jsx";
+import OrdersList from "../components/views/supplier/OrdersList/OrdersList";
 import Login from "../components/views/auth/Login/Login.jsx";
 import Register from "../components/views/auth/Register/Register.jsx";
+import ForgetPassword from "../components/views/auth/ForgetPassword/ForgetPassword";
+import RegisterSuccessful from "../components/views/auth/RegisterSuccessful/RegisterSuccessful";
+import NewPasswordSuccessful from "../components/views/auth/NewPasswordSuccessful/NewPasswordSuccessful";
+import ProviderOrClient from "../components/views/auth/ProviderOrClient/ProviderOrClient";
+
 // Components
-import Notifications from "../components/views/user/Notifications/Notifications.jsx";
-import FilterBar from "../components/FilterBar/FilterBar.jsx";
+import { TabsProvider, TabsUser } from "../components/BottomNavbar/BottomNavbar";
 
 import { theme } from "../globalStyles/theme";
 
 const Stack = createStackNavigator();
 
-const AppStack = () => {
+const AppClientStack = () => {
+
+  return (
+    <>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={TabsUser} options={{ headerShown: false }} />
+      </Stack.Navigator>
+    </>
+  );
+};
+
+const AppProviderStack = () => {
+
+  const auth = useAuth();
+
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Turns" component={Turns} />
-      <Stack.Screen name="HomeUser" component={HomeUser} />
+      <Stack.Screen name="Home" component={TabsProvider} options={{ headerShown: false }}/>
       <Stack.Screen
-        name="HomeSupplier"
-        component={HomeSupplier}
+        name="OrdersList"
+        component={OrdersList}
         options={{
-          title: "Mi Servicio",
+          title: "Servicio",
           headerStyle: {
             backgroundColor: theme.colors.secondary,
           },
@@ -38,8 +51,8 @@ const AppStack = () => {
         }}
       />
     </Stack.Navigator>
-  );
-};
+  )
+}
 
 const AuthStack = () => {
   return (
@@ -53,6 +66,17 @@ const AuthStack = () => {
         }}
       />
       <Stack.Screen
+        name="ProviderOrClient"
+        component={ProviderOrClient}
+        options={{
+          title: "¿Provedor o Cliente?",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
         name="Register"
         component={Register}
         options={{
@@ -60,6 +84,31 @@ const AuthStack = () => {
           headerStyle: {
             backgroundColor: theme.colors.secondary,
           },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+        options={{
+          title: "Recuperar Contraseña",
+          headerStyle: {
+            backgroundColor: theme.colors.secondary,
+          },
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="RegisterSuccessful"
+        component={RegisterSuccessful}
+        options={{
+          headerTintColor: theme.colors.background,
+        }}
+      />
+      <Stack.Screen
+        name="NewPasswordSuccessful"
+        component={NewPasswordSuccessful}
+        options={{
           headerTintColor: theme.colors.background,
         }}
       />
@@ -72,15 +121,15 @@ export const Router = () => {
 
   if (loading) {
     return (
-      <>
-        <Text>Cargando...</Text>
-      </>
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
     );
   }
 
   return (
     <NavigationContainer>
-      {authData?.token ? <AppStack /> : <AuthStack />}
+      {authData?.tokens?.accessToken ? (authData?.access === "provider" ? <AppProviderStack /> : <AppClientStack />) : <AuthStack />}
     </NavigationContainer>
   );
 };

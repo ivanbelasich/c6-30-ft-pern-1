@@ -1,15 +1,10 @@
 const { Router } = require('express');
-
-import { deleteServices, getService, getServices, getServicesCount, updateServices, saveServices, createServices } from '../controllers/services'
-
+const { createService, deleteService, getOneService, getAllServices } = require('../controllers/services/index')
 const router = Router();
 
-router.get('/', getServices);
-router.get('/count',getServicesCount);
-router.post('/create', createServices);
-router.get('/:id', getService);
-// router.post('/services', saveServices);
-router.delete('/:id', deleteServices);
-router.put('/:id', updateServices);
+router.get('/:id', getOneService);
+router.get('/', getAllServices)
+router.post('/', createService);
+router.delete('/', deleteService);
 
 module.exports = router;

@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
   },
   textMain: {
     textAlign: "center",
-    fontSize: 20,
     fontWeight: "500",
+    fontSize: 20,
     marginTop: 20,
   },
   textSize: {
@@ -60,6 +60,60 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     textDecorationLine: "underline",
+  },
+  logoPostRegister: {
+    width: 200,
+  },
+  directionTextLogo: {
+    marginTop: 30,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginLeft: 20,
+  },
+  textHello: {
+    fontSize: 28,
+    fontWeight: "600",
+  },
+  textName: {
+    fontSize: 28,
+    marginLeft: 35,
+    fontWeight: "600",
+    color: "#DD4E24",
+  },
+  mainText: {
+    marginTop: 20,
+    marginBottom: 20,
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  textMainPost: {
+    fontSize: 17,
+  },
+  marginButtonPost: {
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  textPasswordInput: {
+    marginTop: 15,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  textNameInput: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  marginButtonRegister: {
+    marginTop: 40,
+    marginBottom: -40,
+    marginRight: 20,
+    marginLeft: 20,
+  },
+  imageBackground: {
+    flex: 1,
+    position: "relative",
+    resizeMode: "cover",
   },
 });
 
