@@ -23,8 +23,6 @@ const Stack = createStackNavigator();
 
 const AppClientStack = () => {
 
-  const auth = useAuth();
-
   return (
     <>
       <Stack.Navigator>

@@ -3,11 +3,11 @@ import { ScrollView, Text, View, Image, Alert, StatusBar, ActivityIndicator } fr
 // Components
 import { CardService } from "../../CardService/CardService";
 // Hooks
-import { useAuth } from "../../../hooks/useAuth";
+import { useAuth } from "../../../../hooks/useAuth";
 // Styles
-import globalStyles from "../../../globalStyles/globalStyles";
+import globalStyles from "../../../../globalStyles/globalStyles";
 import { styles } from "./styles";
-import { theme } from "../../../globalStyles/theme";
+import { theme } from "../../../../globalStyles/theme";
 
 export default function HomeSupplier({ navigation, route }) {
 
