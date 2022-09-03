@@ -50,9 +50,9 @@ const NewPassword = ({ navigation }) => {
               }
             />
           </View>
-          <View style={[globalStyles.normalButton, styles.marginButton]}>
+          <View style={styles.marginButton}>
             <TouchableHighlight
-              style={globalStyles.button}
+              style={[globalStyles.button, globalStyles.normalButton]}
               onPress={handleSubmitNewPassword}
             >
               <Text style={globalStyles.textButton}>Continuar</Text>
@@ -75,9 +75,9 @@ const NewPassword = ({ navigation }) => {
             />
           </View>
           <Text style={styles.textCounter}>Reenviando Código en 52 s</Text>
-          <View style={[globalStyles.normalButton, styles.marginButton]}>
+          <View style={styles.marginButton}>
             <TouchableHighlight
-              style={globalStyles.button}
+              style={[globalStyles.button, globalStyles.normalButton]}
               onPress={handleSubmit}
             >
               <Text style={globalStyles.textButton}>Continuar</Text>

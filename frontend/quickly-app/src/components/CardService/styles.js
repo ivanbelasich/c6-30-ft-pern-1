@@ -18,7 +18,6 @@ export const styles = StyleSheet.create({
     width: "85%",
   },
   textContainer: {
-    paddingLeft: 5,
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",

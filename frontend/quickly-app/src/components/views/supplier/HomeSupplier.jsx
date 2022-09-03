@@ -108,11 +108,6 @@ export default function HomeSupplier({ navigation, route }) {
           }
           
         </View>
-        <TouchableWithoutFeedback onPress={handleAddService}>
-          <View style={[globalStyles.button, globalStyles.normalButton, styles.button]}>
-            <Text style={globalStyles.textButton}>+ Crear servicio</Text>
-          </View>
-        </TouchableWithoutFeedback>
       </View>
     </ScrollView>
   );

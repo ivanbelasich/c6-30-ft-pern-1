@@ -24,4 +24,14 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     alignContent: "center",
   },
+  fromToContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "space-between",
+  },
+  fromToInputContainer: {
+    marginHorizontal: 30,
+    marginBottom: 20,
+  },
 });
