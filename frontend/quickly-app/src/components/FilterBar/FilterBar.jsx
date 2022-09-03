@@ -9,7 +9,7 @@ import { styles } from "./styles";
 
 const url = "https://quickly-a.herokuapp.com";
 
-const FilterBar = () => {
+const FilterBar = ({ navigation }) => {
   const [category, setCategories] = useState("");
   const [provider, setProvider] = useState();
   const [usuarios, setUsuarios] = useState();
@@ -67,6 +67,8 @@ const FilterBar = () => {
               Alert.alert("Turno agendado!", undefined, [
                 {
                   text: "Aceptar",
+                  onPress: () =>
+                    navigation.navigate("HomeUser", { newTurn: "created" }),
                 },
               ]);
             } catch (error) {
