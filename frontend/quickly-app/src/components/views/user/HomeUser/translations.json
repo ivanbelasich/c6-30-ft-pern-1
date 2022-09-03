@@ -1,0 +1,14 @@
+
+{
+    "user": "Nombre de Usuario",
+    "email": "Email registrado",
+    "city": "Ciudad",
+    "state": "Provincia",
+    "country": "Pais",
+    "name": "Nombre",
+    "address": "Direccion",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "updatedAt": "Ultima actualizacion",
+    "createdAt": "Fecha de creacion"
+}
