@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Image, ScrollView, Text, View } from 'react-native'
+import { ActivityIndicator, Image, ScrollView, Text, View } from 'react-native'
 // Components
 import { CardOrder } from '../../../CardOrder/CardOrder'
 // Styles
+import { theme } from '../../../../globalStyles/theme'
 import globalStyles from '../../../../globalStyles/globalStyles'
 import { styles } from './styles'
 
@@ -32,7 +33,9 @@ const OrdersList = ({route}) => {
           <View style={styles.cardContainer}>
             <Text style={[globalStyles.title2, styles.title]}>{route.params.name}</Text>
             {
-              orders?.length === 0 ? <Text>No hay turnos solicitados</Text> : isLoading ? <Text>Cargando...</Text> : (<View>
+              orders?.length === 0 ? <Text>No hay turnos solicitados</Text> : isLoading ? <View style={{flex: 1, justifyContent: 'center'}}>
+              <ActivityIndicator size="small" color={theme.colors.primary} />
+            </View> : (<View>
                 {
                   orders?.map (order => {
                     return(

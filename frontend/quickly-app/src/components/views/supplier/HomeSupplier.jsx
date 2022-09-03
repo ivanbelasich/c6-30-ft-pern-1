@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { TouchableWithoutFeedback, ScrollView, Text, View, Image, Alert, StatusBar } from "react-native";
+import { ScrollView, Text, View, Image, Alert, StatusBar, ActivityIndicator } from "react-native";
 // Components
 import { CardService } from "../../CardService/CardService";
 // Hooks
@@ -32,10 +32,6 @@ export default function HomeSupplier({ navigation, route }) {
   const listServices = (data) => {
     setServices(data);
     setIsLoading(false);
-  }
-
-  const handleAddService = () => {
-    navigation.navigate('NewService');
   }
 
   const handleDeleteService = (id) => {
@@ -94,7 +90,9 @@ export default function HomeSupplier({ navigation, route }) {
         <View style={styles.cardContainer}>
           <Text style={[globalStyles.title, styles.title]}>{services?.length > 1 ? "Mis servicios" : "Mi servicio"}</Text>
           {
-            services?.length !== 0 ? (isLoading ? <><Text>Cargando...</Text></> : (
+            services?.length !== 0 ? (isLoading ? <View style={{flex: 1, justifyContent: 'center'}}>
+            <ActivityIndicator size="small" color={theme.colors.primary} />
+          </View> : (
               <>
                 {
                   services.map(service => <CardService key={service.id} data={service} handleDelete={handleDeleteService} navigateOrdersList={navigateOrdersList}/>)
