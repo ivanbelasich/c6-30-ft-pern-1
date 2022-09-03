@@ -18,14 +18,13 @@ export const styles = StyleSheet.create({
     width: "85%",
   },
   textContainer: {
-    paddingLeft: 10,
+    paddingLeft: 5,
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
   },
   text: {
-    marginHorizontal: 5,
-    marginVertical: 3,
+    margin: 3,
   },
   title: {
     textTransform: "uppercase",
