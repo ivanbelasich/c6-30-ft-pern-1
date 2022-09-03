@@ -63,9 +63,9 @@ const NewPassword = ({ navigation }) => {
         <View>
           <View style={styles.marginContainer}>
             <Text style={styles.textContainer}>
-              El Código se envió al “Numero de Contacto”
+              El Código se envió al “Número de Contacto”
             </Text>
-            <Text style={styles.textContainer}>Escribe el codigo:</Text>
+            <Text style={styles.textContainer}>Escribe el código:</Text>
           </View>
           <View style={styles.container}>
             <TextInput

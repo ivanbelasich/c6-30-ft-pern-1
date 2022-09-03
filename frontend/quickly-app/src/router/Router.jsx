@@ -1,4 +1,4 @@
-import { Text } from "react-native";
+import { ActivityIndicator, Text, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -22,8 +22,6 @@ import { theme } from "../globalStyles/theme";
 const Stack = createStackNavigator();
 
 const AppClientStack = () => {
-
-  const auth = useAuth();
 
   return (
     <>
@@ -123,9 +121,9 @@ export const Router = () => {
 
   if (loading) {
     return (
-      <>
-        <Text>Cargando...</Text>
-      </>
+      <View style={{flex: 1, justifyContent: 'center'}}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
+      </View>
     );
   }
 

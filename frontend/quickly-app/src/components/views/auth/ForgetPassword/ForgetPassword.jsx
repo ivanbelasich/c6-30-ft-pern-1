@@ -24,7 +24,7 @@ const ForgetPassword = ({ navigation }) => {
             />
           </View>
           <Text style={styles.textMain}>
-            ¡Todo tiene solucion! vamos a enviarte un codigo para iniciar el
+            ¡Todo tiene solución! vamos a enviarte un código para iniciar el
             restablecimiento de la contraseña, por favor elige una de las
             opciones:
           </Text>
@@ -35,7 +35,7 @@ const ForgetPassword = ({ navigation }) => {
                 style={{ color: "#DD4E24", fontSize: 50 }}
               />
               <View style={styles.containerTextButton}>
-                <Text>Via Email:</Text>
+                <Text>Vía Email:</Text>
                 <Text>Lorem ipsum, dolor sit amet consectetur</Text>
               </View>
             </View>

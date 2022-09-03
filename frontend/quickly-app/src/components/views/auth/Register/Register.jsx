@@ -108,7 +108,7 @@ const Register = ({ navigation }) => {
             <View style={styles.directionTextLogo}>
               <View>
                 <Text style={styles.textHello}>¡Hola</Text>
-                <Text style={styles.textName}>¡{user}!</Text>
+                <Text style={styles.textName}>{user}!</Text>
               </View>
               <Image
                 source={require("../../../../../assets/ClockRegister.png")}

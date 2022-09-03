@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // Hooks
 import { useAuth } from "../../hooks/useAuth";
 // Views Provider
-import HomeSupplier from "../views/supplier/HomeSupplier";
+import HomeSupplier from "../views/supplier/HomeSupplier/HomeSupplier";
 import CreateService from "../views/supplier/NewService/NewService";
 import ProfileSupplier from "../views/supplier/ProfileSupplier/ProfileSupplier";
 // Views User
@@ -45,7 +45,7 @@ export const TabsProvider = () => {
   }
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, size }) => {
+      tabBarIcon: ({ focused }) => {
         let iconName;
 
         if (route.name === 'HomeSupplier') {
@@ -56,14 +56,20 @@ export const TabsProvider = () => {
           iconName = 'ios-person-circle';
         }
 
-        return <Ionicons name={iconName} size={size} color={focused ? theme.colors.secondary : theme.colors.disabled2}/>
+        return <Ionicons name={iconName} size={25} color={focused ? theme.colors.secondary : theme.colors.disabled2}/>
       },
       tabBarActiveTintColor: theme.colors.secondary,
-      tabBarInactiveTintColor: theme.colors.disabled2
+      tabBarInactiveTintColor: theme.colors.disabled2,
+      tabBarLabelStyle: {
+        fontSize: 14,
+      }
     })}>
       <Tab.Screen name="HomeSupplier" component={HomeSupplier} options={{
           title: "Home",
-          
+          tabBarItemStyle: {
+            alignItems: "center",
+            justifyContent: "center"
+          },
           headerStyle: {
             backgroundColor: theme.colors.secondary,
           },
@@ -121,7 +127,7 @@ export const TabsUser = () => {
   }
   return (
     <Tab.Navigator screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, size }) => {
+      tabBarIcon: ({ focused }) => {
         let iconName;
 
         if (route.name === 'HomeUser') {
@@ -132,10 +138,13 @@ export const TabsUser = () => {
           iconName = 'ios-person-circle';
         }
 
-        return <Ionicons name={iconName} size={size} color={focused ? theme.colors.secondary : theme.colors.disabled2}/>
+        return <Ionicons name={iconName} size={25} color={focused ? theme.colors.secondary : theme.colors.disabled2}/>
       },
       tabBarActiveTintColor: theme.colors.secondary,
-      tabBarInactiveTintColor: theme.colors.disabled2
+      tabBarInactiveTintColor: theme.colors.disabled2,
+      tabBarLabelStyle: {
+        fontSize: 14,
+      }
     })}>
       <Tab.Screen name="HomeUser" component={HomeUser} options={{
           title: "Home",
