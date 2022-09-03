@@ -32,7 +32,7 @@ Miembros del Cohorte 6, Grupo 30, Fullstack, PERNstack de No Country.
 |Gabriel Chazarreta         |Frontend   |[gfchaza09](https://github.com/gfchaza09)|[Link](https://www.linkedin.com/in/gabriel-chazarreta/)|
 |Jose Barrientos            |Backend    |[classicaljo](https://github.com/classicaljo)|[Link](https://www.linkedin.com/in/classicaljo/)|
 |Erik Santiago Olarte Molina|Backend    |[blueowl2794](https://github.com/blueowl2794)||
-|Andres Fuentes             |Diseño UX/UI     |||
+|Andres Fuentes             |Diseño UX/UI||[Link](https://www.linkedin.com/in/eafuentes/)|
 |Victoria Ruiz              |Team Leader|||
 
 
@@ -80,7 +80,7 @@ Members of No Country's Cohort 6 - Group 30 - Fullstack - PERNstack.
 |Gabriel Chazarreta         |Frontend   |[gfchaza09](https://github.com/gfchaza09)|[Link](https://www.linkedin.com/in/gabriel-chazarreta/)|
 |Jose Barrientos            |Backend    |[classicaljo](https://github.com/classicaljo)|[Link](https://www.linkedin.com/in/classicaljo/)|
 |Erik Santiago Olarte Molina|Backend    |[blueowl2794](https://github.com/blueowl2794)||
-|Andres Fuentes             |UX/UI Design|||
+|Andres Fuentes             |UX/UI Design||[Link](https://www.linkedin.com/in/eafuentes/)|
 |Victoria Ruiz              |Team Leader|||
 
 
