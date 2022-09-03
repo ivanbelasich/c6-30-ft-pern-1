@@ -51,7 +51,7 @@ const FilterBar = ({ navigation }) => {
 
   const showAlert = () =>
     Alert.alert(
-      "Estás seguro que deseas guardar el turno?",
+      "¿Estás seguro que deseas guardar el turno?",
       undefined,
       [
         {
@@ -64,7 +64,7 @@ const FilterBar = ({ navigation }) => {
                 date: `${text}T${time}`,
               });
               console.log(res.data, "data");
-              Alert.alert("Turno agendado!", undefined, [
+              Alert.alert("¡Turno agendado!", undefined, [
                 {
                   text: "Aceptar",
                   onPress: () =>

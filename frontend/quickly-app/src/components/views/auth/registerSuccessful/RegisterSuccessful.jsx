@@ -20,7 +20,7 @@ const RegisterSuccessful = ({ navigation }) => {
           ¡Registro Exitoso!
         </Text>
         <Text style={[styles.textMain, globalStyles.title]}>
-          Ya formas parte de WeWoNo
+          Ya formas parte de Quickly
         </Text>
         <Text style={[styles.textWelcome, globalStyles.title2]}>
           ¡Bienvenido!
