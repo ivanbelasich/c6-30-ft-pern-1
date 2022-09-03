@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Alert } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
@@ -49,6 +49,51 @@ const FilterBar = () => {
     setText(date);
   };
 
+  const showAlert = () =>
+    Alert.alert(
+      "Estás seguro que deseas guardar el turno?",
+      undefined,
+      [
+        {
+          text: "Aceptar",
+          onPress: async () => {
+            try {
+              const res = await axios.post(`${url}/api/order`, {
+                client: authData.user,
+                serviceId: provider,
+                date: `${text}T${time}`,
+              });
+              console.log(res.data, "data");
+              Alert.alert("Turno agendado!", undefined, [
+                {
+                  text: "Aceptar",
+                },
+              ]);
+            } catch (error) {
+              Alert.alert("Este horario ya fue seleccionado", undefined, [
+                {
+                  text: "Aceptar",
+                },
+              ]);
+            }
+          },
+        },
+
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+      ],
+      {
+        cancelable: true,
+        onDismiss: () =>
+          console.log(
+            "This alert was dismissed by tapping outside of the alert dialog."
+          ),
+      }
+    );
+
   useEffect(() => {
     axios.get(`${url}/api/service`).then((res) => {
       setData(res.data.payload);
@@ -64,7 +109,7 @@ const FilterBar = () => {
       return data.map((el) => el.category).indexOf(item) === index;
     });
 
-  const handleSubmit = async (e) => {
+  /*   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const resp = await axios.post(`${url}/api/order`, {
@@ -73,11 +118,10 @@ const FilterBar = () => {
         date: `${text}T${time}`,
       });
       console.log(resp.data, "Data de solicitud de turno");
-      /*  console.log(date, "esto es la fecha final en el post"); */
     } catch (error) {
       console.log(error.resp, "Error al solicitar un turno");
     }
-  };
+  } */
 
   return (
     <View style={styles.container}>
@@ -176,7 +220,7 @@ const FilterBar = () => {
             )}
         </Picker>
       </View>
-      <TouchableWithoutFeedback onPress={handleSubmit}>
+      <TouchableWithoutFeedback onPress={showAlert}>
         <View
           style={[
             globalStyles.button,
