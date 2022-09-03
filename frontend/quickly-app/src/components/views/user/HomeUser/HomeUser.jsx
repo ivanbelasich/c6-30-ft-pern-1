@@ -4,7 +4,7 @@ import globalStyles from "../../../../globalStyles/globalStyles";
 import { theme } from "../../../../globalStyles/theme";
 
 
-const HomeUser = ({}) => {
+const HomeUser = ({navigation}) => {
   return (
     <View style={globalStyles.container}>
       <StatusBar barStyle="light-content" backgroundColor={theme.colors.secondary}/>
