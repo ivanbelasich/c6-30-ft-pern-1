@@ -7,7 +7,7 @@ import { styles } from './styles'
 
 const CreateService = ({navigation}) => {
   return (
-    <ScrollView>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={[globalStyles.container, styles.container]}>
           <View style={styles.imgContainer}>
             <Image source={require('../../../../../assets/logo-quickly.png')} style={styles.imgLogo}/>

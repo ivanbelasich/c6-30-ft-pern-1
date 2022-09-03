@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   dataContainer: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
   },
   circle: {
@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     height: 40,
     marginRight: 10,
     borderRadius: 50,
-    backgroundColor: "#B2D2DD",
+    backgroundColor: theme.colors.success,
     overflow: "hidden",
     borderColor: theme.colors.black,
     borderWidth: 1,

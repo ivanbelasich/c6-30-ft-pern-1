@@ -38,9 +38,9 @@ const ProviderOrClient = ({ navigation }) => {
         <Text style={styles.textContainer}>
           Elegi si vas a brindar un servicio:
         </Text>
-        <View style={[styles.buttonProvider, globalStyles.normalButton]}>
+        <View style={styles.buttonProvider}>
           <TouchableHighlight
-            style={globalStyles.button}
+            style={[globalStyles.button, globalStyles.normalButton]}
             onPress={handleProvider}
           >
             <Text style={styles.textButton}>Proveedor</Text>
@@ -50,9 +50,9 @@ const ProviderOrClient = ({ navigation }) => {
           <Text style={styles.textContainer}>
             O si vas a consumir los disponibles:
           </Text>
-          <View style={[styles.buttonProvider, globalStyles.normalButton]}>
+          <View style={styles.buttonProvider}>
             <TouchableHighlight
-              style={globalStyles.button}
+              style={[globalStyles.button, globalStyles.normalButton]}
               onPress={handleClient}
             >
               <Text style={styles.textButton}>Cliente</Text>

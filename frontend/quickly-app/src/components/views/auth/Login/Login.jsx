@@ -78,7 +78,7 @@ export const Login = ({ navigation }) => {
             />
           </View>
           <View style={[style.marginY, style.direction]}>
-            <CheckBox children={"Recordame"} />
+            <CheckBox children={"Recordarme"} />
             <TouchableHighlight
               onPress={() => navigation.navigate("ForgetPassword")}
             >
@@ -87,10 +87,10 @@ export const Login = ({ navigation }) => {
               </Text>
             </TouchableHighlight>
           </View>
-          <View style={[style.marginX, globalStyles.normalButton]}>
+          <View style={style.marginX}>
             <TouchableHighlight
               onPress={handleLogin}
-              style={globalStyles.button}
+              style={[globalStyles.button, globalStyles.normalButton]}
             >
               <Text style={globalStyles.textButton}>Ingresar</Text>
             </TouchableHighlight>
@@ -107,7 +107,7 @@ export const Login = ({ navigation }) => {
             <TouchableHighlight
               onPress={() => navigation.navigate("ProviderOrClient")}
             >
-              <Text style={style.textRegister}>Súmate!</Text>
+              <Text style={style.textRegister}>¡Súmate!</Text>
             </TouchableHighlight>
           </View>
         </View>

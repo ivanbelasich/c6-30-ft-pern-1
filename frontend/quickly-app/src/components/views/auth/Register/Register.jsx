@@ -143,11 +143,11 @@ const Register = ({ navigation }) => {
               ></TextInput>
             </View>
             <View
-              style={[styles.marginButtonRegister, globalStyles.normalButton]}
+              style={styles.marginButtonRegister}
             >
               <TouchableHighlight
                 onPress={handleRegisterEmailAndPw}
-                style={globalStyles.button}
+                style={[globalStyles.button, globalStyles.normalButton]}
               >
                 <Text style={styles.textButton}>Registrar</Text>
               </TouchableHighlight>
@@ -176,10 +176,10 @@ const Register = ({ navigation }) => {
                 onChangeText={(user) => setUser(user)}
               />
             </View>
-            <View style={[styles.marginButton, globalStyles.normalButton]}>
+            <View style={styles.marginButton}>
               <TouchableHighlight
                 onPress={handleRegisterUser}
-                style={globalStyles.button}
+                style={[globalStyles.button, globalStyles.normalButton]}
               >
                 <Text style={styles.textButton}>Registrar</Text>
               </TouchableHighlight>

@@ -9,12 +9,12 @@ const Alerts = () => {
       undefined,
       [
         {
-          text: "Accept",
+          text: "Aceptar",
           onPress: () => Alert.alert("Turno agendado!"),
           style: "cancel",
         },
         {
-          text: "Cancel",
+          text: "Cancelar",
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel",
         },

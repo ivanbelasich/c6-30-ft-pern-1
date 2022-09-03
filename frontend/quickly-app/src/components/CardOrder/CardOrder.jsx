@@ -13,7 +13,7 @@ export const CardOrder = ({data}) => {
           <View style={styles.textContainer}>
             <Text>Nombre de cliente: {data.client}</Text>
             <Text>Fecha: {data.date}</Text>
-            <Text>Estado: {data.status === 'pending' && "Pendiente"}</Text>
+            <Text>Estado: {data.status === 'pending' && "Aceptado"}</Text>
           </View>
         </View>
     </View>

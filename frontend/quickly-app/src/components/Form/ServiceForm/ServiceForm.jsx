@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, TextInput, TouchableWithoutFeedback, Text } from "react-native";
 
 import { Formik } from "formik";
@@ -19,6 +19,7 @@ import { capitalize } from "../../../utils/capitalize";
 export const ServiceForm = ({navigation}) => {
 
   const { authData } = useAuth();
+  const [disabled, setDisabled] = useState(false);
 
   const initialValues = {
     name: "",
@@ -40,21 +41,23 @@ export const ServiceForm = ({navigation}) => {
 
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .min(6, "*La cantidad mínima de caracteres es 6.")
+      .min(6, "*La cantidad mínima de caracteres es 6")
       .required(required),
     category: Yup.string().required(required),
-    value: Yup.string(),
+    // value: Yup.string(),
     description: Yup.string().required(required),
     from: Yup.number()
-      .integer("*Debe ser un número entero")
+      .typeError('*Valor numérico')
+      .integer("*Valor entero")
       .required(required)
-      .max(23, "*Debe ser un número menor a 23")
-      .min(0, "Debe ser un número mayor o igual a 0"),
+      .max(23, "*Valor menor a 24")
+      .min(0, "*Valor mínimo 0"),
     to: Yup.number()
-      .integer("*Debe ser un número entero")
+      .typeError('*Valor numérico')
+      .integer("*Valor entero")
       .required(required)
-      .max(23, "*Debe ser un número menor a 24")
-      .min(0, "Debe ser un número mayor a 0"),
+      .max(24, "*Valor máximo 24")
+      .min(0, "*Valor mayor a 0"),
   });
 
   const onSubmit = async (values, {resetForm}) => {
@@ -62,7 +65,7 @@ export const ServiceForm = ({navigation}) => {
       user: authData.user,
       name: capitalize(values.name),
       category: capitalize(values.category),
-      value: values.value,
+      value: "20",
       description: capitalize(values.description),
       date: {
         monday: values.monday ? arrayDate(values.from, values.to) : null,
@@ -74,6 +77,7 @@ export const ServiceForm = ({navigation}) => {
         sunday: values.sunday ? arrayDate(values.from, values.to) : null,
       },
     };
+    setDisabled(true);
     await fetch("https://quickly-a.herokuapp.com/api/service", {
       method: 'POST',
       body: JSON.stringify(sendValues),
@@ -89,6 +93,7 @@ export const ServiceForm = ({navigation}) => {
     })
     .catch(error => console.log(error))
     resetForm();
+    setDisabled(false);
   };
 
   return (
@@ -108,7 +113,7 @@ export const ServiceForm = ({navigation}) => {
       }) => (
         <View>
           <View style={globalStyles.inputContainer}>
-            <Text style={globalStyles.label}>Nombre</Text>
+            <Text style={globalStyles.label}>Nombre del emprendimiento</Text>
             <TextInput
               style={
                 errors.name && touched.name
@@ -124,7 +129,7 @@ export const ServiceForm = ({navigation}) => {
             )}
           </View>
           <View style={globalStyles.inputContainer}>
-            <Text style={globalStyles.label}>Categoría</Text>
+            <Text style={globalStyles.label}>Categoría del servicio</Text>
             <TextInput
               style={
                 errors.category && touched.category
@@ -139,7 +144,7 @@ export const ServiceForm = ({navigation}) => {
               <Text style={globalStyles.textError}>{errors.category}</Text>
             )}
           </View>
-          <View style={globalStyles.inputContainer}>
+          {/* <View style={globalStyles.inputContainer}>
             <Text style={globalStyles.label}>Precio</Text>
             <TextInput
               style={
@@ -154,9 +159,9 @@ export const ServiceForm = ({navigation}) => {
             {errors.value && touched.value &&  (
               <Text style={globalStyles.textError}>{errors.value}</Text>
             )}
-          </View>
+          </View> */}
           <View style={globalStyles.inputContainer}>
-            <Text style={globalStyles.label}>Descripción</Text>
+            <Text style={globalStyles.label}>Descripción del servicio</Text>
             <TextInput
               style={
                 errors.description && touched.description
@@ -238,45 +243,47 @@ export const ServiceForm = ({navigation}) => {
               </CheckBox>
             </View>
           </View>
-          <View style={globalStyles.inputContainer}>
-            <Text style={globalStyles.label}>Desde</Text>
-            <TextInput
-              style={
-                errors.from && touched.from
-                  ? [globalStyles.inputError, globalStyles.input]
-                  : globalStyles.input
-              }
-              onChangeText={handleChange("from")}
-              onBlur={handleBlur("from")}
-              value={values?.from}
-              keyboardType="numeric"
-              maxLength={2}
-            />
-            {errors.from && touched.from && (
-              <Text style={globalStyles.textError}>{errors.from}</Text>
-            )}
+          <View style={styles.fromToContainer}>
+            <View style={[globalStyles.inputContainer, styles.fromToInputContainer]}>
+              <Text style={globalStyles.label}>Desde (hrs.)</Text>
+              <TextInput
+                style={
+                  errors.from && touched.from
+                    ? [globalStyles.inputError, globalStyles.input]
+                    : globalStyles.input
+                }
+                onChangeText={handleChange("from")}
+                onBlur={handleBlur("from")}
+                value={values?.from}
+                keyboardType="numeric"
+                maxLength={2}
+              />
+              {errors.from && touched.from && (
+                <Text style={globalStyles.textError}>{errors.from}</Text>
+              )}
+            </View>
+            <View style={[globalStyles.inputContainer, styles.fromToInputContainer]}>
+              <Text style={globalStyles.label}>Hasta (hrs.)</Text>
+              <TextInput
+                style={
+                  errors.to && touched.to
+                    ? [globalStyles.inputError, globalStyles.input]
+                    : globalStyles.input
+                }
+                onChangeText={handleChange("to")}
+                onBlur={handleBlur("to")}
+                value={values?.to}
+                keyboardType="numeric"
+                maxLength={2}
+              />
+              {errors.to && touched.to && (
+                <Text style={globalStyles.textError}>{errors.to}</Text>
+              )}
+            </View>
           </View>
-          <View style={globalStyles.inputContainer}>
-            <Text style={globalStyles.label}>Hasta</Text>
-            <TextInput
-              style={
-                errors.to && touched.to
-                  ? [globalStyles.inputError, globalStyles.input]
-                  : globalStyles.input
-              }
-              onChangeText={handleChange("to")}
-              onBlur={handleBlur("to")}
-              value={values?.to}
-              keyboardType="numeric"
-              maxLength={2}
-            />
-            {errors.to && touched.to && (
-              <Text style={globalStyles.textError}>{errors.to}</Text>
-            )}
-          </View>
-          <TouchableWithoutFeedback onPress={handleSubmit}>
+          <TouchableWithoutFeedback onPress={handleSubmit} disabled={disabled}>
             <View style={[globalStyles.button, globalStyles.normalButton]}>
-              <Text style={globalStyles.textButton}>Crear</Text>
+              <Text style={globalStyles.textButton}>+ Crear servicio</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

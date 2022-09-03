@@ -40,10 +40,10 @@ const ForgetPassword = ({ navigation }) => {
               </View>
             </View>
           </TouchableOpacity>
-          <View style={[globalStyles.normalButton, styles.marginButton]}>
+          <View style={styles.marginButton}>
             <TouchableOpacity
               onPress={handleSubmit}
-              style={globalStyles.button}
+              style={[globalStyles.button, globalStyles.normalButton]}
             >
               <Text style={globalStyles.textButton}>Continuar</Text>
             </TouchableOpacity>

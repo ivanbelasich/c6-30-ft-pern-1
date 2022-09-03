@@ -55,7 +55,7 @@ const globalStyles = StyleSheet.create({
     }),
   },
   inputContainer: {
-    marginVertical: 10,
+    marginVertical: 6,
   },
   label: {
     fontSize: theme.fontSize.subheading,
