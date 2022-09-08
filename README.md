@@ -75,7 +75,7 @@ Quickly is a communal mobile app for the management and administration of appoin
 Members of No Country's Cohort 6 - Group 30 - Fullstack - PERNstack.
 |Member                 |Role        |Github|LinkedIn|
 |---------------------------|-----------|-----------------------------------------------|---|
-|Ivan Belasich              |Frontend   |[ivanbelasich](https://github.com/ivanbelasich)|(https://www.linkedin.com/in/ivanbelasich/)|
+|Ivan Belasich              |Frontend   |[ivanbelasich](https://github.com/ivanbelasich)|[Link](https://www.linkedin.com/in/ivanbelasich/)|
 |Francisco Rey              |Frontend   |[franrey98](https://github.com/franrey98)|[Link](https://www.linkedin.com/in/francisco-rey-71060419a/)|
 |Gabriel Chazarreta         |Frontend   |[gfchaza09](https://github.com/gfchaza09)|[Link](https://www.linkedin.com/in/gabriel-chazarreta/)|
 |Jose Barrientos            |Backend    |[classicaljo](https://github.com/classicaljo)|[Link](https://www.linkedin.com/in/classicaljo/)|
